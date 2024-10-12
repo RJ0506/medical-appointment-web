@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{ useRuntimeConfig().public.laravelURL }}
-        {{ useRuntimeConfig().public.nuxtURL }}
+        <h1>index working!</h1>
     </div>
 </template>
