@@ -1,7 +1,9 @@
 <template>
     <NuxtLayout>
         <NuxtPage />
-        <h1>home index is working</h1>
+        Index Working
+        {{ count }}
+        <button @click="increment">Increment</button>
     </NuxtLayout>
 </template>
 

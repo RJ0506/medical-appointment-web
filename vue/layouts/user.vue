@@ -3,7 +3,7 @@
         <!-- SIDEBAR -->
         <div
             :class="{
-                'w-80': isSidebarCollapsed,
+                'w-72': isSidebarCollapsed,
                 'w-0 md:w-24': !isSidebarCollapsed,
             }"
             class="fixed z-50 flex h-full flex-col overflow-hidden bg-gradient-to-b from-[#4b896a] to-slate-300 py-6 transition-all"
