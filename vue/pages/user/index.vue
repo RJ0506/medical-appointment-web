@@ -23,6 +23,6 @@
 
 <script setup lang="ts">
 definePageMeta({
-    layout: "appointment",
+    layout: "user",
 });
 </script>
