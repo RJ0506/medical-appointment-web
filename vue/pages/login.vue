@@ -28,11 +28,28 @@
                         type="text"
                         placeholder="Username"
                     />
-                    <input
-                        class="w-full rounded-md border border-black px-6 py-3 focus:outline-emerald-900"
-                        type="password"
-                        placeholder="Password"
-                    />
+                    <div class="relative">
+                        <input
+                            class="w-full rounded-md border border-black pl-6 pr-11 py-3 focus:outline-emerald-900"
+                            :type="isPasswordVisible ? 'text' : 'password'"
+                            placeholder="Password"
+                        />
+                        <div
+                            @click="togglePasswordVisibility"
+                            class="absolute right-2 top-1/2 grid -translate-y-1/2 cursor-pointer place-content-center"
+                        >
+                            <Icon
+                                v-if="isPasswordVisible"
+                                class="text-3xl text-slate-600"
+                                name="i-material-symbols-light-visibility-rounded"
+                            />
+                            <Icon
+                                v-else
+                                class="text-3xl text-slate-600"
+                                name="i-material-symbols-light-visibility-off-outline-rounded"
+                            />
+                        </div>
+                    </div>
                 </div>
                 <div class="sm:px-12">
                     <button
@@ -45,3 +62,11 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+const isPasswordVisible = ref(false);
+
+const togglePasswordVisibility = () => {
+    isPasswordVisible.value = !isPasswordVisible.value;
+};
+</script>

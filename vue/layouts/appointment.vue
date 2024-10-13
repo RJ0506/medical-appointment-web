@@ -13,7 +13,7 @@
                     'mr-3 self-end lg:hidden': isSidebarCollapsed,
                     'self-center md:hidden': !isSidebarCollapsed,
                 }"
-                class="rounded border px-2 py-1"
+                class="flex items-center justify-center rounded border px-2 py-1"
                 @click="toggleSidebar"
             >
                 <Icon
@@ -93,7 +93,7 @@
                     class="flex justify-between rounded-md bg-[#1e3d2c] px-5 py-2"
                 >
                     <button
-                        class="group rounded border px-2 py-1 transition-all hover:bg-white"
+                        class="group flex items-center justify-center rounded border px-2 py-1 transition-all hover:bg-white"
                         @click="toggleSidebar"
                     >
                         <Icon
