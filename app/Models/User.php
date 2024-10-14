@@ -6,19 +6,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
-class Admin extends Authenticatable
+class User extends Authenticatable
 {
-	/** @use HasFactory<\Database\Factories\AdminFactory> */
-	use HasFactory, Notifiable;
+	/** @use HasFactory<\Database\Factories\UserFactory> */
+	use HasFactory, Notifiable, HasRoles;
 
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array<int, string>
 	 */
-
-	protected $table = 'admin';
 
 	protected $fillable = [
 		'first_name',
