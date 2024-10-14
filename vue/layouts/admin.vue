@@ -21,6 +21,7 @@
                     style="color: white; font-size: 2rem"
                 />
             </button>
+
             <!-- LOGO -->
             <div>
                 <div class="flex justify-center">
@@ -56,26 +57,67 @@
             </div>
 
             <!-- NAVLINKS -->
-            <div class="mt-24 bg-red-500 text-white">
+            <div class="mt-24 flex flex-col text-white">
                 <div
-                    :class="{
-                        'justify-start': isSidebarCollapsed,
-                        'justify-center': !isSidebarCollapsed,
-                    }"
-                    class="flex items-center gap-3 bg-[#1e3d2c] px-7 py-5 text-xl font-bold"
+                    v-for="(item, index) in sidebarLinks"
+                    :key="index"
+                    @click="toggleSubLinks(index)"
                 >
-                    <Icon
-                        name="ep:calendar"
-                        style="color: white; font-size: 2rem"
-                    />
-                    <span
-                        :class="{
-                            block: isSidebarCollapsed,
-                            hidden: !isSidebarCollapsed,
-                        }"
+                    <div
+                        :class="[
+                            {
+                                'justify-between': isSidebarCollapsed,
+                                'justify-center': !isSidebarCollapsed,
+                            },
+                        ]"
+                        class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold hover:bg-[#1e3d2c]"
                     >
-                        Appointment
-                    </span>
+                        <div class="flex items-center gap-2">
+                            <Icon
+                                :name="item.icon"
+                                style="color: white; font-size: 2rem"
+                            />
+                            <span
+                                :class="{
+                                    block: isSidebarCollapsed,
+                                    hidden: !isSidebarCollapsed,
+                                }"
+                            >
+                                {{ item.label }}
+                            </span>
+                        </div>
+                        <Icon
+                            class="transition-all duration-300 ease-out"
+                            :class="[
+                                {
+                                    block: isSidebarCollapsed,
+                                    hidden: !isSidebarCollapsed,
+                                },
+                                { 'rotate-180': activeLink === index },
+                            ]"
+                            name="i-material-symbols-arrow-downward-alt"
+                            style="color: white; font-size: 2rem"
+                        />
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        v-if="activeLink === index"
+                        v-for="(child, index) in item.subLinks"
+                        :key="index"
+                    >
+                        <a
+                            :class="[
+                                {
+                                    'pl-14': isSidebarCollapsed,
+                                    'text-center': !isSidebarCollapsed,
+                                },
+                            ]"
+                            class="w-full px-4 py-5 font-bold hover:bg-[#1e3d2c]"
+                            :href="child.href"
+                        >
+                            {{ child.label }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,8 +161,43 @@
 <script setup>
 import { ref } from "vue";
 const isSidebarCollapsed = ref(false);
+const activeLink = ref(null);
+const sidebarLinks = ref([
+    {
+        label: "Appointment",
+        icon: "ep:calendar",
+        subLinks: [
+            { label: "Medical", href: "#" },
+            { label: "Dental", href: "#" },
+        ],
+    },
+    {
+        label: "Inventory",
+        icon: "i-material-symbols-light-inventory-2-outline-sharp",
+        subLinks: [
+            { label: "Medical", href: "#" },
+            { label: "Dental", href: "#" },
+        ],
+    },
+    {
+        label: "Patient Record",
+        icon: "i-material-symbols-light-drive-folder-upload-outline",
+        subLinks: [
+            { label: "Medical", href: "#" },
+            { label: "Dental", href: "#" },
+        ],
+    },
+]);
 
 const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;
+};
+
+const toggleSubLinks = (index) => {
+    if (activeLink.value === index) {
+        activeLink.value = null; // Hide if the same link is clicked
+    } else {
+        activeLink.value = index; // Show sublinks for the clicked link
+    }
 };
 </script>
