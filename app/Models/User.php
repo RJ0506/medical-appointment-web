@@ -21,6 +21,8 @@ class User extends Authenticatable
 	 * @var array<int, string>
 	 */
 
+	protected $guard_name = 'api';
+
 	protected $fillable = [
 		'first_name',
 		'middle_name',

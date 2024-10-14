@@ -27,16 +27,28 @@ class RoleAndPermissionSeeder extends Seeder
 
 		foreach ($permissions as $permission)
 			Permission::create([
-				'name' => $permission
+				'name' => $permission,
+				'guard_name' => 'api'
 			]);
 
 
 		// update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
 		app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-		$superAdmin = Role::create(['name' => 'Super Admin']);
+		$roles = [
+			"Super Admin",
+			"Doctor",
+			"Student",
+			"Employee",
+		];
+
+		foreach ($roles as $role)
+			Role::create(['name' => $role, 'guard_name' => 'api']);
+
+		$superAdmin = Role::where('name', 'Super Admin')->first();
 		$superAdmin->givePermissionTo(Permission::all());
 
-		Role::create(['name' => 'Doctor'])->givePermissionTo(['view appointment']);
+		$doctor = Role::where('name', 'Doctor')->first();
+		$doctor->givePermissionTo(['view appointment']);
 	}
 }
