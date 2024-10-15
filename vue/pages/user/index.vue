@@ -1,28 +1,113 @@
 <template>
-    <div class="grid min-h-screen place-content-center">
-        <div class="flex gap-4 px-2 sm:gap-10">
-            <a
-                href="#"
-                class="grid h-[300px] max-w-64 cursor-pointer place-content-center rounded-md bg-[#aac7b8] p-1 text-center shadow-md transition-all duration-500 ease-out hover:-translate-y-3 hover:bg-emerald-400 sm:h-[484px]"
-            >
-                <p class="text-lg font-bold text-white sm:text-xl">
-                    Book an Appointment for Medical
-                </p>
-            </a>
-            <a
-                href="#"
-                class="grid h-[300px] max-w-64 cursor-pointer place-content-center rounded-md bg-[#aac7b8] p-1 text-center shadow-md transition-all duration-500 ease-out hover:-translate-y-3 hover:bg-emerald-400 sm:h-[484px]"
-            >
-                <p class="text-lg font-bold text-white sm:text-xl">
-                    Book an Appointment for Medical
-                </p>
-            </a>
+    <div>
+        <!-- TITLE AND SEARCH -->
+        <div class="mt-7 flex items-center justify-between">
+            <h1 class="text-5xl font-bold">Medical Appointment</h1>
+            <div class="relative">
+                <input
+                    type="text"
+                    v-model="searchTerm"
+                    class="search-input w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Search name..."
+                />
+                <svg
+                    class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35M17 10a7 7 0 10-14 0 7 7 0 0014 0z"
+                    />
+                </svg>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="mt-7 overflow-x-auto">
+            <table class="w-full table-auto text-left">
+                <thead class="text-white">
+                    <tr class="bg-[#1e3d2c]">
+                        <th class="p-5">Date</th>
+                        <th class="p-5">Time</th>
+                        <th class="p-5">Classification</th>
+                        <th class="p-5">Fullname</th>
+                        <th class="p-5">Service</th>
+                    </tr>
+                </thead>
+                <tbody class="whitespace-nowrap">
+                    <tr v-for="(item, index) in filteredRecords" :key="index">
+                        <td class="p-5 font-medium">{{ item.date }}</td>
+                        <td class="p-5 font-medium">{{ item.time }}</td>
+                        <td class="p-5 font-medium">
+                            {{ item.classification }}
+                        </td>
+                        <td class="p-5 font-medium">{{ item.name }}</td>
+                        <td class="p-5 font-medium">{{ item.service }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+
 definePageMeta({
     layout: "user",
+});
+
+const searchTerm = ref("");
+const records = ref([
+    {
+        date: "10/01/2023",
+        time: "9:00AM",
+        classification: "Student",
+        name: "Alice Johnson",
+        service: "Vaccination",
+    },
+    {
+        date: "10/02/2023",
+        time: "10:30AM",
+        classification: "Faculty",
+        name: "Bob Smith",
+        service: "Checkup",
+    },
+    {
+        date: "10/03/2023",
+        time: "11:15AM",
+        classification: "Student",
+        name: "Charlie Brown",
+        service: "Checkup",
+    },
+    {
+        date: "10/04/2023",
+        time: "1:00PM",
+        classification: "Faculty",
+        name: "Professor Mary Davis",
+        service: "Vaccination",
+    },
+    {
+        date: "10/05/2023",
+        time: "2:45PM",
+        classification: "Student",
+        name: "Emma Wilson",
+        service: "Vaccination",
+    },
+]);
+
+const filteredRecords = computed(() => {
+    if (!searchTerm.value) {
+        return records.value;
+    }
+    return records.value.filter((item) => {
+        return item.name.toLowerCase().includes(searchTerm.value.toLowerCase());
+    });
 });
 </script>
