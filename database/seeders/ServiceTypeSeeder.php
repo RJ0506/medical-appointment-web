@@ -13,14 +13,29 @@ class ServiceTypeSeeder extends Seeder
 	public function run(): void
 	{
 		$serviceTypes = [
-			'Checkup',
-			'Vaccination',
-			'Cleaning',
-			'Pasta',
-			'Tooth Extraction'
+			[
+				'name' => 'Checkup',
+				'service_category_id' => 1
+			],
+			[
+				'name' => 'Vaccination',
+				'service_category_id' => 1
+			],
+			[
+				'name' => 'Cleaning',
+				'service_category_id' => 2
+			],
+			[
+				'name' => 'Pasta',
+				'service_category_id' => 2
+			],
+			[
+				'name' => 'Tooth Extraction',
+				'service_category_id' => 2
+			],
 		];
 
 		foreach ($serviceTypes as $serviceType)
-			ServiceType::create(['name' => $serviceType]);
+			ServiceType::create($serviceType);
 	}
 }

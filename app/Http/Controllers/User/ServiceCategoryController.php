@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\ServiceType;
+use App\Models\ServiceCategory;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\UpsertServiceTypeRequest;
+use App\Http\Requests\User\UpsertServiceCategoryRequest;
 
-class ServiceTypeController extends Controller
+class ServiceCategoryController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
 	 */
 	public function index()
 	{
-		return response()->json(ServiceType::all());
+		return response()->json(ServiceCategory::all());
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 */
-	public function store(UpsertServiceTypeRequest $request)
+	public function store(UpsertServiceCategoryRequest $request)
 	{
-		return response()->json(ServiceType::create($request->all()));
+		return response()->json(ServiceCategory::create($request->all()));
 	}
 
 	/**
@@ -29,15 +29,15 @@ class ServiceTypeController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(ServiceType::find($id));
+		return response()->json(ServiceCategory::find($id));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(UpsertServiceTypeRequest $request, string $id)
+	public function update(UpsertServiceCategoryRequest $request, string $id)
 	{
-		$row = ServiceType::find($id);
+		$row = ServiceCategory::find($id);
 
 		if (!$row) {
 			return response()->json('No data found.', 404);
@@ -53,7 +53,7 @@ class ServiceTypeController extends Controller
 	 */
 	public function destroy(int $id)
 	{
-		$row = ServiceType::find($id);
+		$row = ServiceCategory::find($id);
 
 		if (!$row) {
 			return response()->json('No data found.', 404);

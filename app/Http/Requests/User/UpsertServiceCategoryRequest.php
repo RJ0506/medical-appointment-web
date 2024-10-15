@@ -3,7 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-class UpsertServiceTypeRequest extends FormRequest
+class UpsertServiceCategoryRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -21,7 +21,7 @@ class UpsertServiceTypeRequest extends FormRequest
 	public function rules(): array
 	{
 		$rules = [
-			"name" => "required|min:3|unique:service_types,name,",
+			"name" => "required|min:3|unique:service_categories,name,",
 			"description" => "sometimes|nullable",
 		];
 

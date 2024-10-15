@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -30,5 +31,10 @@ class Patient extends Model
 		return [
 			'password' => 'hashed',
 		];
+	}
+
+	public function appointments(): HasMany
+	{
+		return $this->hasMany(Appointment::class);
 	}
 }
