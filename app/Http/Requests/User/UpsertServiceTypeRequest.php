@@ -28,7 +28,7 @@ class UpsertServiceTypeRequest extends FormRequest
 			$explodedPaths = explode('/', $this->path());
 			$routeParam = $explodedPaths[count($explodedPaths) - 1];
 
-			$rules['name'] .= "{$routeParam}";
+			$rules['name'] .= $routeParam;
 		}
 
 		return $rules;
