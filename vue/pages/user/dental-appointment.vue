@@ -2,7 +2,7 @@
     <div>
         <!-- TITLE AND SEARCH -->
         <div class="mt-7 flex items-center justify-between">
-            <h1 class="text-xl sm:text-5xl font-bold">Medical Appointment</h1>
+            <h1 class="text-xl sm:text-5xl font-bold">Dental Appointment</h1>
             <div class="relative">
                 <input
                     type="text"
@@ -68,37 +68,37 @@ const records = ref([
     {
         date: "10/01/2023",
         time: "12:00PM",
-        classification: "Student",
-        name: "Alice Johnson",
-        service: "Vaccination",
+        classification: "Faculty",
+        name: "Jonathan Michael Reyes",
+        service: "Tooth Extraction",
     },
     {
         date: "10/02/2023",
         time: "1:40PM",
-        classification: "Faculty",
-        name: "Bob Smith",
-        service: "Checkup",
+        classification: "Student",
+        name: "Maria Isabel Santos",
+        service: "Cleaning",
     },
     {
         date: "10/03/2023",
         time: "12:20PM",
-        classification: "Student",
-        name: "Charlie Brown",
+        classification: "Faculty",
+        name: "Christopher James Lopez",
         service: "Checkup",
     },
     {
         date: "10/04/2023",
         time: "12:40PM",
-        classification: "Faculty",
-        name: "Professor Mary Davis",
-        service: "Vaccination",
+        classification: "Student",
+        name: "Angela Marie Garcia",
+        service: "Tooth Extraction",
     },
     {
         date: "10/05/2023",
         time: "1:20PM",
         classification: "Student",
-        name: "Emma Wilson",
-        service: "Vaccination",
+        name: "Daniel Francis Cruz",
+        service: "Filling",
     },
 ]);
 

@@ -1,14 +1,14 @@
 <template>
     <div class="grid">
         <div class="mt-10">
-            <h1 class="text-4xl font-bold">Schedule an Appointment</h1>
+            <h1 class="text-2xl sm:text-4xl font-bold">Schedule an Appointment</h1>
             <form
                 class="mx-auto mt-8 flex max-w-3xl flex-col gap-2 bg-[#d9d9d9] p-4"
             >
                 <h2 class="font-bold">
                     Select the service you want to get the appointment for:
                 </h2>
-                <div class="flex flex-wrap justify-center gap-2">
+                <div class="flex flex-wrap justify-center gap-2 mt-2">
                     <div>
                         <input
                             class="peer hidden"

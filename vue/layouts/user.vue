@@ -105,18 +105,18 @@
                         v-for="(child, index) in item.subLinks"
                         :key="index"
                     >
-                        <a
+                        <NuxtLink
                             :class="[
                                 {
                                     'pl-14': isSidebarCollapsed,
                                     'text-center': !isSidebarCollapsed,
                                 },
                             ]"
-                            class="w-full px-4 py-5 font-bold hover:bg-[#1e3d2c]"
-                            :href="child.href"
+                            class="w-full cursor-pointer px-4 py-5 font-bold hover:bg-[#1e3d2c]"
+                            :to="child.link"
                         >
                             {{ child.label }}
-                        </a>
+                        </NuxtLink>
                     </div>
                 </div>
             </div>
@@ -167,24 +167,24 @@ const sidebarLinks = ref([
         label: "Appointment",
         icon: "ep:calendar",
         subLinks: [
-            { label: "Medical", href: "#" },
-            { label: "Dental", href: "#" },
+            { label: "Medical", link: "/user" },
+            { label: "Dental", link: "/user/dental-appointment" },
         ],
     },
     {
         label: "Inventory",
         icon: "i-material-symbols-light-inventory-2-outline-sharp",
         subLinks: [
-            { label: "Medical", href: "#" },
-            { label: "Dental", href: "#" },
+            { label: "Medicine", link: "/user/medicine-inventory" },
+            { label: "Dental", link: "#" },
         ],
     },
     {
         label: "Patient Record",
         icon: "i-material-symbols-light-drive-folder-upload-outline",
         subLinks: [
-            { label: "Medical", href: "#" },
-            { label: "Dental", href: "#" },
+            { label: "Medical", link: "#" },
+            { label: "Dental", link: "#" },
         ],
     },
 ]);
