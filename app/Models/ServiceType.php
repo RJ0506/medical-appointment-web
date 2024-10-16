@@ -11,7 +11,7 @@ class ServiceType extends Model
 {
 	use HasFactory, SoftDeletes;
 
-	protected $fillable = ['name', 'description'];
+	protected $fillable = ['name', 'description', 'service_category_id'];
 
 	public function category(): BelongsTo
 	{

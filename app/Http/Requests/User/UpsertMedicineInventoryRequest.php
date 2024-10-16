@@ -3,7 +3,8 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-class UpsertServiceCategoryRequest extends FormRequest
+
+class UpsertMedicineInventoryRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -20,18 +21,13 @@ class UpsertServiceCategoryRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
-		$rules = [
-			"name" => "required|min:3|unique:service_categories,name,",
-			"description" => "nullable",
+		return [
+			"category" => "required|min:3",
+			"generic_name" => "required|min:3",
+			"brand_name" => "nullable|min:2",
+			"dosage" => "required|decimal:2,4",
+			"quantity" => "required|numeric",
+			"expiration_date" => "required|date",
 		];
-
-		if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
-			$explodedPaths = explode('/', $this->path());
-			$routeParam = $explodedPaths[count($explodedPaths) - 1];
-
-			$rules['name'] .= $routeParam;
-		}
-
-		return $rules;
 	}
 }

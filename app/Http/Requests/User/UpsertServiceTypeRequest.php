@@ -22,7 +22,8 @@ class UpsertServiceTypeRequest extends FormRequest
 	{
 		$rules = [
 			"name" => "required|min:3|unique:service_types,name,",
-			"description" => "sometimes|nullable",
+			"description" => "nullable",
+			"service_category_id" => "required|exists:service_categories,id",
 		];
 
 		if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
