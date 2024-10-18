@@ -17,6 +17,12 @@ return new class extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 		});
+
+		//Pivot table
+		Schema::create('service_category_has_time_slots', function (Blueprint $table) {
+			$table->foreignId('service_category_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('time_slot_id')->constrained()->cascadeOnDelete();
+		});
 	}
 
 	/**
@@ -25,5 +31,6 @@ return new class extends Migration {
 	public function down(): void
 	{
 		Schema::dropIfExists('service_categories');
+		Schema::dropIfExists('service_category_has_time_slots');
 	}
 };

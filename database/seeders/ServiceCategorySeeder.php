@@ -12,12 +12,12 @@ class ServiceCategorySeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		$serviceTypes = [
+		$rows = [
 			'Medical',
 			'Dental'
 		];
 
-		foreach ($serviceTypes as $serviceType)
-			ServiceCategory::create(['name' => $serviceType]);
+		foreach ($rows as $row)
+			ServiceCategory::create(['name' => $row]);
 	}
 }
