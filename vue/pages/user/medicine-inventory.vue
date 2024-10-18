@@ -157,7 +157,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 
 definePageMeta({
     layout: "user",
@@ -195,7 +194,7 @@ const filteredRecords = computed(() => {
     if (!searchTerm.value) {
         return records.value;
     }
-    return records.value.filter((item) => {
+    return records.value.filter((item: any) => {
         return (
             item.brandName
                 .toLowerCase()

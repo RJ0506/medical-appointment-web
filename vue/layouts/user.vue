@@ -175,8 +175,8 @@ const sidebarLinks = ref([
         label: "Inventory",
         icon: "i-material-symbols-light-inventory-2-outline-sharp",
         subLinks: [
-            { label: "Medicine", link: "/user/medicine-inventory" },
-            { label: "Dental", link: "/user/dental-inventory"  },
+            { label: "Medicine Record", link: "/user/medicine-inventory" },
+            { label: "Medicine Log Sheet", link: "/user/medicine-logsheet" },
         ],
     },
     {
