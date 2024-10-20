@@ -6,117 +6,123 @@
         </div>
 
         <!-- ADD INVENTORY -->
-        <div class="mx-auto mt-10 max-w-4xl rounded-lg bg-[#d9d9d9] p-6 shadow-md">
+        <div
+            class="mx-auto mt-10 max-w-4xl rounded-lg bg-[#d9d9d9] p-6 shadow-md"
+        >
             <form class="space-y-4 rounded p-2">
                 <div>
-                   <h2 class="font-bold">Time and Date: {{ new Date().toLocaleString() }}</h2>
-                </div>
-                
-                <!-- Department -->
-                <div>
-                    <label
-                        for="department"
-                        class="block text-sm font-medium text-gray-700"
-                        >Department</label
-                    >
-                    <input
-                        type="text"
-                        id="department"
-                        name="department"
-                        class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                        placeholder="Department"
-                    />
+                    <h2 class="font-bold">Time and Date: {{ new Date().toLocaleString() }}</h2>
                 </div>
 
-                <!-- Full Name -->
-                <div>
-                    <label
-                        for="fullname"
-                        class="block text-sm font-medium text-gray-700"
-                        >Full Name</label
-                    >
-                    <input
-                        type="text"
-                        id="fullname"
-                        name="fullname"
-                        class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                        placeholder="Full Name"
-                    />
-                </div>
+                <div class="-mx-3 flex w-full flex-wrap">
+                    <!-- Full Name -->
+                    <div class="w-full px-3 md:w-2/3">
+                        <label
+                            for="fullname"
+                            class="block text-sm font-medium text-gray-700"
+                            >Full Name</label
+                        >
+                        <input
+                            type="text"
+                            id="fullname"
+                            name="fullname"
+                            class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
+                            placeholder="Full Name"
+                        />
+                    </div>
 
-                <!-- Chief Complaint -->
-                <div>
-                    <label
-                        for="chief_complain"
-                        class="block text-sm font-medium text-gray-700"
-                        >Chief Complaint</label
-                    >
-                    <textarea
-                        id="chief_complain"
-                        name="chief_complain"
-                        rows="3"
-                        class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                        placeholder="Describe the chief complaint"
-                    ></textarea>
+                    <!-- Department -->
+                    <div class="w-full px-3 md:w-1/3">
+                        <label
+                            for="department"
+                            class="block text-sm font-medium text-gray-700"
+                            >Department</label
+                        >
+                        <input
+                            type="text"
+                            id="department"
+                            name="department"
+                            class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
+                            placeholder="Department"
+                        />
+                    </div>
                 </div>
+                <div class="-mx-3 flex w-full flex-wrap">
+                    <!-- Chief Complaint -->
+                    <div class="w-full px-3 md:w-1/3">
+                        <label
+                            for="chief_complain"
+                            class="block text-sm font-medium text-gray-700"
+                            >Chief Complaint</label
+                        >
+                        <textarea
+                            id="chief_complain"
+                            name="chief_complain"
+                            rows="3"
+                            class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
+                            placeholder="Describe the chief complaint"
+                        ></textarea>
+                    </div>
 
-                <!-- Medicine Given -->
-                <div>
-                    <label
-                        for="medicine"
-                        class="block text-sm font-medium text-gray-700"
-                        >Medicine Given</label
-                    >
-                    <input
-                        type="text"
-                        id="medicine"
-                        name="medicine"
-                        class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                        placeholder="Medicine Given"
-                    />
+                    <!-- Medicine Given -->
+                    <div class="w-full px-3 md:w-1/3">
+                        <label
+                            for="medicine"
+                            class="block text-sm font-medium text-gray-700"
+                            >Medicine Given</label
+                        >
+                        <input
+                            type="text"
+                            id="medicine"
+                            name="medicine"
+                            class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
+                            placeholder="Medicine Given"
+                        />
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="w-full px-3 md:w-1/3">
+                        <label
+                            for="quantity"
+                            class="block text-sm font-medium text-gray-700"
+                            >Quantity</label
+                        >
+                        <input
+                            type="number"
+                            id="quantity"
+                            name="quantity"
+                            class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
+                            placeholder="Quantity"
+                        />
+                    </div>
                 </div>
-
-                <!-- Quantity -->
-                <div>
-                    <label
-                        for="quantity"
-                        class="block text-sm font-medium text-gray-700"
-                        >Quantity</label
-                    >
-                    <input
-                        type="number"
-                        id="quantity"
-                        name="quantity"
-                        class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                        placeholder="Quantity"
-                    />
-                </div>
-
                 <!-- Nurse on Duty -->
-                <div>
-                    <label
-                        for="nurse"
-                        class="block text-sm font-medium text-gray-700"
-                        >Nurse on Duty</label
-                    >
-                    <input
-                        type="text"
-                        id="nurse"
-                        name="nurse"
-                        class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                        placeholder="Nurse on Duty"
-                    />
+                <div class="-mx-3 flex w-full flex-wrap">
+                    <div class="w-full px-3">
+                        <label
+                            for="nurse"
+                            class="block text-sm font-medium text-gray-700"
+                            >Nurse on Duty</label
+                        >
+                        <input
+                            type="text"
+                            id="nurse"
+                            name="nurse"
+                            class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
+                            placeholder="Nurse on Duty"
+                        />
+                    </div>
                 </div>
 
                 <!-- Submit Button -->
-                <div>
+                <!-- <div>
                     <button
                         type="submit"
                         class="w-fit bg-[#1e3d2c] px-4 py-2 text-white hover:bg-emerald-600"
                     >
                         Save Data
                     </button>
-                </div>
+                </div> -->
             </form>
         </div>
 
@@ -124,7 +130,6 @@
         <div class="relative mt-7">
             <input
                 type="text"
-                v-model="searchTerm"
                 class="search-input rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2"
                 placeholder="Search brand/generic..."
             />
@@ -151,7 +156,7 @@
                     <tr class="bg-[#1e3d2c]">
                         <th class="whitespace-nowrap p-5">Time/Date</th>
                         <th class="whitespace-nowrap p-5">Full Name</th>
-                        <th class="whitespace-nowrap p-5">Course</th>
+                        <th class="whitespace-nowrap p-5">Department</th>
                         <th class="whitespace-nowrap p-5">Chief Complain</th>
                         <th class="whitespace-nowrap p-5">Quantity</th>
                         <th class="whitespace-nowrap p-5">Medicine Given</th>
@@ -174,8 +179,11 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 definePageMeta({
     layout: "user",
 });
+
+// const currentDate = ref(new Date().toLocaleString());
+
 </script>

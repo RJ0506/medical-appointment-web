@@ -7,91 +7,99 @@
 
         <!-- ADD INVENTORY -->
         <form class="mt-5 flex flex-wrap bg-[#e0dcdc] p-8">
-            <div class="w-full">
-                <label class="block text-lg font-bold" for="category"
-                    >Category:</label
-                >
-                <select
-                    class="mt-2 w-full rounded border-2 border-black focus:outline-emerald-800"
-                    name="category"
-                    id="category"
-                >
-                    <option value="tablet">Tablet</option>
-                    <option value="capsule">Capsule</option>
-                    <option value="syrup">Syrup</option>
-                    <option value="liquid">Liquid</option>
-                </select>
+            <div class="-mx-3 flex w-full flex-wrap">
+                <div class="w-full px-3 md:w-1/4">
+                    <label class="block text-lg font-bold" for="category"
+                        >Category:</label
+                    >
+                    <select
+                        class="mt-2 w-full rounded border-2 border-black focus:outline-emerald-800"
+                        name="category"
+                        id="category"
+                    >
+                        <option value="tablet">Tablet</option>
+                        <option value="capsule">Capsule</option>
+                        <option value="syrup">Syrup</option>
+                        <option value="liquid">Liquid</option>
+                    </select>
+                </div>
             </div>
-            <div class="w-full md:w-1/2">
-                <label class="block text-lg font-bold" for="genericName"
-                    >Generic Name:</label
-                >
-                <input
-                    class="w-full rounded border-2 border-black focus:outline-emerald-800"
-                    type="text"
-                    name="genericName"
-                    id="genericName"
-                />
+
+            <div class="-mx-3 flex w-full flex-wrap">
+                <div class="w-full px-3 md:w-1/2">
+                    <label class="block text-lg font-bold" for="genericName"
+                        >Generic Name:</label
+                    >
+                    <input
+                        class="w-full rounded border-2 border-black focus:outline-emerald-800"
+                        type="text"
+                        name="genericName"
+                        id="genericName"
+                    />
+                </div>
+                <div class="w-full px-3 md:w-1/2">
+                    <label class="block text-lg font-bold" for="brandName"
+                        >Brand Name:</label
+                    >
+                    <input
+                        class="w-full rounded border-2 border-black focus:outline-emerald-800"
+                        type="text"
+                        name="brandName"
+                        id="brandName"
+                    />
+                </div>
             </div>
-            <div class="w-full md:w-1/2">
-                <label class="block text-lg font-bold" for="brandName"
-                    >Brand Name:</label
-                >
-                <input
-                    class="w-full rounded border-2 border-black focus:outline-emerald-800"
-                    type="text"
-                    name="brandName"
-                    id="brandName"
-                />
+            <div class="-mx-3 flex w-full flex-wrap items-center">
+                <div class="w-full px-3 md:w-1/3">
+                    <label class="block text-lg font-bold" for="dosage"
+                        >Dosage:</label
+                    >
+                    <select
+                        class="w-full rounded border-2 border-black focus:outline-emerald-800"
+                        name="dosage"
+                        id="dosage"
+                    >
+                        <option value="1mg">1 mg</option>
+                        <option value="5mg">5 mg</option>
+                        <option value="10mg">10 mg</option>
+                        <option value="25mg">25 mg</option>
+                        <option value="50mg">50 mg</option>
+                        <option value="100mg">100 mg</option>
+                        <option value="200mg">200 mg</option>
+                        <option value="500mg">500 mg</option>
+                        <option value="1mL">1 mL</option>
+                        <option value="5mL">5 mL</option>
+                        <option value="10mL">10 mL</option>
+                        <option value="1tablet">1 Tablet</option>
+                        <option value="2tablets">2 Tablets</option>
+                        <option value="1puff">1 Puff</option>
+                    </select>
+                </div>
+                <div class="w-full px-3 md:w-1/3">
+                    <label class="block text-lg font-bold" for="quantity"
+                        >Quantity:</label
+                    >
+                    <input
+                        class="w-full rounded border-2 border-black focus:outline-emerald-800"
+                        type="number"
+                        name="quantity"
+                        id="quantity"
+                    />
+                </div>
+                <div class="w-full px-3 md:w-1/3">
+                    <label class="block text-lg font-bold" for="expirationDate"
+                        >Expiration Date:</label
+                    >
+                    <input
+                        class="w-full rounded border-2 border-black px-4 py-1 focus:outline-emerald-800"
+                        type="date"
+                        id="expirationDate"
+                        name="expirationDate"
+                        :min="currentDate"
+                    />
+                </div>
             </div>
-            <div class="w-full md:w-1/3">
-                <label class="block text-lg font-bold" for="dosage"
-                    >Dosage:</label
-                >
-                <select
-                    class="mt-2 w-full rounded border-2 border-black focus:outline-emerald-800"
-                    name="dosage"
-                    id="dosage"
-                >
-                    <option value="1mg">1 mg</option>
-                    <option value="5mg">5 mg</option>
-                    <option value="10mg">10 mg</option>
-                    <option value="25mg">25 mg</option>
-                    <option value="50mg">50 mg</option>
-                    <option value="100mg">100 mg</option>
-                    <option value="200mg">200 mg</option>
-                    <option value="500mg">500 mg</option>
-                    <option value="1mL">1 mL</option>
-                    <option value="5mL">5 mL</option>
-                    <option value="10mL">10 mL</option>
-                    <option value="1tablet">1 Tablet</option>
-                    <option value="2tablets">2 Tablets</option>
-                    <option value="1puff">1 Puff</option>
-                </select>
-            </div>
-            <div class="w-full md:w-1/3">
-                <label class="block text-lg font-bold" for="quantity"
-                    >Quantity:</label
-                >
-                <input
-                    class="w-full rounded border-2 border-black focus:outline-emerald-800"
-                    type="number"
-                    name="quantity"
-                    id="quantity"
-                />
-            </div>
-            <div class="w-full md:w-1/3">
-                <label class="block text-lg font-bold" for="expirationDate"
-                    >Expiration Date:</label
-                >
-                <input
-                    class="w-full rounded border-2 border-black px-4 py-1 focus:outline-emerald-800"
-                    type="date"
-                    id="expirationDate"
-                    name="expirationDate"
-                    :min="currentDate"
-                />
-            </div>
+
             <button
                 type="submit"
                 class="mx-auto mt-5 rounded-md bg-[#1E3D2C] px-6 py-2 font-semibold text-white hover:bg-emerald-900 sm:px-12"
@@ -157,7 +165,6 @@
 </template>
 
 <script setup lang="ts">
-
 definePageMeta({
     layout: "user",
 });
