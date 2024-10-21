@@ -226,6 +226,9 @@
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
+                            <p v-if="emailErrorMessage" class="text-red-500">
+                                {{ emailErrorMessage }}
+                            </p>
                         </div>
                     </div>
                     <div class="px-4 py-2 md:px-10">
@@ -251,6 +254,9 @@
                                 id="confirmPassword"
                                 v-model="formData.rePassword"
                             />
+                            <p v-if="passwordErrorMessage" class="text-red-500">
+                                {{ passwordErrorMessage }}
+                            </p>
                         </div>
                     </div>
                 </div>
