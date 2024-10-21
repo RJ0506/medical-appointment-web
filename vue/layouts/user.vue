@@ -115,7 +115,9 @@
                             class="w-full cursor-pointer px-4 py-5 font-bold hover:bg-[#1e3d2c]"
                             :to="child.link"
                         >
-                            {{ child.label }}
+                            <span>
+                                {{ child.label }}
+                            </span>
                         </NuxtLink>
                     </div>
                 </div>
@@ -135,7 +137,7 @@
                         style="color: white; font-size: 2rem"
                     />
                     <span
-                    class="text-white"
+                        class="text-white"
                         :class="{
                             block: isSidebarCollapsed,
                             hidden: !isSidebarCollapsed,

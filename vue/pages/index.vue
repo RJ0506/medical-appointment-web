@@ -30,7 +30,7 @@
                     />
                     <div class="relative">
                         <input
-                            class="w-full rounded-md border border-black pl-6 pr-11 py-3 focus:outline-emerald-900"
+                            class="w-full rounded-md border border-black py-3 pl-6 pr-11 focus:outline-emerald-900"
                             :type="isPasswordVisible ? 'text' : 'password'"
                             placeholder="Password"
                         />
@@ -51,12 +51,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="sm:px-12">
+                <div class="grid gap-3 sm:px-12">
                     <button
                         class="w-full rounded-md bg-[#1E3D2C] py-2 font-bold text-white hover:bg-emerald-900"
                     >
                         LOGIN
                     </button>
+                    <span class="text-center">
+                        Don't have an account yet?
+                        <NuxtLink
+                            class="font-bold text-[#347956] hover:text-emerald-900"
+                            to="patient-selection"
+                        >
+                            Register now.</NuxtLink
+                        >
+                    </span>
                 </div>
             </form>
         </div>

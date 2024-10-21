@@ -106,7 +106,7 @@ const filteredRecords = computed(() => {
     if (!searchTerm.value) {
         return records.value;
     }
-    return records.value.filter((item) => {
+    return records.value.filter((item: any) => {
         return item.name.toLowerCase().includes(searchTerm.value.toLowerCase());
     });
 });

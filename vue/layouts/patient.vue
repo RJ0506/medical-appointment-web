@@ -57,26 +57,27 @@
 
             <!-- NAVLINKS -->
             <div class="mt-24 text-white">
-                <NuxtLink
-                    to="/patient"
-                    :class="{
-                        'justify-start': isSidebarCollapsed,
-                        'justify-center': !isSidebarCollapsed,
-                    }"
-                    class="flex items-center gap-3 px-7 py-5 text-xl font-bold hover:bg-[#1e3d2c]"
-                >
-                    <Icon
-                        name="ep:calendar"
-                        style="color: white; font-size: 2rem"
-                    />
-                    <span
+                <NuxtLink to="/patient">
+                    <div
                         :class="{
-                            block: isSidebarCollapsed,
-                            hidden: !isSidebarCollapsed,
+                            'justify-start': isSidebarCollapsed,
+                            'justify-center': !isSidebarCollapsed,
                         }"
+                        class="flex items-center gap-3 px-7 py-5 text-xl font-bold hover:bg-[#1e3d2c]"
                     >
-                        Appointment
-                    </span>
+                        <Icon
+                            name="ep:calendar"
+                            style="color: white; font-size: 2rem"
+                        />
+                        <span
+                            :class="{
+                                block: isSidebarCollapsed,
+                                hidden: !isSidebarCollapsed,
+                            }"
+                        >
+                            Appointment
+                        </span>
+                    </div>
                 </NuxtLink>
             </div>
         </div>

@@ -11,7 +11,9 @@
         >
             <form class="space-y-4 rounded p-2">
                 <div>
-                    <h2 class="font-bold">Time and Date: {{ new Date().toLocaleString() }}</h2>
+                    <h2 class="font-bold">
+                        Time and Date: {{ new Date().toLocaleString() }}
+                    </h2>
                 </div>
 
                 <div class="-mx-3 flex w-full flex-wrap">
@@ -31,19 +33,19 @@
                         />
                     </div>
 
-                    <!-- Department -->
+                    <!-- Course -->
                     <div class="w-full px-3 md:w-1/3">
                         <label
-                            for="department"
+                            for="course"
                             class="block text-sm font-medium text-gray-700"
-                            >Department</label
+                            >Course</label
                         >
                         <input
                             type="text"
-                            id="department"
-                            name="department"
+                            id="course"
+                            name="course"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                            placeholder="Department"
+                            placeholder="course"
                         />
                     </div>
                 </div>
@@ -115,14 +117,14 @@
                 </div>
 
                 <!-- Submit Button -->
-                <!-- <div>
+                <div>
                     <button
                         type="submit"
                         class="w-fit bg-[#1e3d2c] px-4 py-2 text-white hover:bg-emerald-600"
                     >
                         Save Data
                     </button>
-                </div> -->
+                </div>
             </form>
         </div>
 
@@ -156,7 +158,7 @@
                     <tr class="bg-[#1e3d2c]">
                         <th class="whitespace-nowrap p-5">Time/Date</th>
                         <th class="whitespace-nowrap p-5">Full Name</th>
-                        <th class="whitespace-nowrap p-5">Department</th>
+                        <th class="whitespace-nowrap p-5">Course</th>
                         <th class="whitespace-nowrap p-5">Chief Complain</th>
                         <th class="whitespace-nowrap p-5">Quantity</th>
                         <th class="whitespace-nowrap p-5">Medicine Given</th>
@@ -185,5 +187,4 @@ definePageMeta({
 });
 
 // const currentDate = ref(new Date().toLocaleString());
-
 </script>
