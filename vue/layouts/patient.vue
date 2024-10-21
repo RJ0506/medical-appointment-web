@@ -120,7 +120,7 @@
 
 <script setup>
 import { ref } from "vue";
-const isSidebarCollapsed = ref(false);
+const isSidebarCollapsed = ref(true);
 
 const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;

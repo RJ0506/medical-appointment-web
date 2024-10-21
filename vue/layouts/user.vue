@@ -187,7 +187,7 @@
 
 <script setup>
 import { ref } from "vue";
-const isSidebarCollapsed = ref(false);
+const isSidebarCollapsed = ref(true);
 const activeLink = ref(null);
 const sidebarLinks = ref([
     {
@@ -210,8 +210,14 @@ const sidebarLinks = ref([
         label: "Patient Record",
         icon: "i-material-symbols-light-drive-folder-upload-outline",
         subLinks: [
-            { label: "Medical", link: "#" },
-            { label: "Dental", link: "#" },
+            {
+                label: "Medical Health Record",
+                link: "/user/medical-health-record",
+            },
+            {
+                label: "Dental Health Record",
+                link: "/user/dental-health-record",
+            },
         ],
     },
 ]);
