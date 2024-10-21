@@ -221,7 +221,9 @@
                                 <input
                                     type="email"
                                     id="email"
+                                    required
                                     class="w-full rounded-md border border-black"
+                                    v-model="formData.email"
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
@@ -237,10 +239,13 @@
                                     type="email"
                                     id="re-enter-email"
                                     class="w-full rounded-md border border-black"
-                                    v-model="formData.email"
+                                    v-model="formData.reEmail"
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
+                            <p v-if="emailErrorMessage" class="text-red-500">
+                                {{ emailErrorMessage }}
+                            </p>
                         </div>
                     </div>
                     <div class="px-4 py-2 md:px-10">
@@ -252,6 +257,8 @@
                                 class="w-full rounded-md border border-black"
                                 type="password"
                                 id="password"
+                                required
+                                v-model="formData.password"
                             />
                         </div>
                         <div class="mb-2 md:mb-0">
@@ -262,8 +269,11 @@
                                 class="w-full rounded-md border border-black"
                                 type="password"
                                 id="confirmPassword"
-                                v-model="formData.password"
+                                v-model="formData.rePassword"
                             />
+                            <p v-if="passwordErrorMessage" class="text-red-500">
+                                {{ passwordErrorMessage }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -282,6 +292,9 @@ definePageMeta({
     layout: "selection",
 });
 
+const passwordErrorMessage = ref("");
+const emailErrorMessage = ref("");
+
 const formData = ref({
     id: "",
     department: "",
@@ -299,10 +312,23 @@ const formData = ref({
     contactPersonNumber: "",
     relation: "",
     email: "",
+    reEmail: "",
     password: "",
+    rePassword: "",
 });
 
 const handleSubmit = () => {
-    console.log(formData.value);
+    passwordErrorMessage.value = "";
+    emailErrorMessage.value = "";
+
+    if (formData.value.password !== formData.value.rePassword) {
+        passwordErrorMessage.value = "Password do not match";
+        return;
+    } else if (formData.value.email !== formData.value.reEmail) {
+        emailErrorMessage.value = "Email do not match";
+        return;
+    } else {
+        console.log(formData.value);
+    }
 };
 </script>
