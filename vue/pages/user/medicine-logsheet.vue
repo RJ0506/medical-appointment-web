@@ -9,7 +9,7 @@
         <div
             class="mx-auto mt-10 max-w-4xl rounded-lg bg-[#d9d9d9] p-6 shadow-md"
         >
-            <form class="space-y-4 rounded p-2">
+            <form @submit.prevent="handleSubmit" class="space-y-4 rounded p-2">
                 <div>
                     <h2 class="font-bold">
                         Time and Date: {{ new Date().toLocaleString() }}
@@ -30,6 +30,7 @@
                             name="fullname"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             placeholder="Full Name"
+                            v-model="formData.fullname"
                         />
                     </div>
 
@@ -46,6 +47,7 @@
                             name="course"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             placeholder="course"
+                            v-model="formData.course"
                         />
                     </div>
                 </div>
@@ -63,6 +65,7 @@
                             rows="3"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             placeholder="Describe the chief complaint"
+                            v-model="formData.chiefComplaint"
                         ></textarea>
                     </div>
 
@@ -79,6 +82,7 @@
                             name="medicine"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             placeholder="Medicine Given"
+                            v-model="formData.medicineGiven"
                         />
                     </div>
 
@@ -95,6 +99,7 @@
                             name="quantity"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             placeholder="Quantity"
+                            v-model="formData.quantity"
                         />
                     </div>
                 </div>
@@ -112,6 +117,7 @@
                             name="nurse"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             placeholder="Nurse on Duty"
+                            v-model="formData.nurseOnDuty"
                         />
                     </div>
                 </div>
@@ -186,5 +192,20 @@ definePageMeta({
     layout: "user",
 });
 
-// const currentDate = ref(new Date().toLocaleString());
+const currentDateAndTime = new Date().toLocaleString();
+
+const formData = ref({
+    currentTimeAndDate: currentDateAndTime,
+    fullname: "",
+    course: "",
+    chiefComplaint: "",
+    medicineGiven: "",
+    quantity: "",
+    nurseOnDuty: "",
+});
+
+const handleSubmit = () => {
+    // FORM VALUE
+    console.log(formData.value);
+};
 </script>

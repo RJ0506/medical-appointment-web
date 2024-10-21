@@ -6,7 +6,10 @@
         </div>
 
         <!-- ADD INVENTORY -->
-        <form class="mt-5 flex flex-wrap bg-[#e0dcdc] p-8">
+        <form
+            @submit.prevent="handleSubmit"
+            class="mt-5 flex flex-wrap bg-[#e0dcdc] p-8"
+        >
             <div class="-mx-3 flex w-full flex-wrap">
                 <div class="w-full px-3 md:w-1/4">
                     <label class="block text-lg font-bold" for="category"
@@ -16,6 +19,7 @@
                         class="mt-2 w-full rounded border-2 border-black focus:outline-emerald-800"
                         name="category"
                         id="category"
+                        v-model="formData.category"
                     >
                         <option value="tablet">Tablet</option>
                         <option value="capsule">Capsule</option>
@@ -35,6 +39,7 @@
                         type="text"
                         name="genericName"
                         id="genericName"
+                        v-model="formData.genericName"
                     />
                 </div>
                 <div class="w-full px-3 md:w-1/2">
@@ -46,6 +51,7 @@
                         type="text"
                         name="brandName"
                         id="brandName"
+                        v-model="formData.brandName"
                     />
                 </div>
             </div>
@@ -58,6 +64,7 @@
                         class="w-full rounded border-2 border-black focus:outline-emerald-800"
                         name="dosage"
                         id="dosage"
+                        v-model="formData.dosage"
                     >
                         <option value="1mg">1 mg</option>
                         <option value="5mg">5 mg</option>
@@ -84,6 +91,7 @@
                         type="number"
                         name="quantity"
                         id="quantity"
+                        v-model="formData.quantity"
                     />
                 </div>
                 <div class="w-full px-3 md:w-1/3">
@@ -96,6 +104,7 @@
                         id="expirationDate"
                         name="expirationDate"
                         :min="currentDate"
+                        v-model="formData.expirationDate"
                     />
                 </div>
             </div>
@@ -170,6 +179,16 @@ definePageMeta({
 });
 
 const searchTerm = ref("");
+const currentDate = ref("");
+const formData = ref({
+    category: "",
+    genericName: "",
+    brandName: "",
+    dosage: "",
+    quantity: "",
+    expirationDate: "",
+});
+
 const records = ref([
     {
         category: "Antibiotic",
@@ -213,7 +232,10 @@ const filteredRecords = computed(() => {
     });
 });
 
-const currentDate = ref("");
+const handleSubmit = () => {
+    // FORM VALUE
+    console.log(formData.value);
+};
 
 const today = new Date();
 const year = today.getFullYear();

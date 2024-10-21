@@ -21,17 +21,19 @@
                     />
                 </div>
             </div>
-            <form class="flex flex-col space-y-8">
+            <form @submit.prevent="handleSubmit" class="flex flex-col space-y-8">
                 <div class="space-y-4">
                     <input
                         class="w-full rounded-md border border-black px-6 py-3 focus:outline-emerald-900"
                         type="text"
+                        v-model="formData.username"
                         placeholder="Username"
                     />
                     <div class="relative">
                         <input
                             class="w-full rounded-md border border-black py-3 pl-6 pr-11 focus:outline-emerald-900"
                             :type="isPasswordVisible ? 'text' : 'password'"
+                            v-model="formData.password"
                             placeholder="Password"
                         />
                         <div
@@ -74,8 +76,17 @@
 
 <script setup lang="ts">
 const isPasswordVisible = ref(false);
+const formData = ref({
+    username: "",
+    password: "",
+});
 
 const togglePasswordVisibility = () => {
     isPasswordVisible.value = !isPasswordVisible.value;
 };
+
+const handleSubmit = () => {
+    console.log(formData.value);
+};
+
 </script>

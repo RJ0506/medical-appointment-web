@@ -16,7 +16,7 @@
             <p class="text-xl">
                 Please fill out the form below to get started:
             </p>
-            <form class="mt-5 grid">
+            <form @submit.prevent="handleSubmit" class="mt-5 grid">
                 <div class="grid gap-4 bg-[#d9d9d9] px-4 py-8">
                     <h2 class="bg-[#a6a6a6] text-center font-bold">
                         MEDICAL HEATH RECORD
@@ -31,6 +31,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="id"
+                                    v-model="formData.id"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -41,6 +42,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="course"
+                                    v-model="formData.course"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -51,6 +53,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="yearLevel"
+                                    v-model="formData.yearLevel"
                                 />
                             </div>
                         </div>
@@ -63,6 +66,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="lastname"
+                                    v-model="formData.lastname"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -73,6 +77,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="firstname"
+                                    v-model="formData.firstname"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -85,6 +90,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="middleName"
+                                    v-model="formData.middlename"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -95,6 +101,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="age"
+                                    v-model="formData.age"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -105,6 +112,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="date"
                                     id="datebirth"
+                                    v-model="formData.datebirth"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -115,6 +123,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="gender"
+                                    v-model="formData.gender"
                                 />
                             </div>
                         </div>
@@ -127,6 +136,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="address"
+                                    v-model="formData.address"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -137,6 +147,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contact"
+                                    v-model="formData.contactNumber"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -149,6 +160,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="nationality"
+                                    v-model="formData.nationality"
                                 />
                             </div>
                         </div>
@@ -161,6 +173,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="parent"
+                                    v-model="formData.nameOfParent"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -173,6 +186,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="parentContact"
+                                    v-model="formData.contactOfParent"
                                 />
                             </div>
                         </div>
@@ -206,6 +220,7 @@
                                     type="email"
                                     id="re-enter-email"
                                     class="w-full rounded-md border border-black"
+                                    v-model="formData.email"
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
@@ -230,6 +245,7 @@
                                 class="w-full rounded-md border border-black"
                                 type="password"
                                 id="confirmPassword"
+                                v-model="formData.password"
                             />
                         </div>
                     </div>
@@ -248,4 +264,27 @@
 definePageMeta({
     layout: "selection",
 });
+
+const formData = ref({
+    id: "",
+    course: "",
+    yearLevel: "",
+    lastname: "",
+    firstname: "",
+    middlename: "",
+    age: "",
+    datebirth: "",
+    gender: "",
+    address: "",
+    contactNumber: "",
+    nationality: "",
+    nameOfParent: "",
+    contactOfParent: "",
+    email: "",
+    password: "",
+});
+
+const handleSubmit = () => {
+    console.log(formData.value);
+};
 </script>
