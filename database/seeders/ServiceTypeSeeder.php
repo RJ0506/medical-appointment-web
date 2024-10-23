@@ -12,7 +12,7 @@ class ServiceTypeSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		$rows = [
+		$serviceTypes = [
 			[
 				'name' => 'Checkup',
 				'service_category_id' => 1
@@ -35,7 +35,7 @@ class ServiceTypeSeeder extends Seeder
 			],
 		];
 
-		foreach ($rows as $row)
-			ServiceType::create($row);
+		foreach ($serviceTypes as $serviceType)
+			ServiceType::create($serviceType);
 	}
 }
