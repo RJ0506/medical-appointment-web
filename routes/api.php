@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Patient\AuthController as PatientAuthController;
 use App\Http\Controllers\User\AppointmentScheduleController;
+use App\Http\Controllers\User\MedicineCategoryController;
 use App\Http\Controllers\User\MedicineInventoryController;
 use App\Http\Controllers\User\ServiceCategoryController;
 use App\Http\Controllers\User\ServiceTypeController;
@@ -18,6 +19,7 @@ Route::prefix('user')->group(function () {
 		Route::resources([
 			'service-types' => ServiceTypeController::class,
 			'service-categories' => ServiceCategoryController::class,
+			'medicine-categories' => MedicineCategoryController::class,
 			'medicine-inventories' => MedicineInventoryController::class,
 			'appointment-schedules' => AppointmentScheduleController::class,
 		]);

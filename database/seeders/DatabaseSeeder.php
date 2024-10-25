@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 			ServiceTypeSeeder::class,
 			UserSeeder::class,
 			PatientSeeder::class,
+			MedicineCategorySeeder::class,
 		]);
 	}
 }
