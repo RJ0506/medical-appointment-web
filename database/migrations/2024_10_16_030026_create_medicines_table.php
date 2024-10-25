@@ -10,9 +10,9 @@ return new class extends Migration {
 	 */
 	public function up(): void
 	{
-		Schema::create('medicine_inventories', function (Blueprint $table) {
+		Schema::create('medicines', function (Blueprint $table) {
 			$table->id();
-			$table->string('category');
+			$table->foreignId('medicine_category_id')->constrained();
 			$table->string('generic_name');
 			$table->string('brand_name')->nullable();
 			$table->decimal('dosage', 7, 2);
@@ -28,6 +28,6 @@ return new class extends Migration {
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('medicine_inventories');
+		Schema::dropIfExists('medicines');
 	}
 };

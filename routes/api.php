@@ -4,7 +4,7 @@ use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Patient\AuthController as PatientAuthController;
 use App\Http\Controllers\User\AppointmentScheduleController;
 use App\Http\Controllers\User\MedicineCategoryController;
-use App\Http\Controllers\User\MedicineInventoryController;
+use App\Http\Controllers\User\MedicineController;
 use App\Http\Controllers\User\ServiceCategoryController;
 use App\Http\Controllers\User\ServiceTypeController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +20,7 @@ Route::prefix('user')->group(function () {
 			'service-types' => ServiceTypeController::class,
 			'service-categories' => ServiceCategoryController::class,
 			'medicine-categories' => MedicineCategoryController::class,
-			'medicine-inventories' => MedicineInventoryController::class,
+			'medicines' => MedicineController::class,
 			'appointment-schedules' => AppointmentScheduleController::class,
 		]);
 	});
