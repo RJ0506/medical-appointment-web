@@ -16,6 +16,14 @@
             <p class="text-xl">
                 Please fill out the form below to get started:
             </p>
+            <div
+                class="my-2 border border-black px-2 py-2 text-lg text-black shadow-md"
+            >
+                <span class="font-bold"> NOTE: </span>
+                Fields with asterisk (
+                <span class="text-xl text-red-500">*</span>
+                ) are required.
+            </div>
             <form @submit.prevent="handleSubmit" class="mt-5 grid">
                 <div class="grid gap-4 bg-[#d9d9d9] px-4 py-8">
                     <h2 class="bg-[#a6a6a6] text-center font-bold">
@@ -24,10 +32,13 @@
                     <div class="border border-black bg-[#a6a6a6] p-3">
                         <div class="-mx-3 flex flex-wrap">
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-3/5">
-                                <label class="block font-normal" for="id"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="id"
                                     >ID Number:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="id"
@@ -36,11 +47,12 @@
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
-                                    class="block font-normal"
+                                    class="block font-normal after:text-red-500 after:content-['*']"
                                     for="department"
                                     >Department:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="department"
@@ -49,24 +61,28 @@
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
-                                    class="block font-normal"
-                                    for="responsibilities"
-                                    >Responsibilities:</label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="classification"
+                                    >Classification:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="text"
-                                    id="responsibilities"
-                                    v-model="formData.responsibilities"
+                                    id="classification"
+                                    v-model="formData.classification"
                                 />
                             </div>
                         </div>
                         <div class="-mx-3 flex flex-wrap">
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
-                                <label class="block font-normal" for="lastname"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="lastname"
                                     >Lastname:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="lastname"
@@ -74,10 +90,13 @@
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
-                                <label class="block font-normal" for="firstname"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="firstname"
                                     >First Name:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="firstname"
@@ -98,10 +117,13 @@
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
-                                <label class="block font-normal" for="age"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="age"
                                     >Age:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="age"
@@ -109,10 +131,13 @@
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
-                                <label class="block font-normal" for="datebirth"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="datebirth"
                                     >Date of Birth:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="date"
                                     id="datebirth"
@@ -120,23 +145,30 @@
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
-                                <label class="block font-normal" for="gender"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="gender"
                                     >Gender:</label
                                 >
-                                <input
+                                <select
                                     class="w-full rounded-md border border-black"
-                                    type="text"
                                     id="gender"
                                     v-model="formData.gender"
-                                />
+                                >
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
                             </div>
                         </div>
                         <div class="-mx-3 flex flex-wrap">
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-3/5">
-                                <label class="block font-normal" for="address"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="address"
                                     >Address:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="address"
@@ -144,10 +176,13 @@
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
-                                <label class="block font-normal" for="contact"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="contact"
                                     >Contact Number:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contact"
@@ -156,11 +191,12 @@
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
-                                    class="block font-normal"
+                                    class="block font-normal after:text-red-500 after:content-['*']"
                                     for="nationality"
                                     >Nationality:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="nationality"
@@ -171,11 +207,12 @@
                         <div class="-mx-3 flex flex-wrap">
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-3/5">
                                 <label
-                                    class="block font-normal"
+                                    class="block font-normal after:text-red-500 after:content-['*']"
                                     for="contactPerson"
                                     >Contact Person:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="contactPerson"
@@ -184,11 +221,12 @@
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
-                                    class="block font-normal"
+                                    class="block font-normal after:text-red-500 after:content-['*']"
                                     for="contactPersonNumber"
                                     >Contact Number:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contactPersonNumber"
@@ -196,10 +234,13 @@
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
-                                <label class="block font-normal" for="relation"
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="relation"
                                     >Relation:</label
                                 >
                                 <input
+                                    required
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="relation"
@@ -214,14 +255,18 @@
                 >
                     <div class="px-4 md:px-6">
                         <div>
-                            <label class="font-bold" for="email">Email</label>
+                            <label
+                                class="font-bold after:text-red-500 after:content-['*']"
+                                for="email"
+                                >Email</label
+                            >
                             <div
                                 class="mb-2 flex w-full items-center gap-3 md:mb-0"
                             >
                                 <input
+                                    required
                                     type="email"
                                     id="email"
-                                    required
                                     class="w-full rounded-md border border-black"
                                     v-model="formData.email"
                                 />
@@ -236,6 +281,7 @@
                                 class="mb-2 flex w-full items-center gap-3 md:mb-0"
                             >
                                 <input
+                                    required
                                     type="email"
                                     id="re-enter-email"
                                     class="w-full rounded-md border border-black"
@@ -250,14 +296,16 @@
                     </div>
                     <div class="px-4 py-2 md:px-10">
                         <div class="mb-2 md:mb-0">
-                            <label class="block font-bold" for="password"
+                            <label
+                                class="block font-bold after:text-red-500 after:content-['*']"
+                                for="password"
                                 >Password</label
                             >
                             <input
+                                required
                                 class="w-full rounded-md border border-black"
                                 type="password"
                                 id="password"
-                                required
                                 v-model="formData.password"
                             />
                         </div>
@@ -266,6 +314,7 @@
                                 >Confirm Password</label
                             >
                             <input
+                                required
                                 class="w-full rounded-md border border-black"
                                 type="password"
                                 id="confirmPassword"
@@ -298,7 +347,7 @@ const emailErrorMessage = ref("");
 const formData = ref({
     id: "",
     department: "",
-    responsibilities: "",
+    classification: "",
     lastname: "",
     firstname: "",
     middlename: "",
