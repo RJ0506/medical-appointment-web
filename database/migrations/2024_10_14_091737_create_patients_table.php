@@ -18,12 +18,15 @@ return new class extends Migration {
 			$table->string('last_name');
 			$table->string('email')->unique();
 			$table->string('password');
-			$table->string('date_of_birth');
+			$table->date('date_of_birth');
+			$table->string('place_of_birth');
 			$table->enum('gender', ['Male', 'Female']);
 			$table->text('address');
 			$table->string('contact_number')->unique();
 			$table->string('contact_person');
 			$table->string('nationality');
+			$table->enum('name_extension', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V'])->nullable();
+			$table->string('zip_code')->nullable();
 			//Student fields
 			$table->enum('year_level', ['1st', '2nd', '3rd', '4th']);
 			$table->string('course')->nullable();
