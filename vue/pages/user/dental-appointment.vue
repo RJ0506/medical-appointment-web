@@ -2,7 +2,7 @@
     <div>
         <!-- TITLE AND SEARCH -->
         <div class="mt-7 flex items-center justify-between">
-            <h1 class="text-xl sm:text-5xl font-bold">Dental Appointment</h1>
+            <h1 class="text-xl font-bold sm:text-5xl">Dental Appointment</h1>
             <div class="relative">
                 <input
                     type="text"
@@ -38,6 +38,7 @@
                         <th class="p-5">Classification</th>
                         <th class="p-5">Fullname</th>
                         <th class="p-5">Service</th>
+                        <th class="p-5">Action</th>
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
@@ -49,6 +50,20 @@
                         </td>
                         <td class="p-5 font-medium">{{ item.name }}</td>
                         <td class="p-5 font-medium">{{ item.service }}</td>
+                        <td>
+                            <div class="flex gap-2">
+                                <button
+                                    class="rounded-md bg-[#2abb49] p-2 font-bold text-white hover:bg-emerald-700"
+                                >
+                                    Checked In
+                                </button>
+                                <button
+                                    class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
+                                >
+                                    Cancelled
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
