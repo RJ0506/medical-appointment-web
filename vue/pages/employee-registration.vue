@@ -86,7 +86,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="lastname"
-                                    v-model="formData.lastname"
+                                    v-model="formData.last_name"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -100,7 +100,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="firstname"
-                                    v-model="formData.firstname"
+                                    v-model="formData.first_name"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -113,7 +113,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="middleName"
-                                    v-model="formData.middlename"
+                                    v-model="formData.middle_name"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -141,7 +141,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="date"
                                     id="datebirth"
-                                    v-model="formData.datebirth"
+                                    v-model="formData.birthday"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -186,7 +186,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contact"
-                                    v-model="formData.contactNumber"
+                                    v-model="formData.contact_number"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -216,7 +216,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="contactPerson"
-                                    v-model="formData.contactPerson"
+                                    v-model="formData.contact_person"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -230,7 +230,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contactPersonNumber"
-                                    v-model="formData.contactPersonNumber"
+                                    v-model="formData.contact_person_number"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -285,7 +285,7 @@
                                     type="email"
                                     id="re-enter-email"
                                     class="w-full rounded-md border border-black"
-                                    v-model="formData.reEmail"
+                                    v-model="formData.confirm_email"
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
@@ -318,7 +318,7 @@
                                 class="w-full rounded-md border border-black"
                                 type="password"
                                 id="confirmPassword"
-                                v-model="formData.rePassword"
+                                v-model="formData.confirm_password"
                             />
                             <p v-if="passwordErrorMessage" class="text-red-500">
                                 {{ passwordErrorMessage }}
@@ -348,32 +348,32 @@ const formData = ref({
     id: "",
     department: "",
     classification: "",
-    lastname: "",
-    firstname: "",
-    middlename: "",
+    last_name: "",
+    first_name: "",
+    middle_name: "",
     age: "",
-    datebirth: "",
+    birthday: "",
     gender: "",
     address: "",
-    contactNumber: "",
+    contact_number: "",
     nationality: "",
-    contactPerson: "",
-    contactPersonNumber: "",
+    contact_person: "",
+    contact_person_number: "",
     relation: "",
     email: "",
-    reEmail: "",
+    confirm_email: "",
     password: "",
-    rePassword: "",
+    confirm_password: "",
 });
 
 const handleSubmit = () => {
     passwordErrorMessage.value = "";
     emailErrorMessage.value = "";
 
-    if (formData.value.password !== formData.value.rePassword) {
+    if (formData.value.password !== formData.value.confirm_password) {
         passwordErrorMessage.value = "Password do not match";
         return;
-    } else if (formData.value.email !== formData.value.reEmail) {
+    } else if (formData.value.email !== formData.value.confirm_email) {
         emailErrorMessage.value = "Email do not match";
         return;
     } else {
