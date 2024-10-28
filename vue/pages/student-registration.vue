@@ -17,7 +17,7 @@
                 Please fill out the form below to get started:
             </p>
             <div
-                class="my-2 border border-black px-2 py-2 text-lg text-black shadow-md"
+                class="my-2 border border-l-[1rem] border-black border-l-[#ffeb3b] bg-[#ffffcc] px-2 py-2 text-lg text-black shadow-md"
             >
                 <span class="font-bold"> NOTE: </span>
                 Fields with asterisk (
@@ -25,13 +25,15 @@
                 ) are required.
             </div>
             <form @submit.prevent="handleSubmit" class="mt-5 grid">
-                <div class="grid gap-4 bg-[#d9d9d9] px-4 py-8">
-                    <h2 class="bg-[#a6a6a6] text-center font-bold">
+                <div
+                    class="grid gap-4 border border-black bg-white px-4 py-8 shadow-md"
+                >
+                    <h2 class="bg-black text-center font-bold text-white">
                         MEDICAL HEATH RECORD
                     </h2>
-                    <div class="border border-black bg-[#a6a6a6] p-3">
+                    <div class="border border-black bg-[#d9d9d9] p-3">
                         <div class="-mx-3 flex flex-wrap">
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-3/5">
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
                                     for="id"
@@ -45,37 +47,9 @@
                                     v-model="formData.id"
                                 />
                             </div>
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
-                                <label
-                                    class="block font-normal after:text-red-500 after:content-['*']"
-                                    for="course"
-                                    >Course:</label
-                                >
-                                <input
-                                    required
-                                    class="w-full rounded-md border border-black"
-                                    type="text"
-                                    id="course"
-                                    v-model="formData.course"
-                                />
-                            </div>
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
-                                <label
-                                    class="block font-normal after:text-red-500 after:content-['*']"
-                                    for="yearLevel"
-                                    >Year Level:</label
-                                >
-                                <input
-                                    required
-                                    class="w-full rounded-md border border-black"
-                                    type="text"
-                                    id="yearLevel"
-                                    v-model="formData.year_level"
-                                />
-                            </div>
                         </div>
                         <div class="-mx-3 flex flex-wrap">
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-2/6">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
                                     for="lastname"
@@ -89,7 +63,7 @@
                                     v-model="formData.last_name"
                                 />
                             </div>
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-2/6">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
                                     for="firstname"
@@ -107,13 +81,58 @@
                                 <label
                                     class="block font-normal"
                                     for="middleName"
-                                    >M.I:</label
+                                    >Middle Name:</label
                                 >
                                 <input
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="middleName"
                                     v-model="formData.middle_name"
+                                />
+                            </div>
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="name_extension"
+                                    >Name Extension:</label
+                                >
+                                <select
+                                    class="w-full rounded-md border border-black"
+                                    id="name_extension"
+                                    v-model="formData.name_extension"
+                                >
+                                    <option value="jr">Sr</option>
+                                    <option value="sr">Jr</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="-mx-3 flex flex-wrap">
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-2/6">
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="place_of_birth"
+                                    >Place of Birth:</label
+                                >
+                                <input
+                                    required
+                                    class="w-full rounded-md border border-black"
+                                    type="text"
+                                    id="place_of_birth"
+                                    v-model="formData.place_of_birth"
+                                />
+                            </div>
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-2/6">
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="datebirth"
+                                    >Date of Birth:</label
+                                >
+                                <input
+                                    required
+                                    class="w-full rounded-md border border-black"
+                                    type="date"
+                                    id="datebirth"
+                                    v-model="formData.birthday"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -133,20 +152,6 @@
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
-                                    for="datebirth"
-                                    >Date of Birth:</label
-                                >
-                                <input
-                                    required
-                                    class="w-full rounded-md border border-black"
-                                    type="date"
-                                    id="datebirth"
-                                    v-model="formData.birthday"
-                                />
-                            </div>
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
-                                <label
-                                    class="block font-normal after:text-red-500 after:content-['*']"
                                     for="gender"
                                     >Gender:</label
                                 >
@@ -160,6 +165,23 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="-mx-3 flex flex-wrap">
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-2/6">
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="nationality"
+                                    >Nationality:</label
+                                >
+                                <input
+                                    required
+                                    class="w-full rounded-md border border-black"
+                                    type="text"
+                                    id="nationality"
+                                    v-model="formData.nationality"
+                                />
+                            </div>
+                        </div>
+
                         <div class="-mx-3 flex flex-wrap">
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-3/5">
                                 <label
@@ -178,6 +200,20 @@
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="zip_code"
+                                    >Zip Code:</label
+                                >
+                                <input
+                                    required
+                                    class="w-full rounded-md border border-black"
+                                    type="number"
+                                    id="zip_code"
+                                    v-model="formData.zip_code"
+                                />
+                            </div>
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
                                     for="contact"
                                     >Contact Number:</label
                                 >
@@ -189,48 +225,34 @@
                                     v-model="formData.contact_number"
                                 />
                             </div>
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
-                                <label
-                                    class="block font-normal after:text-red-500 after:content-['*']"
-                                    for="nationality"
-                                    >Nationality:</label
-                                >
-                                <input
-                                    required
-                                    class="w-full rounded-md border border-black"
-                                    type="text"
-                                    id="nationality"
-                                    v-model="formData.nationality"
-                                />
-                            </div>
                         </div>
                         <div class="-mx-3 flex flex-wrap">
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-3/5">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
-                                    for="parent"
-                                    >Name of Parent / Guardian:</label
+                                    for="contactPerson"
+                                    >Name of Parent/Guardian:</label
                                 >
                                 <input
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
-                                    id="parent"
-                                    v-model="formData.name_of_parent"
+                                    id="contactPerson"
+                                    v-model="formData.contact_person"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
-                                    for="parentContact"
-                                    >Contact Number:</label
+                                    for="contactPersonNumber"
+                                    >Parent / Guardian Contact Number:</label
                                 >
                                 <input
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
-                                    id="parentContact"
-                                    v-model="formData.contact_of_parent"
+                                    id="contactPersonNumber"
+                                    v-model="formData.contact_person_number"
                                 />
                             </div>
                         </div>
@@ -267,6 +289,7 @@
                                 class="mb-2 flex w-full items-center gap-3 md:mb-0"
                             >
                                 <input
+                                    required
                                     type="email"
                                     id="re-enter-email"
                                     class="w-full rounded-md border border-black"
@@ -299,6 +322,7 @@
                                 >Confirm Password</label
                             >
                             <input
+                                required
                                 class="w-full rounded-md border border-black"
                                 type="password"
                                 id="confirmPassword"
@@ -327,21 +351,23 @@ definePageMeta({
 
 const passwordErrorMessage = ref("");
 const emailErrorMessage = ref("");
+
 const formData = ref({
     id: "",
-    course: "",
-    year_level: "",
     last_name: "",
     first_name: "",
     middle_name: "",
-    age: "",
+    name_extension: "",
+    place_of_birth: "",
     birthday: "",
+    age: "",
     gender: "",
-    address: "",
-    contact_number: "",
     nationality: "",
-    name_of_parent: "",
-    contact_of_parent: "",
+    address: "",
+    zip_code: "",
+    contact_number: "",
+    contact_person: "",
+    contact_person_number: "",
     email: "",
     confirm_email: "",
     password: "",
