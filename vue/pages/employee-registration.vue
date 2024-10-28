@@ -294,10 +294,10 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contactPersonNumber"
+                                    placeholder="Ex. +639232123111"
                                     v-model="formData.contact_person_number"
                                 />
                             </div>
-                            
                         </div>
                     </div>
                 </div>

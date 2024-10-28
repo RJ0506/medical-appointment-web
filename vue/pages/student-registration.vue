@@ -241,7 +241,7 @@
                                     v-model="formData.contact_person"
                                 />
                             </div>
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-2/5">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
                                     for="contactPersonNumber"
@@ -252,6 +252,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contactPersonNumber"
+                                    placeholder="Ex. +639232123111"
                                     v-model="formData.contact_person_number"
                                 />
                             </div>
