@@ -33,7 +33,7 @@
                     </h2>
                     <div class="border border-black bg-[#d9d9d9] p-3">
                         <div class="-mx-3 flex flex-wrap">
-                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-3/5">
                                 <label
                                     class="block font-normal after:text-red-500 after:content-['*']"
                                     for="id"
@@ -45,6 +45,34 @@
                                     type="number"
                                     id="id"
                                     v-model="formData.id"
+                                />
+                            </div>
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="course"
+                                    >Course:</label
+                                >
+                                <input
+                                    required
+                                    class="w-full rounded-md border border-black"
+                                    type="text"
+                                    id="course"
+                                    v-model="formData.course"
+                                />
+                            </div>
+                            <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
+                                <label
+                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    for="year_level"
+                                    >Year Level:</label
+                                >
+                                <input
+                                    required
+                                    class="w-full rounded-md border border-black"
+                                    type="text"
+                                    id="year_level"
+                                    v-model="formData.year_level"
                                 />
                             </div>
                         </div>
@@ -355,6 +383,8 @@ const emailErrorMessage = ref("");
 
 const formData = ref({
     id: "",
+    course: "",
+    year_level: "",
     last_name: "",
     first_name: "",
     middle_name: "",
