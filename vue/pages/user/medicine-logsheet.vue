@@ -37,17 +37,17 @@
                     <!-- Course -->
                     <div class="w-full px-3 md:w-1/3">
                         <label
-                            for="course"
+                            for="department"
                             class="block text-sm font-medium text-gray-700"
-                            >Course</label
+                            >College / Department</label
                         >
                         <input
                             type="text"
-                            id="course"
-                            name="course"
+                            id="department"
+                            name="department"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                            placeholder="course"
-                            v-model="formData.course"
+                            placeholder="department"
+                            v-model="formData.department"
                         />
                     </div>
                 </div>
@@ -164,10 +164,10 @@
                     <tr class="bg-[#1e3d2c]">
                         <th class="whitespace-nowrap p-5">Time/Date</th>
                         <th class="whitespace-nowrap p-5">Full Name</th>
-                        <th class="whitespace-nowrap p-5">Course</th>
+                        <th class="whitespace-nowrap p-5">College / Department</th>
                         <th class="whitespace-nowrap p-5">Chief Complain</th>
-                        <th class="whitespace-nowrap p-5">Quantity</th>
                         <th class="whitespace-nowrap p-5">Medicine Given</th>
+                        <th class="whitespace-nowrap p-5">Quantity</th>
                         <th class="whitespace-nowrap p-5">Nurse on Duty</th>
                     </tr>
                 </thead>
@@ -197,7 +197,7 @@ const currentDateAndTime = new Date().toLocaleString();
 const formData = ref({
     currentTimeAndDate: currentDateAndTime,
     fullname: "",
-    course: "",
+    department: "",
     chiefComplaint: "",
     medicineGiven: "",
     quantity: "",
