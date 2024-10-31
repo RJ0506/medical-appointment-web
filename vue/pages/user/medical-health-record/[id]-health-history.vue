@@ -3,7 +3,7 @@
         <div class="flex flex-wrap">
             <NuxtLink
                 class="rounded-md border border-black bg-[#a6a6a6] px-4 py-2 font-bold text-black hover:bg-[#d9d9d9]"
-                to="/user/medical-health-record"
+                to="/user/medical-health-record/1"
                 >Medical Health Record</NuxtLink
             >
             <NuxtLink

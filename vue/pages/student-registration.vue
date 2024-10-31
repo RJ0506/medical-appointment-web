@@ -120,7 +120,7 @@
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
                                 <label
-                                    class="block font-normal after:text-red-500 after:content-['*']"
+                                    class="block font-normal"
                                     for="name_extension"
                                     >Name Extension:</label
                                 >
@@ -184,6 +184,7 @@
                                     >Gender:</label
                                 >
                                 <select
+                                    required
                                     class="w-full rounded-md border border-black"
                                     id="gender"
                                     v-model="formData.gender"
