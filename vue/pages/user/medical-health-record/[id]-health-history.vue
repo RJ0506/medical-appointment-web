@@ -52,7 +52,7 @@
                                             type="checkbox"
                                             id="dpt/opv"
                                             value="DPT/OPV"
-                                            v-model="formData.isDptOpv"
+                                            v-model="formData.is_dptopv"
                                         />
                                         DPT/OPV
                                     </label>
@@ -62,8 +62,17 @@
                                             <input
                                                 name="dptClassified"
                                                 type="radio"
+                                                value="0"
+                                                v-model="formData.dpt_classified"
+                                            />
+                                            0
+                                        </label>
+                                        <label class="font-bold">
+                                            <input
+                                                name="dptClassified"
+                                                type="radio"
                                                 value="1"
-                                                v-model="formData.dptClassified"
+                                                v-model="formData.dpt_classified"
                                             />
                                             1
                                         </label>
@@ -72,7 +81,7 @@
                                                 name="dptClassified"
                                                 type="radio"
                                                 value="2"
-                                                v-model="formData.dptClassified"
+                                                v-model="formData.dpt_classified"
                                             />
                                             2
                                         </label>
@@ -81,7 +90,7 @@
                                                 name="dptClassified"
                                                 type="radio"
                                                 value="3"
-                                                v-model="formData.dptClassified"
+                                                v-model="formData.dpt_classified"
                                             />
                                             3
                                         </label>
@@ -90,7 +99,7 @@
                                                 name="dptClassified"
                                                 type="radio"
                                                 value="B"
-                                                v-model="formData.dptClassified"
+                                                v-model="formData.dpt_classified"
                                             />
                                             B
                                         </label>
@@ -104,7 +113,7 @@
                                             type="checkbox"
                                             id="hib"
                                             value="HiB"
-                                            v-model="formData.isHiB"
+                                            v-model="formData.is_hib"
                                         />
                                         HiB
                                     </label>
@@ -114,8 +123,17 @@
                                             <input
                                                 name="hibClassified"
                                                 type="radio"
+                                                value="0"
+                                                v-model="formData.hib_classified"
+                                            />
+                                            0
+                                        </label>
+                                        <label class="font-bold">
+                                            <input
+                                                name="hibClassified"
+                                                type="radio"
                                                 value="1"
-                                                v-model="formData.hiBClassified"
+                                                v-model="formData.hib_classified"
                                             />
                                             1
                                         </label>
@@ -124,7 +142,7 @@
                                                 name="hibClassified"
                                                 type="radio"
                                                 value="2"
-                                                v-model="formData.hiBClassified"
+                                                v-model="formData.hib_classified"
                                             />
                                             2
                                         </label>
@@ -133,7 +151,7 @@
                                                 name="hibClassified"
                                                 type="radio"
                                                 value="3"
-                                                v-model="formData.hiBClassified"
+                                                v-model="formData.hib_classified"
                                             />
                                             3
                                         </label>
@@ -151,7 +169,7 @@
                                     <input
                                         type="checkbox"
                                         value="MMR"
-                                        v-model="formData.isMMR"
+                                        v-model="formData.is_mmr"
                                     />
                                     MMR
                                 </label>
@@ -165,7 +183,7 @@
                                             type="checkbox"
                                             id="hepaA"
                                             value="Hepa A"
-                                            v-model="formData.isHepaA"
+                                            v-model="formData.is_hepa_a"
                                         />
                                         Hepa A
                                     </label>
@@ -177,7 +195,7 @@
                                                 type="radio"
                                                 value="1"
                                                 v-model="
-                                                    formData.hepaAClassified
+                                                    formData.hepaA_classified
                                                 "
                                             />
                                             1
@@ -188,7 +206,7 @@
                                                 type="radio"
                                                 value="2"
                                                 v-model="
-                                                    formData.hepaAClassified
+                                                    formData.hepaA_classified
                                                 "
                                             />
                                             2
@@ -199,7 +217,7 @@
                                                 type="radio"
                                                 value="3"
                                                 v-model="
-                                                    formData.hepaAClassified
+                                                    formData.hepaA_classified
                                                 "
                                             />
                                             3
@@ -214,7 +232,7 @@
                                             type="checkbox"
                                             id="hepaB"
                                             value="Hepa B"
-                                            v-model="formData.isHepaB"
+                                            v-model="formData.is_Hepa_b"
                                         />
                                         Hepa B
                                     </label>
@@ -226,7 +244,7 @@
                                                 type="radio"
                                                 value="1"
                                                 v-model="
-                                                    formData.hepaBClassified
+                                                    formData.hepaB_classified
                                                 "
                                             />
                                             1
@@ -237,7 +255,7 @@
                                                 type="radio"
                                                 value="2"
                                                 v-model="
-                                                    formData.hepaBClassified
+                                                    formData.hepaB_classified
                                                 "
                                             />
                                             2
@@ -248,7 +266,7 @@
                                                 type="radio"
                                                 value="3"
                                                 v-model="
-                                                    formData.hepaBClassified
+                                                    formData.hepaB_classified
                                                 "
                                             />
                                             3
@@ -260,7 +278,7 @@
                                     <input
                                         type="checkbox"
                                         value="Typhoid Vaccine"
-                                        v-model="formData.isTyphoid"
+                                        v-model="formData.is_typhoid"
                                     />
                                     Typhoid Vaccine
                                 </label>
@@ -268,7 +286,7 @@
                                     <input
                                         type="checkbox"
                                         value="Influenza"
-                                        v-model="formData.isInfluenza"
+                                        v-model="formData.is_influenza"
                                     />
                                     Influenza
                                 </label>
@@ -379,7 +397,7 @@
                                 class="w-full rounded border border-black"
                                 type="text"
                                 id="prefferedHospital"
-                                v-model="formData.prefferedHospital"
+                                v-model="formData.preffered_hospital"
                             />
                         </div>
                         <button class="mt-5 bg-emerald-900 py-2 text-white">
@@ -397,18 +415,18 @@ definePageMeta({
 });
 
 const formData = ref({
-    isDptOpv: false,
-    isHiB: false,
-    dptClassified: "",
-    hiBClassified: "",
-    isMeaslesVaccine: false,
-    isMMR: false,
-    isHepaA: false,
-    hepaAClassified: "",
-    isHepaB: false,
-    hepaBClassified: "",
-    isTyphoid: false,
-    isInfluenza: false,
+    is_dptopv: false,
+    is_hib: false,
+    dpt_classified: "",
+    hib_classified: "",
+    is_measles_vaccine: false,
+    is_mmr: false,
+    is_hepa_a: false,
+    hepaA_classified: "",
+    is_Hepa_b: false,
+    hepaB_classified: "",
+    is_typhoid: false,
+    is_influenza: false,
     other: "",
     father: "",
     mother: "",
@@ -416,7 +434,7 @@ const formData = ref({
     childhood: "",
     adulthood: "",
     allergies: "",
-    prefferedHospital: "",
+    preffered_hospital: "",
 });
 
 const handleSubmit = () => {
