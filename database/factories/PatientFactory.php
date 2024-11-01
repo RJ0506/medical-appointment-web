@@ -26,6 +26,7 @@ class PatientFactory extends Factory
 			'last_name' => fake()->lastName(),
 			'email' => fake()->unique()->safeEmail(),
 			'password' => static::$password ??= Hash::make('password'),
+			'place_of_birth' => fake()->city(),
 			'date_of_birth' => fake()->date(),
 			'gender' => fake()->randomElement(['Male', 'Female']),
 			'address' => fake()->address(),

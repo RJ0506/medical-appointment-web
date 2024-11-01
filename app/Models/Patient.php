@@ -34,7 +34,8 @@ class Patient extends Authenticatable
 		'course',
 		'relation',
 		'department',
-		'accountability',
+		'classification',
+		'profession',
 	];
 
 
