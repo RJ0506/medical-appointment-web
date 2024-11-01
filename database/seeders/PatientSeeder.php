@@ -22,5 +22,11 @@ class PatientSeeder extends Seeder
 			->each(function ($patient) {
 				$patient->assignRole('Employee');
 			});
+
+		Patient::factory(2)
+			->create()
+			->each(function ($patient) {
+				$patient->assignRole('Medical Personnel');
+			});
 	}
 }

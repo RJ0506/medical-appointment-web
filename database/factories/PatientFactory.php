@@ -33,9 +33,6 @@ class PatientFactory extends Factory
 			'contact_number' => fake()->mobileNumber(),
 			'contact_person' => fake()->name(),
 			'nationality' => 'Filipino',
-			'year_level' => fake()->randomElement(['1st', '2nd', '3rd', '4th']),
-			'course' => fake()->randomElement(['BSIT', 'BSBA', 'BSENT', 'BSCOMSCI']),
-			'department' => fake()->randomElement(['IT', 'Accounting', 'HR']),
 		];
 	}
 }

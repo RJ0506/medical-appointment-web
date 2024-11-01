@@ -49,21 +49,16 @@ class PatientRegisterRequest extends FormRequest
 				}),
 				'in:1st,2nd,3rd,4th'
 			],
-			"course" => [
-				'required_if:type,Student',
-				Rule::prohibitedIf(function () {
-					return $this->type !== "Student";
+			"department_id" => [
+				Rule::requiredIf(function () {
+					return in_array($this->type, ['Student', 'Employee']);
 				}),
-				'min:2'
+				Rule::prohibitedIf(function () {
+					return !in_array($this->type, ['Student', 'Employee']);
+				}),
+				'exists:departments,id'
 			],
 			//Employee fields 
-			"department" => [
-				'required_if:type,Employee',
-				Rule::prohibitedIf(function () {
-					return $this->type !== "Employee";
-				}),
-				'min:2'
-			],
 			"classification" => [
 				'required_if:type,Employee',
 				Rule::prohibitedIf(function () {

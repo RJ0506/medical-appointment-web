@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,10 +31,9 @@ class Patient extends Authenticatable
 		'zip_code',
 		'name_extension',
 		'nationality',
-		'year_level',
-		'course',
-		'relation',
 		'department',
+		'year_level',
+		'relation',
 		'classification',
 		'profession',
 	];
@@ -53,6 +53,11 @@ class Patient extends Authenticatable
 		return [
 			'password' => 'hashed',
 		];
+	}
+
+	public function department(): BelongsTo
+	{
+		return $this->belongsTo(Department::class);
 	}
 
 	public function appointments(): HasMany

@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 			RoleAndPermissionSeeder::class,
 			ServiceCategorySeeder::class,
 			ServiceTypeSeeder::class,
+			DepartmentSeeder::class,
 			UserSeeder::class,
 			PatientSeeder::class,
 			MedicineCategorySeeder::class,

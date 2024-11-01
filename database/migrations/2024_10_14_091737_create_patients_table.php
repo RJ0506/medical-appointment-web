@@ -28,11 +28,10 @@ return new class extends Migration {
 			$table->enum('name_extension', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V'])->nullable();
 			$table->string('zip_code')->nullable();
 			$table->string('relation')->nullable();
+			$table->foreignId('department_id')->nullable()->constrained();
 			//Student fields
 			$table->enum('year_level', ['1st', '2nd', '3rd', '4th'])->nullable();
-			$table->string('course')->nullable();
 			//Employee fields 
-			$table->string('department')->nullable();
 			$table->enum('classification', ['Dean', 'Professor', 'Faculty'])->nullable();
 			//Medical Personnel Fields
 			$table->enum('profession', ['Doctor', 'Head Nurse', 'Nurse'])->nullable();
