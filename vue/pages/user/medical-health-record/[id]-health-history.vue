@@ -13,7 +13,7 @@
             >
             <NuxtLink
                 class="rounded-md border border-black bg-[#a6a6a6] px-4 py-2 font-bold text-black hover:bg-[#d9d9d9]"
-                to="#"
+                to="/user/medical-health-record/1-physical-examination"
                 >Physical Examination</NuxtLink
             >
             <NuxtLink
@@ -24,7 +24,9 @@
         </div>
         <div>
             <div>
-                <div class="grid gap-4 bg-[#d9d9d9] px-4 py-8">
+                <div
+                    class="grid gap-4 border border-black bg-white px-4 py-8 shadow-lg"
+                >
                     <div class="flex flex-col items-center justify-center">
                         <img src="/tua-logo.png" alt="logo" />
                         <h1 class="text-2xl uppercase">
@@ -32,13 +34,14 @@
                         </h1>
                         <p>Medical and Dental Unit</p>
                     </div>
-                    <h2 class="bg-[#a6a6a6] text-center font-bold">
+                    <h2 class="bg-black text-center font-bold text-white">
                         HEALTH HISTORY
                     </h2>
                     <form
                         @submit.prevent="handleSubmit"
-                        class="grid border-4 border-black bg-[#a6a6a6] p-3"
+                        class="grid rounded-md border border-[#928F8F] bg-[#D9D9D9] p-3"
                     >
+                        <h3 class="text-center font-bold">Immunization</h3>
                         <div class="mt-5 grid gap-5 sm:grid-cols-2">
                             <div class="grid">
                                 <div

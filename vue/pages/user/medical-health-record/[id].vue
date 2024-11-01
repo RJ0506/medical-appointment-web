@@ -13,7 +13,7 @@
             >
             <NuxtLink
                 class="rounded-md border border-black bg-[#a6a6a6] px-4 py-2 font-bold text-black hover:bg-[#d9d9d9]"
-                to="#"
+                to="/user/medical-health-record/1-physical-examination"
                 >Physical Examination</NuxtLink
             >
             <NuxtLink
@@ -23,7 +23,7 @@
             >
         </div>
         <div>
-            <form class="mt-5 grid">
+            <form @submit="handleSubmit()" class="mt-5 grid">
                 <div
                     class="grid gap-4 border border-black bg-white px-4 py-8 shadow-md"
                 >
@@ -367,6 +367,6 @@ const toggleEditMode = () => {
 };
 
 const handleSubmit = () => {
-    console.log("Submit form data");
+    console.log("Your formData: ", formData.value);
 };
 </script>
