@@ -36,6 +36,7 @@ class PatientRegisterRequest extends FormRequest
 			"gender" => "required|in:Male,Female",
 			"contact_number" => "required|min:11|unique:patients,contact_number",
 			"contact_person" => "required|min:5",
+			"contact_person_number" => "required|min:11",
 			"nationality" => "required|min:3",
 			"address" => "required|min:2",
 			"zip_code" => "nullable",

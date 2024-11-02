@@ -32,6 +32,7 @@ class PatientFactory extends Factory
 			'address' => fake()->address(),
 			'contact_number' => fake()->mobileNumber(),
 			'contact_person' => fake()->name(),
+			'contact_person_number' => fake()->mobileNumber(),
 			'nationality' => 'Filipino',
 		];
 	}

@@ -24,6 +24,7 @@ return new class extends Migration {
 			$table->text('address');
 			$table->string('contact_number')->unique();
 			$table->string('contact_person');
+			$table->string('contact_person_number');
 			$table->string('nationality');
 			$table->enum('name_extension', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V'])->nullable();
 			$table->string('zip_code')->nullable();
