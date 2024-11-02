@@ -11,8 +11,29 @@
                 dental services!
             </p>
         </div>
-
-        <div class="mx-auto mt-12 grid max-w-5xl">
+        <div v-if="isLoading" class="mx-auto mt-12 w-1/4 lg:w-1/6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150">
+                <path
+                    fill="none"
+                    stroke="#347956"
+                    stroke-width="15"
+                    stroke-linecap="round"
+                    stroke-dasharray="300 385"
+                    stroke-dashoffset="0"
+                    d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z"
+                >
+                    <animate
+                        attributeName="stroke-dashoffset"
+                        calcMode="spline"
+                        dur="2"
+                        values="685;-685"
+                        keySplines="0 0 1 1"
+                        repeatCount="indefinite"
+                    ></animate>
+                </path>
+            </svg>
+        </div>
+        <div v-if="!isLoading" class="mx-auto mt-12 grid max-w-5xl">
             <p class="text-xl">
                 Please fill out the form below to get started:
             </p>
@@ -46,6 +67,15 @@
                                     id="id"
                                     v-model="formData.id_number"
                                 />
+                                <p
+                                    v-if="
+                                        submitErrorMessages &&
+                                        submitErrorMessages.id_number
+                                    "
+                                    class="text-red-500"
+                                >
+                                    {{ submitErrorMessages.id_number[0] }}
+                                </p>
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
@@ -53,13 +83,19 @@
                                     for="department"
                                     >Department:</label
                                 >
-                                <input
+                                <select
                                     required
                                     class="w-full rounded-md border border-black"
-                                    type="text"
                                     id="department"
                                     v-model="formData.department_id"
-                                />
+                                >
+                                    <option value="1">CAHS</option>
+                                    <option value="2">CASE</option>
+                                    <option value="3">CEIS</option>
+                                    <option value="4">CIBM</option>
+                                    <option value="5">CMT</option>
+                                    <option value="6">SLCN</option>
+                                </select>
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
                                 <label
@@ -93,6 +129,15 @@
                                     id="lastname"
                                     v-model="formData.last_name"
                                 />
+                                <p
+                                    v-if="
+                                        submitErrorMessages &&
+                                        submitErrorMessages.last_name
+                                    "
+                                    class="text-red-500"
+                                >
+                                    {{ submitErrorMessages.last_name[0] }}
+                                </p>
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-2/6">
                                 <label
@@ -107,17 +152,27 @@
                                     id="firstname"
                                     v-model="formData.first_name"
                                 />
+                                <p
+                                    v-if="
+                                        submitErrorMessages &&
+                                        submitErrorMessages.first_name
+                                    "
+                                    class="text-red-500"
+                                >
+                                    {{ submitErrorMessages.first_name[0] }}
+                                </p>
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
                                 <label
                                     class="block font-normal"
-                                    for="middleName"
-                                    >Middle Name:</label
+                                    for="middle_initial"
+                                    >Middle Initial:</label
                                 >
                                 <input
                                     class="w-full rounded-md border border-black"
                                     type="text"
-                                    id="middleName"
+                                    id="middle_initial"
+                                    maxlength="1"
                                     v-model="formData.middle_initial"
                                 />
                             </div>
@@ -259,8 +314,18 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contact"
+                                    placeholder="Ex. +639232123111"
                                     v-model="formData.contact_number"
                                 />
+                                <p
+                                    v-if="
+                                        submitErrorMessages &&
+                                        submitErrorMessages.contact_number
+                                    "
+                                    class="text-red-500"
+                                >
+                                    {{ submitErrorMessages.contact_number[0] }}
+                                </p>
                             </div>
                         </div>
                         <div class="-mx-3 flex flex-wrap">
@@ -345,7 +410,7 @@
                                     type="email"
                                     id="re-enter-email"
                                     class="w-full rounded-md border border-black"
-                                    v-model="formData.confirm_email"
+                                    v-model="formData.email_confirmation"
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
@@ -378,10 +443,19 @@
                                 class="w-full rounded-md border border-black"
                                 type="password"
                                 id="confirmPassword"
-                                v-model="formData.confirm_password"
+                                v-model="formData.password_confirmation"
                             />
                             <p v-if="passwordErrorMessage" class="text-red-500">
                                 {{ passwordErrorMessage }}
+                            </p>
+                            <p
+                                v-if="
+                                    submitErrorMessages &&
+                                    submitErrorMessages.password
+                                "
+                                class="text-red-500"
+                            >
+                                {{ submitErrorMessages.password[0] }}
                             </p>
                         </div>
                     </div>
@@ -397,16 +471,19 @@
     </div>
 </template>
 <script setup lang="ts">
+import axios from "axios";
 definePageMeta({
     layout: "selection",
 });
 
 const passwordErrorMessage = ref("");
 const emailErrorMessage = ref("");
+const submitErrorMessages = ref();
+const isLoading = ref(false);
 
 const formData = ref({
     id_number: "",
-    department_id: "",
+    department_id: 0,
     classification: "",
     last_name: "",
     first_name: "",
@@ -424,23 +501,53 @@ const formData = ref({
     relation: "",
     contact_person_number: "",
     email: "",
-    confirm_email: "",
+    email_confirmation: "",
     password: "",
-    confirm_password: "",
+    password_confirmation: "",
+    type: "Employee",
 });
 
-const handleSubmit = () => {
+watch(
+    () => ({
+        department_id: formData.value.department_id,
+        middle_initial: formData.value.middle_initial,
+    }),
+    (newValues) => {
+        formData.value.department_id = Number(newValues.department_id);
+        formData.value.middle_initial = newValues.middle_initial.toUpperCase();
+    },
+);
+
+const handleSubmit = async () => {
     passwordErrorMessage.value = "";
     emailErrorMessage.value = "";
 
-    if (formData.value.password !== formData.value.confirm_password) {
+    if (formData.value.password !== formData.value.password_confirmation) {
         passwordErrorMessage.value = "Password do not match";
         return;
-    } else if (formData.value.email !== formData.value.confirm_email) {
+    }
+
+    if (formData.value.email !== formData.value.email_confirmation) {
         emailErrorMessage.value = "Email do not match";
         return;
-    } else {
-        console.log(formData.value);
     }
+    isLoading.value = true;
+
+    await axios
+        .post(
+            `${useRuntimeConfig().public.laravelURL}patient/register`,
+            formData.value,
+        )
+        .then((response) => {
+            if (response) {
+                isLoading.value = false;
+                navigateTo("/register-success");
+            }
+        })
+        .catch((error) => {
+            isLoading.value = false;
+            submitErrorMessages.value = error.response.data.errors;
+            console.log("Registration failed:", error.response.data);
+        });
 };
 </script>
