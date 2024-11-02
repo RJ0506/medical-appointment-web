@@ -131,6 +131,15 @@
                                     id="lastname"
                                     v-model="formData.last_name"
                                 />
+                                <p
+                                    v-if="
+                                        submitErrorMessages &&
+                                        submitErrorMessages.last_name
+                                    "
+                                    class="text-red-500"
+                                >
+                                    {{ submitErrorMessages.last_name[0] }}
+                                </p>
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-2/6">
                                 <label
@@ -538,7 +547,7 @@ const handleSubmit = async () => {
 
     await axios
         .post(
-            `${useRuntimeConfig().public.laravelURL}api/patient/register`,
+            `${useRuntimeConfig().public.laravelURL}patient/register`,
             formData.value,
         )
         .then((response) => {
