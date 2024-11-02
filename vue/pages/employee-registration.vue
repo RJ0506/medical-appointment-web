@@ -314,6 +314,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contact"
+                                    placeholder="Ex. +639232123111"
                                     v-model="formData.contact_number"
                                 />
                                 <p
