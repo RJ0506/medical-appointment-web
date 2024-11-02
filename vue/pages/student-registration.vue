@@ -58,7 +58,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="course"
-                                    v-model="formData.course"
+                                    v-model="formData.department_id"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -393,7 +393,7 @@ const emailErrorMessage = ref("");
 
 const formData = ref({
     id_number: "",
-    course: "",
+    department_id: "",
     year_level: "",
     last_name: "",
     first_name: "",

@@ -58,7 +58,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="department"
-                                    v-model="formData.department"
+                                    v-model="formData.department_id"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -406,7 +406,7 @@ const emailErrorMessage = ref("");
 
 const formData = ref({
     id_number: "",
-    department: "",
+    department_id: "",
     classification: "",
     last_name: "",
     first_name: "",
