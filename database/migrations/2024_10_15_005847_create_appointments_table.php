@@ -14,7 +14,7 @@ return new class extends Migration {
 			$table->id();
 			$table->foreignId('appointment_schedule_id')->constrained();
 			$table->foreignId('patient_id')->constrained();
-			$table->enum('status', ['Confirmed', 'Completed', 'Pending', 'Canceled', 'Rescheduled', 'No-show', 'Open']);
+			$table->enum('status', ['Confirmed', 'Completed', 'Pending', 'Canceled', 'Rescheduled', 'No-show', 'Open'])->default('Pending');
 			$table->timestamps();
 			$table->softDeletes();
 		});

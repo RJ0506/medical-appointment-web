@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Patient;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Patient\PatientRegisterRequest;
+use App\Models\Department;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,11 @@ use Exception;
 
 class AuthController extends Controller
 {
+
+	public function departments()
+	{
+		return response()->json(Department::all());
+	}
 	public function register(PatientRegisterRequest $request)
 	{
 		try {
@@ -67,8 +73,6 @@ class AuthController extends Controller
 		auth()->user()->tokens()->delete();
 		return response('Successfully logged out!', 200);
 	}
-
-
 	public function me()
 	{
 		return response()->json(auth()->user());

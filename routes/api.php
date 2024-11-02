@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Patient\AuthController as PatientAuthController;
+use App\Http\Controllers\Patient\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\User\AppointmentScheduleController;
 use App\Http\Controllers\User\DepartmentController;
 use App\Http\Controllers\User\MedicineCategoryController;
@@ -29,11 +30,19 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('patient')->group(function () {
+	Route::get('/departments', [PatientAuthController::class, 'departments']);
 	Route::post('/register', [PatientAuthController::class, 'register']);
 	Route::post('/login', [PatientAuthController::class, 'login']);
 
 	Route::middleware(['auth:sanctum', 'token_name:patient-token'])->group(function () {
 		Route::post('/logout', [PatientAuthController::class, 'logout']);
 		Route::get('/me', [PatientAuthController::class, 'me']);
+
+		Route::prefix('appointment')->controller(PatientAppointmentController::class)->group(function () {
+			Route::post('/', 'store');
+			Route::get('/service-categories', 'serviceCategories');
+			Route::get('/service-types', 'serviceTypes');
+			Route::get('/time-slots', 'timeSlots');
+		});
 	});
 });
