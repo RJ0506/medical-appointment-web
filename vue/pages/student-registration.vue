@@ -543,7 +543,6 @@ const handleSubmit = async () => {
         )
         .then((response) => {
             if (response) {
-                //redirect to success page
                 isLoading.value = false;
                 navigateTo("/register-success");
             }
