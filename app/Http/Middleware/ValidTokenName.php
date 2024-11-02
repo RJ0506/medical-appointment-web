@@ -20,7 +20,7 @@ class ValidTokenName
 
 		// Perform checks based on token name
 		if ($tokenName !== $name) {
-			return response()->json(['message' => 'You are unauthorized to make this request.'], 401);
+			return response()->json(['message' => 'You are not authorized to make this request.'], 401);
 		}
 
 		return $next($request);

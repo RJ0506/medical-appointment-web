@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\MedicineInventory;
+use App\Models\Medicine;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\UpsertMedicineInventoryRequest;
+use App\Http\Requests\User\UpsertMedicineRequest;
 
-class MedicineInventoryController extends Controller
+class MedicineController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
 	 */
 	public function index()
 	{
-		return response()->json(MedicineInventory::all());
+		return response()->json(Medicine::all());
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 */
-	public function store(UpsertMedicineInventoryRequest $request)
+	public function store(UpsertMedicineRequest $request)
 	{
-		return response()->json(MedicineInventory::create($request->all()));
+		return response()->json(Medicine::create($request->all()));
 	}
 
 	/**
@@ -29,15 +29,15 @@ class MedicineInventoryController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(MedicineInventory::find($id));
+		return response()->json(Medicine::find($id));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(UpsertMedicineInventoryRequest $request, int $id)
+	public function update(UpsertMedicineRequest $request, int $id)
 	{
-		$row = MedicineInventory::find($id);
+		$row = Medicine::find($id);
 
 		if (!$row) {
 			return response()->json('No data found.', 404);
@@ -53,7 +53,7 @@ class MedicineInventoryController extends Controller
 	 */
 	public function destroy(int $id)
 	{
-		$row = MedicineInventory::find($id);
+		$row = Medicine::find($id);
 
 		if (!$row) {
 			return response()->json('No data found.', 404);

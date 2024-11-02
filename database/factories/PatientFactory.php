@@ -18,12 +18,21 @@ class PatientFactory extends Factory
 	 */
 	public function definition(): array
 	{
+		fake()->addProvider(new \Faker\Provider\en_PH\PhoneNumber(fake()));
 		return [
+			'id_number' => fake()->uuid(),
 			'first_name' => fake()->firstName(),
-			'middle_name' => fake()->lastName(),
+			'middle_initial' => strtoupper(fake()->randomLetter()),
 			'last_name' => fake()->lastName(),
 			'email' => fake()->unique()->safeEmail(),
 			'password' => static::$password ??= Hash::make('password'),
+			'place_of_birth' => fake()->city(),
+			'date_of_birth' => fake()->date(),
+			'gender' => fake()->randomElement(['Male', 'Female']),
+			'address' => fake()->address(),
+			'contact_number' => fake()->mobileNumber(),
+			'contact_person' => fake()->name(),
+			'nationality' => 'Filipino',
 		];
 	}
 }

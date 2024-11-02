@@ -5,23 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
-	use HasFactory;
+	use HasFactory, SoftDeletes;
 
 
-	public function service_type(): BelongsTo
+	protected $fillable = [
+		'appointment_schedule_id',
+		'patient_id',
+		'status',
+		'service_type_id',
+	];
+
+	public function appointment_schedule(): BelongsTo
 	{
-		return $this->belongsTo(ServiceType::class);
+		return $this->belongsTo(AppointmentSchedule::class);
 	}
+
 	public function patient(): BelongsTo
 	{
 		return $this->belongsTo(Patient::class);
-	}
-
-	public function doctor(): BelongsTo
-	{
-		return $this->belongsTo(User::class, 'doctor_id');
 	}
 }

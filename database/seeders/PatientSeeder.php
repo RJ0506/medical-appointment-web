@@ -14,13 +14,19 @@ class PatientSeeder extends Seeder
 		Patient::factory(2)
 			->create()
 			->each(function ($patient) {
-				$patient->assignRole('Doctor');
+				$patient->assignRole('Student');
 			});
 
 		Patient::factory(2)
 			->create()
 			->each(function ($patient) {
-				$patient->assignRole('Doctor');
+				$patient->assignRole('Employee');
+			});
+
+		Patient::factory(2)
+			->create()
+			->each(function ($patient) {
+				$patient->assignRole('Medical Personnel');
 			});
 	}
 }

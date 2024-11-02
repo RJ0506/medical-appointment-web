@@ -10,11 +10,10 @@ return new class extends Migration {
 	 */
 	public function up(): void
 	{
-		Schema::create('appointments', function (Blueprint $table) {
+		Schema::create('departments', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('appointment_schedule_id')->constrained();
-			$table->foreignId('patient_id')->constrained();
-			$table->enum('status', ['Confirmed', 'Completed', 'Pending', 'Canceled', 'Rescheduled', 'No-show', 'Open']);
+			$table->string('name');
+			$table->string('acronym');
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -25,6 +24,6 @@ return new class extends Migration {
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('appointments');
+		Schema::dropIfExists('departments');
 	}
 };

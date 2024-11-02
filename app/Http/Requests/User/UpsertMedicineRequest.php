@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpsertMedicineInventoryRequest extends FormRequest
+class UpsertMedicineRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class UpsertMedicineInventoryRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			"category" => "required|min:3",
+			"medicine_category_id" => "required|exists:medicine_categories,id",
 			"generic_name" => "required|min:3",
 			"brand_name" => "nullable|min:2",
 			"dosage" => "required|decimal:2,4",

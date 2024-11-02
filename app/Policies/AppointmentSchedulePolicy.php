@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\MedicineInventory;
+use App\Models\AppointmentSchedule;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class MedicineInventoryPolicy
+class AppointmentSchedulePolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class MedicineInventoryPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, MedicineInventory $medicineInventory): bool
+    public function view(User $user, AppointmentSchedule $appointmentSchedule): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class MedicineInventoryPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, MedicineInventory $medicineInventory): bool
+    public function update(User $user, AppointmentSchedule $appointmentSchedule): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class MedicineInventoryPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, MedicineInventory $medicineInventory): bool
+    public function delete(User $user, AppointmentSchedule $appointmentSchedule): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class MedicineInventoryPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, MedicineInventory $medicineInventory): bool
+    public function restore(User $user, AppointmentSchedule $appointmentSchedule): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class MedicineInventoryPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, MedicineInventory $medicineInventory): bool
+    public function forceDelete(User $user, AppointmentSchedule $appointmentSchedule): bool
     {
         //
     }
