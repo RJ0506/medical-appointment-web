@@ -44,7 +44,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="id"
-                                    v-model="formData.id"
+                                    v-model="formData.id_number"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -67,13 +67,17 @@
                                     for="year_level"
                                     >Year Level:</label
                                 >
-                                <input
+                                <select
                                     required
                                     class="w-full rounded-md border border-black"
-                                    type="text"
                                     id="year_level"
                                     v-model="formData.year_level"
-                                />
+                                >
+                                    <option value="1st">1st</option>
+                                    <option value="2nd">2nd</option>
+                                    <option value="3rd">3rd</option>
+                                    <option value="4th">4th</option>
+                                </select>
                             </div>
                         </div>
                         <div class="-mx-3 flex flex-wrap">
@@ -115,7 +119,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="middleName"
-                                    v-model="formData.middle_name"
+                                    v-model="formData.middle_initial"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -129,8 +133,13 @@
                                     id="name_extension"
                                     v-model="formData.name_extension"
                                 >
-                                    <option value="jr">Sr</option>
-                                    <option value="sr">Jr</option>
+                                    <option value="Jr.">Sr</option>
+                                    <option value="Sr.">Jr</option>
+                                    <option value="I">I</option>
+                                    <option value="II">II</option>
+                                    <option value="III">III</option>
+                                    <option value="IV">IV</option>
+                                    <option value="V">V</option>
                                 </select>
                             </div>
                         </div>
@@ -160,7 +169,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="date"
                                     id="datebirth"
-                                    v-model="formData.birthday"
+                                    v-model="formData.date_of_birth"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -189,8 +198,8 @@
                                     id="gender"
                                     v-model="formData.gender"
                                 >
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
                             </div>
                         </div>
@@ -383,15 +392,15 @@ const passwordErrorMessage = ref("");
 const emailErrorMessage = ref("");
 
 const formData = ref({
-    id: "",
+    id_number: "",
     course: "",
     year_level: "",
     last_name: "",
     first_name: "",
-    middle_name: "",
+    middle_initial: "",
     name_extension: "",
     place_of_birth: "",
-    birthday: "",
+    date_of_birth: "",
     age: "",
     gender: "",
     nationality: "",
