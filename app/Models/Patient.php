@@ -28,6 +28,7 @@ class Patient extends Authenticatable
 		'address',
 		'contact_number',
 		'contact_person',
+		'contact_person_number',
 		'zip_code',
 		'name_extension',
 		'nationality',
