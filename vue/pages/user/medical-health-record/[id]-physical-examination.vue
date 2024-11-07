@@ -115,6 +115,9 @@ definePageMeta({
 
 const isReadOnly = ref(true);
 
+const route = useRoute()
+const itemId = route.params.id
+
 const tableLabels = [
     "Date",
     "Height / Weight",

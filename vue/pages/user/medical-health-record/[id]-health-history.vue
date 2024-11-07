@@ -414,6 +414,9 @@ definePageMeta({
     layout: "user",
 });
 
+const route = useRoute()
+const itemId = route.params.id
+
 const formData = ref({
     is_dptopv: false,
     is_hib: false,

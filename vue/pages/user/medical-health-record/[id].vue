@@ -333,6 +333,9 @@ definePageMeta({
     layout: "user",
 });
 
+const route = useRoute();
+const itemId = route.params.id;
+console.log(itemId);
 const isReadOnly = ref(true);
 
 const formData = ref({
