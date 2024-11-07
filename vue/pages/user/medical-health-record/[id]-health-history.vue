@@ -18,7 +18,7 @@
             >
             <NuxtLink
                 class="rounded-md border border-black bg-[#a6a6a6] px-4 py-2 font-bold text-black hover:bg-[#d9d9d9]"
-                to="#"
+                to="/user/medical-health-record/1-consultation-record"
                 >Consultation Record</NuxtLink
             >
         </div>

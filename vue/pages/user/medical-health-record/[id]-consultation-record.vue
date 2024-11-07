@@ -18,7 +18,7 @@
             >
             <NuxtLink
                 class="rounded-md border border-black bg-[#a6a6a6] px-4 py-2 font-bold text-black hover:bg-[#d9d9d9]"
-                to="/user/medical-health-record/1-consultation-record"
+                to="#"
                 >Consultation Record</NuxtLink
             >
         </div>
@@ -35,37 +35,35 @@
                         <p>Medical and Dental Unit</p>
                     </div>
                     <h2 class="bg-black text-center font-bold text-white">
-                        PHYSICAL EXAMINATION
+                        Consultation Record
                     </h2>
                     <div class="overflow-x-auto">
                         <table class="w-full border border-black bg-red-500">
                             <thead class="bg-[#e0dcdc]">
                                 <tr class="text-center font-bold">
-                                    <td class="sr-only border border-black">
-                                        Labels
+                                    <td class="border border-black">
+                                        Date / Time
                                     </td>
                                     <td class="border border-black px-5 py-1">
-                                        1st Year
+                                        Complaints
                                     </td>
                                     <td class="border border-black px-5 py-1">
-                                        2nd Year
+                                        Treatment
                                     </td>
                                     <td class="border border-black px-5 py-1">
-                                        3rd Year
+                                        Services Rendered Recommendation
                                     </td>
                                     <td class="border border-black px-5 py-1">
-                                        4th Year
+                                        Remarks
                                     </td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr
                                     class="text-center font-bold odd:bg-white even:bg-[#D9D9D9]"
-                                    v-for="label in tableLabels"
-                                    v-bind:key="label"
                                 >
                                     <td class="border border-black px-5 py-1">
-                                        {{ label }}
+                                        s
                                     </td>
                                     <td class="border border-black px-5 py-1">
                                         s
@@ -114,25 +112,6 @@ definePageMeta({
 });
 
 const isReadOnly = ref(true);
-
-const tableLabels = [
-    "Date",
-    "Height / Weight",
-    "Temperature / BP",
-    "HR / PR / RR",
-    "Nutritional Status",
-    "Visual Acuity",
-    "Hearing",
-    "Skin / Scalp",
-    "Eyes / Ears / Nose",
-    "Mouth / Throat / Neck",
-    "Lungs / Heart",
-    "GIT / GUT",
-    "Spine / Extremities",
-    "Other Specify",
-    "Recommendations",
-    "Examined By",
-];
 
 const formData = ref({
     isDptOpv: false,
