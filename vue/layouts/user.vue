@@ -122,7 +122,8 @@
                     </div>
                 </div>
             </div>
-            <div
+            <button
+                @click="logout()"
                 :class="[
                     {
                         'justify-between': isSidebarCollapsed,
@@ -146,7 +147,7 @@
                         Logout
                     </span>
                 </div>
-            </div>
+            </button>
         </div>
 
         <!-- CONTENT -->
@@ -232,5 +233,9 @@ const toggleSubLinks = (index) => {
     } else {
         activeLink.value = index; // Show sublinks for the clicked link
     }
+};
+
+const logout = () => {
+    localStorage.removeItem("user");
 };
 </script>

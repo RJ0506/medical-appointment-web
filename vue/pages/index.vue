@@ -21,7 +21,10 @@
                     />
                 </div>
             </div>
-            <form @submit.prevent="handleSubmit" class="flex flex-col space-y-8">
+            <form
+                @submit.prevent="handleSubmit"
+                class="flex flex-col space-y-8"
+            >
                 <div class="space-y-4">
                     <input
                         class="w-full rounded-md border border-black px-6 py-3 focus:outline-emerald-900"
@@ -55,6 +58,7 @@
                 </div>
                 <div class="grid gap-3 sm:px-12">
                     <button
+                        type="submit"
                         class="w-full rounded-md bg-[#1E3D2C] py-2 font-bold text-white hover:bg-emerald-900"
                     >
                         LOGIN
@@ -86,7 +90,6 @@ const togglePasswordVisibility = () => {
 };
 
 const handleSubmit = () => {
-    console.log(formData.value);
+    localStorage.setItem("user", "asdasdasd");
 };
-
 </script>
