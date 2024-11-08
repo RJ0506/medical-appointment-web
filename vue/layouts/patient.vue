@@ -63,7 +63,7 @@
                             'justify-start': isSidebarCollapsed,
                             'justify-center': !isSidebarCollapsed,
                         }"
-                        class="flex items-center gap-3 px-7 py-5 text-xl font-bold hover:bg-[#1e3d2c]"
+                        class="flex items-center gap-3 px-4 py-5 text-xl font-bold hover:bg-[#1e3d2c]"
                     >
                         <Icon
                             name="ep:calendar"
