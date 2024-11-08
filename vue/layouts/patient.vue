@@ -6,7 +6,7 @@
                 'w-72': isSidebarCollapsed,
                 'w-0 md:w-24': !isSidebarCollapsed,
             }"
-            class="fixed z-50 flex h-full flex-col overflow-hidden bg-gradient-to-b from-[#4b896a] to-slate-300 py-6 transition-all"
+            class="fixed z-50 flex h-full flex-col overflow-hidden bg-gradient-to-b from-[#4b896a] to-slate-300 pt-6 transition-all"
         >
             <button
                 :class="{
@@ -56,7 +56,7 @@
             </div>
 
             <!-- NAVLINKS -->
-            <div class="mt-24 text-white">
+            <div class="mt-24 flex flex-grow flex-col text-white">
                 <NuxtLink to="/patient">
                     <div
                         :class="{
@@ -80,6 +80,32 @@
                     </div>
                 </NuxtLink>
             </div>
+            <button
+                @click="logout()"
+                :class="[
+                    {
+                        'justify-between': isSidebarCollapsed,
+                        'justify-center': !isSidebarCollapsed,
+                    },
+                ]"
+                class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold hover:bg-red-500"
+            >
+                <div class="flex items-center gap-2">
+                    <Icon
+                        name="i-material-symbols-power-settings-new-outline"
+                        style="color: white; font-size: 2rem"
+                    />
+                    <span
+                        class="text-white"
+                        :class="{
+                            block: isSidebarCollapsed,
+                            hidden: !isSidebarCollapsed,
+                        }"
+                    >
+                        Logout
+                    </span>
+                </div>
+            </button>
         </div>
 
         <!-- CONTENT -->
@@ -124,5 +150,9 @@ const isSidebarCollapsed = ref(true);
 
 const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;
+};
+
+const logout = () => {
+    localStorage.removeItem("user");
 };
 </script>
