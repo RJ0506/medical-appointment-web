@@ -15,7 +15,6 @@
     "@nuxtjs/tailwindcss": "^6.12.1",
     "axios": "^1.7.7",
     "nuxt": "^3.13.0",
-    "pinia": "^2.2.6",
     "vue": "latest",
     "vue-router": "latest"
   },
