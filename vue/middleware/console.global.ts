@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    const isLogin = true;
+    const isLogin = false;
     // NOT LOGIN
     // if (
     //     !isLogin &&
