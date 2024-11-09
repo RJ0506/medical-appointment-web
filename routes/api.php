@@ -9,6 +9,7 @@ use App\Http\Controllers\User\MedicineCategoryController;
 use App\Http\Controllers\User\MedicineController;
 use App\Http\Controllers\User\ServiceCategoryController;
 use App\Http\Controllers\User\ServiceTypeController;
+use App\Http\Controllers\User\ConsultationRecordController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('user')->group(function () {
@@ -25,6 +26,7 @@ Route::prefix('user')->group(function () {
 			'medicine-categories' => MedicineCategoryController::class,
 			'medicines' => MedicineController::class,
 			'appointment-schedules' => AppointmentScheduleController::class,
+			'consultation-records' => ConsultationRecordController::class,
 		]);
 	});
 });

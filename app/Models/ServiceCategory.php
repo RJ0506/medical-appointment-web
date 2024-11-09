@@ -17,4 +17,9 @@ class ServiceCategory extends Model
 	{
 		return $this->hasMany(ServiceType::class);
 	}
+
+	public function consultation_records(): HasMany
+	{
+		return $this->hasMany(ConsultationRecord::class);
+	}
 }
