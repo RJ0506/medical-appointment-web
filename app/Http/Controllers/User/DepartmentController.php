@@ -30,7 +30,7 @@ class DepartmentController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(Department::find($id));
+		return response()->json(Department::findOrFail($id));
 	}
 
 	/**
@@ -38,12 +38,7 @@ class DepartmentController extends Controller
 	 */
 	public function update(UpsertDepartmentRequest $request, string $id)
 	{
-		$row = Department::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
-
+		$row = Department::findOrFail($id);
 		$row->update($request->all());
 
 		return response()->json($row);
@@ -54,13 +49,8 @@ class DepartmentController extends Controller
 	 */
 	public function destroy(int $id)
 	{
-		$row = Department::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
+		$row = Department::findOrFail($id);
 
 		return response()->json($row->delete());
-
 	}
 }

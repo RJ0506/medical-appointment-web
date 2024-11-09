@@ -29,7 +29,7 @@ class ServiceTypeController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(ServiceType::find($id));
+		return response()->json(ServiceType::findOrFail($id));
 	}
 
 	/**
@@ -37,12 +37,7 @@ class ServiceTypeController extends Controller
 	 */
 	public function update(UpsertServiceTypeRequest $request, string $id)
 	{
-		$row = ServiceType::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
-
+		$row = ServiceType::findOrFail($id);
 		$row->update($request->all());
 
 		return response()->json($row);
@@ -53,13 +48,8 @@ class ServiceTypeController extends Controller
 	 */
 	public function destroy(int $id)
 	{
-		$row = ServiceType::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
+		$row = ServiceType::findOrFail($id);
 
 		return response()->json($row->delete());
-
 	}
 }

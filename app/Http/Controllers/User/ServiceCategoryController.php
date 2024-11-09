@@ -29,7 +29,7 @@ class ServiceCategoryController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(ServiceCategory::find($id));
+		return response()->json(ServiceCategory::findOrFail($id));
 	}
 
 	/**
@@ -37,12 +37,7 @@ class ServiceCategoryController extends Controller
 	 */
 	public function update(UpsertServiceCategoryRequest $request, string $id)
 	{
-		$row = ServiceCategory::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
-
+		$row = ServiceCategory::findOrFail($id);
 		$row->update($request->all());
 
 		return response()->json($row);
@@ -53,11 +48,7 @@ class ServiceCategoryController extends Controller
 	 */
 	public function destroy(int $id)
 	{
-		$row = ServiceCategory::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
+		$row = ServiceCategory::findOrFail($id);
 
 		return response()->json($row->delete());
 

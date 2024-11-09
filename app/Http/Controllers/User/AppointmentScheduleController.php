@@ -29,7 +29,7 @@ class AppointmentScheduleController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(AppointmentSchedule::find($id));
+		return response()->json(AppointmentSchedule::findOrFail($id));
 	}
 
 
@@ -38,12 +38,7 @@ class AppointmentScheduleController extends Controller
 	 */
 	public function update(UpsertAppointmentScheduleRequest $request, int $id)
 	{
-		$row = AppointmentSchedule::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
-
+		$row = AppointmentSchedule::findOrFail($id);
 		$row->update($request->all());
 
 		return response()->json($row);
@@ -54,11 +49,7 @@ class AppointmentScheduleController extends Controller
 	 */
 	public function destroy(int $id)
 	{
-		$row = AppointmentSchedule::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
+		$row = AppointmentSchedule::findOrFail($id);
 
 		return response()->json($row->delete());
 	}

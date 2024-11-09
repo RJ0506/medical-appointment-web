@@ -15,10 +15,9 @@ class IsDoctor implements ValidationRule
 	 */
 	public function validate(string $attribute, mixed $value, Closure $fail): void
 	{
-		$user = User::find($value);
+		$user = User::findOrFail($value);
 
 		if (!$user || !$user->hasRole('Doctor'))
 			$fail('The :attribute is not a doctor.');
-
 	}
 }

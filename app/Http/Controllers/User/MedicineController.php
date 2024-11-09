@@ -29,7 +29,7 @@ class MedicineController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(Medicine::find($id));
+		return response()->json(Medicine::findOrFail($id));
 	}
 
 	/**
@@ -37,12 +37,7 @@ class MedicineController extends Controller
 	 */
 	public function update(UpsertMedicineRequest $request, int $id)
 	{
-		$row = Medicine::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
-
+		$row = Medicine::findOrFail($id);
 		$row->update($request->all());
 
 		return response()->json($row);
@@ -53,11 +48,7 @@ class MedicineController extends Controller
 	 */
 	public function destroy(int $id)
 	{
-		$row = Medicine::find($id);
-
-		if (!$row) {
-			return response()->json('No data found.', 404);
-		}
+		$row = Medicine::findOrFail($id);
 
 		return response()->json($row->delete());
 	}
