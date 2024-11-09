@@ -187,7 +187,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { useAuthStore } from "@/store/auth";
+const authStore = useAuthStore();
 const isSidebarCollapsed = ref(true);
 const activeLink = ref(null);
 const sidebarLinks = ref([
@@ -236,6 +237,7 @@ const toggleSubLinks = (index) => {
 };
 
 const logout = () => {
-    localStorage.removeItem("user");
+    authStore.logout();
+    navigateTo("/");
 };
 </script>
