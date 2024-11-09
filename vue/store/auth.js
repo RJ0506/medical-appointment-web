@@ -1,15 +1,30 @@
 export const useAuthStore = defineStore("auth", {
     state: () => ({
-        token: localStorage.getItem("user") || null,
+        token: null,
+        name: "dean",
     }),
     actions: {
+        loadFromLocalStorage() {
+            if (process.client) {
+                const storedToken = localStorage.getItem("current_user");
+                if (storedToken) {
+                    this.token = storedToken;
+                }
+            }
+        },
         setToken(token) {
             this.token = token;
-            localStorage.setItem("user", token);
+            localStorage.setItem("current_user", token);
         },
-        removeToken() {
+        logout() {
             this.token = null;
-            localStorage.removeItem("user");
+            this.user = null;
+            localStorage.removeItem("current_user");
+        },
+    },
+    getters: {
+        isAuthenticated(state) {
+            return !!state.token;
         },
     },
 });
