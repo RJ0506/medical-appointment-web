@@ -94,7 +94,7 @@
                             </svg>
                         </div>
                     </button>
-                    <span class="text-center">
+                    <!-- <span class="text-center">
                         Don't have an account yet?
                         <NuxtLink
                             class="font-bold text-[#347956] hover:text-emerald-900"
@@ -102,7 +102,7 @@
                         >
                             Register now.</NuxtLink
                         >
-                    </span>
+                    </span> -->
                 </div>
             </form>
         </div>
