@@ -1,36 +1,34 @@
+import { useAuthStore } from "@/store/auth";
 export default defineNuxtRouteMiddleware((to, from) => {
-    const isLogin = false;
-    if (process.client) {
-        // Check if we are in the client environment
-        const userToken = localStorage.getItem("user");
-        console.log(userToken);
-    }
+    const authStore = useAuthStore();
+    authStore.loadFromLocalStorage();
+    const isAuthenticated = authStore.isAuthenticated;
 
     // NOT LOGIN
-    // if (
-    //     !isLogin &&
-    //     ![
-    //         "/",
-    //         "/patient-selection",
-    //         "/student-registration",
-    //         "/employee-registration",
-    //         "/register-success",
-    //     ].includes(to.path)
-    // ) {
-    //     return navigateTo("/");
-    // }
+    if (
+        !isAuthenticated &&
+        ![
+            "/",
+            "/patient-selection",
+            "/student-registration",
+            "/employee-registration",
+            "/register-success",
+        ].includes(to.path)
+    ) {
+        return navigateTo("/");
+    }
 
     // LOGIN
-    // if (
-    //     isLogin &&
-    //     [
-    //         "/",
-    //         "/patient-selection",
-    //         "/student-registration",
-    //         "/employee-registration",
-    //         "/register-success",
-    //     ].includes(to.path)
-    // ) {
-    //     return navigateTo("/user");
-    // }
+    if (
+        isAuthenticated &&
+        [
+            "/",
+            "/patient-selection",
+            "/student-registration",
+            "/employee-registration",
+            "/register-success",
+        ].includes(to.path)
+    ) {
+        return navigateTo("/user");
+    }
 });
