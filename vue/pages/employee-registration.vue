@@ -470,7 +470,7 @@
         </div>
     </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import axios from "axios";
 definePageMeta({
     layout: "selection",
