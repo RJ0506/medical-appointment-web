@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Requests\User\UpsertDepartmentRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 
