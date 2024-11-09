@@ -141,7 +141,7 @@ const handleSubmit = async () => {
             authStore.setToken(token);
             navigateTo("/user");
         } else {
-            submitErrorMessages.value = "Login failed: No token received";
+            submitErrorMessages.value = "Login failed";
         }
     } catch (error) {
         isLoading.value = false;
