@@ -153,6 +153,7 @@ const toggleSidebar = () => {
 };
 
 const logout = () => {
-    localStorage.removeItem("user");
+    authStore.logout();
+    navigateTo("/");
 };
 </script>
