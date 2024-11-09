@@ -55,8 +55,11 @@
                             />
                         </div>
                     </div>
-                    <p class="text-red-500 text-center" v-if="submitErrorMessages">
-                        {{submitErrorMessages}}
+                    <p
+                        class="text-center text-red-500"
+                        v-if="submitErrorMessages"
+                    >
+                        {{ submitErrorMessages }}
                     </p>
                 </div>
                 <div class="grid gap-3 sm:px-12">
@@ -82,7 +85,9 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "@/store/auth";
 import axios from "axios";
+const authStore = useAuthStore();
 const isPasswordVisible = ref(false);
 const isLoading = ref(false);
 const submitErrorMessages = ref("");
@@ -97,24 +102,29 @@ const togglePasswordVisibility = () => {
 
 const handleSubmit = async () => {
     isLoading.value = true;
-    await axios
-        .post(
+    try {
+        const response = await axios.post(
             `${useRuntimeConfig().public.laravelURL}patient/login`,
             formData.value,
-        )
-        .then((response) => {
-            if (response) {
-                isLoading.value = false;
-            }
-            localStorage.setItem(
-                "current_user ",
-                JSON.stringify(response.data),
-            );
-        })
-        .catch((error) => {
-            isLoading.value = false;
-            submitErrorMessages.value = "The provided credentials are incorrect";
-            console.log("Registration failed:", error.response.data);
-        });
+        );
+
+        isLoading.value = false;
+        const token = response.data.token;
+
+        if (token) {
+            localStorage.setItem("current_user", JSON.stringify({ token }));
+            authStore.setToken(token);
+            navigateTo("/user");
+        } else {
+            submitErrorMessages.value = "Login failed: No token received";
+        }
+    } catch (error) {
+        isLoading.value = false;
+        submitErrorMessages.value = "The provided credentials are incorrect";
+        console.log(
+            "Login failed:",
+            error.response ? error.response.data : error.message,
+        );
+    }
 };
 </script>
