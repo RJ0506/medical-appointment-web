@@ -55,6 +55,9 @@
                             />
                         </div>
                     </div>
+                    <p class="text-red-500 text-center" v-if="submitErrorMessages">
+                        {{submitErrorMessages}}
+                    </p>
                 </div>
                 <div class="grid gap-3 sm:px-12">
                     <button
@@ -82,6 +85,7 @@
 import axios from "axios";
 const isPasswordVisible = ref(false);
 const isLoading = ref(false);
+const submitErrorMessages = ref("");
 const formData = ref({
     email: "",
     password: "",
@@ -102,12 +106,14 @@ const handleSubmit = async () => {
             if (response) {
                 isLoading.value = false;
             }
-            console.log(response);
-            localStorage.setItem("current_user: ", response.data.token);
+            localStorage.setItem(
+                "current_user ",
+                JSON.stringify(response.data),
+            );
         })
         .catch((error) => {
             isLoading.value = false;
-            submitErrorMessages.value = error.response.data.errors;
+            submitErrorMessages.value = "The provided credentials are incorrect";
             console.log("Registration failed:", error.response.data);
         });
 };
