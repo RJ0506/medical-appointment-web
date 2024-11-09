@@ -145,7 +145,7 @@
 </template>
 
 <script setup>
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "~/stores/auth";
 import { ref } from "vue";
 
 const isSidebarCollapsed = ref(true);

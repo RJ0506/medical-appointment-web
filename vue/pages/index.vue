@@ -110,7 +110,7 @@
 </template>
 
 <script setup>
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "~/stores/auth";
 import axios from "axios";
 const authStore = useAuthStore();
 const isPasswordVisible = ref(false);
