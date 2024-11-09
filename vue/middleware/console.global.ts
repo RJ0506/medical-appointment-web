@@ -1,5 +1,11 @@
 export default defineNuxtRouteMiddleware((to, from) => {
     const isLogin = false;
+    if (process.client) {
+        // Check if we are in the client environment
+        const userToken = localStorage.getItem("user");
+        console.log(userToken);
+    }
+
     // NOT LOGIN
     // if (
     //     !isLogin &&
