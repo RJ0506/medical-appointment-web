@@ -28,9 +28,9 @@
                 <div class="space-y-4">
                     <input
                         class="w-full rounded-md border border-black px-6 py-3 focus:outline-emerald-900"
-                        type="text"
-                        v-model="formData.username"
-                        placeholder="Username"
+                        type="email"
+                        v-model="formData.email"
+                        placeholder="Email"
                     />
                     <div class="relative">
                         <input
@@ -78,10 +78,12 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import axios from "axios";
 const isPasswordVisible = ref(false);
+const isLoading = ref(false);
 const formData = ref({
-    username: "",
+    email: "",
     password: "",
 });
 
@@ -89,7 +91,24 @@ const togglePasswordVisibility = () => {
     isPasswordVisible.value = !isPasswordVisible.value;
 };
 
-const handleSubmit = () => {
-    localStorage.setItem("user", "asdasdasd");
+const handleSubmit = async () => {
+    isLoading.value = true;
+    await axios
+        .post(
+            `${useRuntimeConfig().public.laravelURL}patient/login`,
+            formData.value,
+        )
+        .then((response) => {
+            if (response) {
+                isLoading.value = false;
+            }
+            console.log(response);
+            localStorage.setItem("current_user: ", response.data.token);
+        })
+        .catch((error) => {
+            isLoading.value = false;
+            submitErrorMessages.value = error.response.data.errors;
+            console.log("Registration failed:", error.response.data);
+        });
 };
 </script>
