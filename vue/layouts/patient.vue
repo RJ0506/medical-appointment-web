@@ -145,8 +145,11 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "@/store/auth";
 import { ref } from "vue";
+
 const isSidebarCollapsed = ref(true);
+const authStore = useAuthStore();
 
 const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;

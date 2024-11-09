@@ -129,7 +129,7 @@ const handleSubmit = async () => {
     isLoading.value = true;
     try {
         const response = await axios.post(
-            `${useRuntimeConfig().public.laravelURL}patient/login`,
+            `${useRuntimeConfig().public.laravelURL}user/login`,
             formData.value,
         );
 

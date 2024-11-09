@@ -1,7 +1,7 @@
 export const useAuthStore = defineStore("auth", {
     state: () => ({
         token: null,
-        name: "dean",
+        role: null,
     }),
     actions: {
         loadFromLocalStorage() {
@@ -9,12 +9,14 @@ export const useAuthStore = defineStore("auth", {
                 const storedToken = localStorage.getItem("current_user");
                 if (storedToken) {
                     this.token = storedToken;
+                    this.role = JSON.parse(storedToken).patient ? "patient" : "user";
                 }
             }
         },
         setToken(token) {
             this.token = token;
-            localStorage.setItem("current_user", token);
+            this.role = token.patient ? "patient" : "user";
+            localStorage.setItem("current_user", JSON.stringify(token));
         },
         logout() {
             this.token = null;
@@ -25,6 +27,9 @@ export const useAuthStore = defineStore("auth", {
     getters: {
         isAuthenticated(state) {
             return !!state.token;
+        },
+        isAdmin(state) {
+            return state.role === "user";
         },
     },
 });
