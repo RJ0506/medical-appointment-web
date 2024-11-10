@@ -64,6 +64,7 @@
                 </div>
                 <div class="grid gap-3 sm:px-12">
                     <button
+                        :disabled="isLoading"
                         type="submit"
                         class="w-full rounded-md bg-[#1E3D2C] py-2 font-bold text-white hover:bg-emerald-900"
                     >
