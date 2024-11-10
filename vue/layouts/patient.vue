@@ -147,6 +147,7 @@
 <script setup>
 import { useAuthStore } from "~/stores/auth";
 import { ref } from "vue";
+import axios from "axios";
 
 const isSidebarCollapsed = ref(true);
 const authStore = useAuthStore();
@@ -155,7 +156,16 @@ const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;
 };
 
-const logout = () => {
+const logout = async () => {
+    await axios.post(
+        `${useRuntimeConfig().public.laravelURL}patient/logout`,
+        {},
+        {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+            },
+        },
+    );
     authStore.logout();
     navigateTo("/");
 };

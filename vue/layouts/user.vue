@@ -188,6 +188,7 @@
 
 <script setup>
 import { useAuthStore } from "~/stores/auth";
+import axios from "axios";
 const authStore = useAuthStore();
 const isSidebarCollapsed = ref(true);
 const activeLink = ref(null);
@@ -236,7 +237,16 @@ const toggleSubLinks = (index) => {
     }
 };
 
-const logout = () => {
+const logout = async () => {
+    await axios.post(
+        `${useRuntimeConfig().public.laravelURL}user/logout`,
+        {},
+        {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+            },
+        },
+    );
     authStore.logout();
     navigateTo("/");
 };
