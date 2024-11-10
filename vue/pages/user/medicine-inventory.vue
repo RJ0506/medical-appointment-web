@@ -19,13 +19,22 @@
                         class="mt-2 w-full rounded border-2 border-black focus:outline-emerald-800"
                         name="category"
                         id="category"
-                        v-model="formData.category"
+                        v-model="formData.medicine_category_id"
                     >
-                        <option value="tablet">Tablet</option>
-                        <option value="capsule">Capsule</option>
-                        <option value="syrup">Syrup</option>
-                        <option value="liquid">Liquid</option>
+                        <option value="1">Tablet</option>
+                        <!-- <option value="2">Capsule</option>
+                        <option value="3">Syrup</option>
+                        <option value="4">Liquid</option> -->
                     </select>
+                    <p
+                        v-if="
+                            submitErrorMessages &&
+                            submitErrorMessages.medicine_category_id
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.medicine_category_id[0] }}
+                    </p>
                 </div>
             </div>
 
@@ -39,8 +48,17 @@
                         type="text"
                         name="genericName"
                         id="genericName"
-                        v-model="formData.genericName"
+                        v-model="formData.generic_name"
                     />
+                    <p
+                        v-if="
+                            submitErrorMessages &&
+                            submitErrorMessages.generic_name
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.generic_name[0] }}
+                    </p>
                 </div>
                 <div class="w-full px-3 md:w-1/2">
                     <label class="block text-lg font-bold" for="brandName"
@@ -51,8 +69,17 @@
                         type="text"
                         name="brandName"
                         id="brandName"
-                        v-model="formData.brandName"
+                        v-model="formData.brand_name"
                     />
+                    <p
+                        v-if="
+                            submitErrorMessages &&
+                            submitErrorMessages.brand_name
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.brand_name[0] }}
+                    </p>
                 </div>
             </div>
             <div class="-mx-3 flex w-full flex-wrap items-center">
@@ -81,6 +108,12 @@
                         <option value="2tablets">2 Tablets</option>
                         <option value="1puff">1 Puff</option>
                     </select>
+                    <p
+                        v-if="submitErrorMessages && submitErrorMessages.dosage"
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.dosage[0] }}
+                    </p>
                 </div>
                 <div class="w-full px-3 md:w-1/3">
                     <label class="block text-lg font-bold" for="quantity"
@@ -93,6 +126,14 @@
                         id="quantity"
                         v-model="formData.quantity"
                     />
+                    <p
+                        v-if="
+                            submitErrorMessages && submitErrorMessages.quantity
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.quantity[0] }}
+                    </p>
                 </div>
                 <div class="w-full px-3 md:w-1/3">
                     <label class="block text-lg font-bold" for="expirationDate"
@@ -104,16 +145,26 @@
                         id="expirationDate"
                         name="expirationDate"
                         :min="currentDate"
-                        v-model="formData.expirationDate"
+                        v-model="formData.expiration_date"
                     />
+                    <p
+                        v-if="
+                            submitErrorMessages &&
+                            submitErrorMessages.expiration_date
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.expiration_date[0] }}
+                    </p>
                 </div>
             </div>
 
             <button
+                :disabled="isAdding"
                 type="submit"
                 class="mx-auto mt-5 rounded-md bg-[#1E3D2C] px-6 py-2 font-semibold text-white hover:bg-emerald-900 sm:px-12"
             >
-                ADD TO INVENTORY
+                {{ isAdding ? "ADDING..." : "ADD TO INVENTORY" }}
             </button>
         </form>
 
@@ -152,19 +203,31 @@
                         <th class="whitespace-nowrap p-5">Dosage</th>
                         <th class="whitespace-nowrap p-5">Quantity</th>
                         <th class="whitespace-nowrap p-5">Exp. Date</th>
+                        <th class="whitespace-nowrap p-5">Action</th>
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
                     <tr v-for="(item, index) in filteredRecords" :key="index">
-                        <td class="p-5 font-medium">{{ item.category }}</td>
-                        <td class="p-5 font-medium">{{ item.genericName }}</td>
                         <td class="p-5 font-medium">
-                            {{ item.brandName }}
+                            {{ item.medicine_category_id }}
+                        </td>
+                        <td class="p-5 font-medium">{{ item.generic_name }}</td>
+                        <td class="p-5 font-medium">
+                            {{ item.brand_name }}
                         </td>
                         <td class="p-5 font-medium">{{ item.dosage }}</td>
                         <td class="p-5 font-medium">{{ item.quantity }}</td>
                         <td class="p-5 font-medium">
-                            {{ item.expirationDate }}
+                            {{ item.expiration_date }}
+                        </td>
+                        <td class="pl-7">
+                            <button @click="deleteMedicine(item.id)">
+                                <Icon
+                                    class="text-red-500 hover:text-red-900"
+                                    name="i-material-symbols-light-delete-outline-sharp"
+                                    style="font-size: 2rem"
+                                />
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -173,69 +236,111 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import axios from "axios";
+import { useAuthStore } from "~/stores/auth";
+
 definePageMeta({
     layout: "user",
 });
-
+const authStore = useAuthStore();
 const searchTerm = ref("");
 const currentDate = ref("");
-const formData = ref({
-    category: "",
-    genericName: "",
-    brandName: "",
+const submitErrorMessages = ref("");
+const isAdding = ref(false);
+const medicineList = ref([]);
+
+const initialFormData = ref({
+    medicine_category_id: "",
+    generic_name: "",
+    brand_name: "",
     dosage: "",
     quantity: "",
-    expirationDate: "",
+    expiration_date: "",
 });
 
-const records = ref([
-    {
-        category: "Antibiotic",
-        genericName: "Amoxicillin",
-        brandName: "Amoxil",
-        dosage: "500mg",
-        quantity: 20,
-        expirationDate: "2024-12-31",
-    },
-    {
-        category: "Pain Reliever",
-        genericName: "Ibuprofen",
-        brandName: "Advil",
-        dosage: "200mg",
-        quantity: 50,
-        expirationDate: "2025-06-30",
-    },
-    {
-        category: "Antihistamine",
-        genericName: "Cetirizine",
-        brandName: "Zyrtec",
-        dosage: "10mg",
-        quantity: 30,
-        expirationDate: "2026-03-15",
-    },
-]);
+const formData = ref({
+    medicine_category_id: "",
+    generic_name: "",
+    brand_name: "",
+    dosage: "",
+    quantity: "",
+    expiration_date: "",
+});
+
+const fetchMedicines = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}user/medicines`,
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                },
+            },
+        );
+
+        medicineList.value = response.data;
+        submitErrorMessages.value = "";
+        formData.value = { ...initialFormData.value };
+    } catch (error) {
+        console.log("error fetching Medicines");
+    }
+};
 
 const filteredRecords = computed(() => {
     if (!searchTerm.value) {
-        return records.value;
+        return medicineList.value;
     }
-    return records.value.filter((item: any) => {
+    return medicineList.value.filter((item) => {
         return (
-            item.brandName
+            item.brand_name
                 .toLowerCase()
                 .includes(searchTerm.value.toLowerCase()) ||
-            item.genericName
+            item.generic_name
                 .toLowerCase()
                 .includes(searchTerm.value.toLowerCase())
         );
     });
 });
 
-const handleSubmit = () => {
-    // FORM VALUE
-    console.log(formData.value);
+const handleSubmit = async () => {
+    isAdding.value = true;
+    try {
+        await axios.post(
+            `${useRuntimeConfig().public.laravelURL}user/medicines`,
+            formData.value,
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                },
+            },
+        );
+        fetchMedicines();
+        isAdding.value = false;
+    } catch (error) {
+        isAdding.value = false;
+        submitErrorMessages.value = error.response.data.errors;
+        console.log("Error Submitting");
+    }
 };
+
+const deleteMedicine = async (medicine_id) => {
+    try {
+        await axios.delete(
+            `${useRuntimeConfig().public.laravelURL}user/medicines/${medicine_id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                },
+            },
+        );
+        fetchMedicines();
+    } catch (error) {
+        console.log("Error Deleting Medicine");
+    }
+};
+
+fetchMedicines();
 
 const today = new Date();
 const year = today.getFullYear();
