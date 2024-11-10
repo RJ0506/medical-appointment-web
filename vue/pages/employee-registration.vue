@@ -89,12 +89,12 @@
                                     id="department"
                                     v-model="formData.department_id"
                                 >
-                                    <option value="1">CAHS</option>
-                                    <option value="2">CASE</option>
-                                    <option value="3">CEIS</option>
-                                    <option value="4">CIBM</option>
-                                    <option value="5">CMT</option>
-                                    <option value="6">SLCN</option>
+                                    <option
+                                        v-for="department in departments"
+                                        :value="department.id"
+                                    >
+                                        {{ department.name }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/5">
@@ -478,6 +478,7 @@ definePageMeta({
 
 const passwordErrorMessage = ref("");
 const emailErrorMessage = ref("");
+const departments = ref([]);
 const submitErrorMessages = ref();
 const isLoading = ref(false);
 
@@ -550,4 +551,17 @@ const handleSubmit = async () => {
             console.log("Registration failed:", error.response.data);
         });
 };
+
+const fetchDepartments = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}patient/departments`,
+        );
+        departments.value = response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+fetchDepartments();
 </script>
