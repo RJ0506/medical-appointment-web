@@ -15,7 +15,7 @@ return new class extends Migration {
 			$table->foreignId('medicine_category_id')->constrained();
 			$table->string('generic_name');
 			$table->string('brand_name')->nullable();
-			$table->decimal('dosage', 7, 2);
+			$table->string('dosage', );
 			$table->bigInteger('quantity');
 			$table->date('expiration_date');
 			$table->timestamps();

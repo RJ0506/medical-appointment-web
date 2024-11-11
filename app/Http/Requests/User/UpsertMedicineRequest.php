@@ -25,7 +25,7 @@ class UpsertMedicineRequest extends FormRequest
 			"medicine_category_id" => "required|exists:medicine_categories,id",
 			"generic_name" => "required|min:3",
 			"brand_name" => "nullable|min:2",
-			"dosage" => "required|decimal:2,4",
+			"dosage" => "required|min:2",
 			"quantity" => "required|numeric",
 			"expiration_date" => "required|date",
 		];
