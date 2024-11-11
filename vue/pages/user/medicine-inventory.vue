@@ -19,21 +19,21 @@
                         class="mt-2 w-full rounded border-2 border-black focus:outline-emerald-800"
                         name="category"
                         id="category"
-                        v-model="formData.medicine_category_id"
+                        v-model="formData.medicine_category"
                     >
-                        <option value="1">Tablet</option>
-                        <!-- <option value="2">Capsule</option>
-                        <option value="3">Syrup</option>
-                        <option value="4">Liquid</option> -->
+                        <option value="Tablet">Tablet</option>
+                        <option value="Capsule">Capsule</option>
+                        <option value="Syrup">Syrup</option>
+                        <option value="Liquid">Liquid</option>
                     </select>
                     <p
                         v-if="
                             submitErrorMessages &&
-                            submitErrorMessages.medicine_category_id
+                            submitErrorMessages.medicine_category
                         "
                         class="text-red-500"
                     >
-                        {{ submitErrorMessages.medicine_category_id[0] }}
+                        {{ submitErrorMessages.medicine_category[0] }}
                     </p>
                 </div>
             </div>
@@ -209,7 +209,7 @@
                 <tbody class="whitespace-nowrap">
                     <tr v-for="(item, index) in filteredRecords" :key="index">
                         <td class="p-5 font-medium">
-                            {{ item.medicine_category_id }}
+                            {{ item.medicine_category }}
                         </td>
                         <td class="p-5 font-medium">{{ item.generic_name }}</td>
                         <td class="p-5 font-medium">
@@ -251,7 +251,7 @@ const isAdding = ref(false);
 const medicineList = ref([]);
 
 const initialFormData = ref({
-    medicine_category_id: "",
+    medicine_category: "",
     generic_name: "",
     brand_name: "",
     dosage: "",
@@ -260,10 +260,10 @@ const initialFormData = ref({
 });
 
 const formData = ref({
-    medicine_category_id: "",
+    medicine_category: "",
     generic_name: "",
     brand_name: "",
-    dosage: "",
+    dosage: 2,
     quantity: "",
     expiration_date: "",
 });
