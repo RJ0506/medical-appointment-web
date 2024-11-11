@@ -11,7 +11,7 @@ class Medicine extends Model
 	use HasFactory, SoftDeletes;
 
 	protected $fillable = [
-		'medicine_category_id',
+		'medicine_category',
 		'generic_name',
 		'brand_name',
 		'dosage',

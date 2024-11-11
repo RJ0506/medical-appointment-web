@@ -22,7 +22,7 @@ class UpsertMedicineRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			"medicine_category_id" => "required|exists:medicine_categories,id",
+			"medicine_category" => "required|string",
 			"generic_name" => "required|min:3",
 			"brand_name" => "nullable|min:2",
 			"dosage" => "required|min:2",

@@ -12,7 +12,7 @@ return new class extends Migration {
 	{
 		Schema::create('medicines', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('medicine_category_id')->constrained();
+			$table->string('medicine_category');
 			$table->string('generic_name');
 			$table->string('brand_name')->nullable();
 			$table->string('dosage', );
