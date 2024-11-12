@@ -18,4 +18,9 @@ class Medicine extends Model
 		'quantity',
 		'expiration_date',
 	];
+
+	public function log_sheets()
+	{
+		return $this->hasMany(MedicineLogSheet::class);
+	}
 }
