@@ -15,7 +15,8 @@ class MedicineLogSheet extends Model
 		'patient_id',
 		'medicine_id',
 		'chief_complaint',
-		'quantity'
+		'quantity',
+		'nurse_on_duty',
 	];
 
 	public function medicine(): BelongsTo

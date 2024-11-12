@@ -26,6 +26,7 @@ class UpsertMedicineLogSheetRequest extends FormRequest
 			'medicine_id' => 'required|exists:medicines,id',
 			"chief_complaint" => "required|min:2",
 			"quantity" => "required|numeric",
+			"nurse_on_duty" => "required|min:2",
 		];
 	}
 }
