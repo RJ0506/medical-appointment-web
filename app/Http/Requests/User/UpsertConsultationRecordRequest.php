@@ -24,7 +24,6 @@ class UpsertConsultationRecordRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			"record_date" => "required|date_format:Y-m-d H:i:s",
 			"patient_id" => "required|exists:patients,id",
 			"service_category_id" => "required|exists:service_categories,id",
 			"complaints" => "required|max:255",

@@ -12,7 +12,6 @@ class ConsultationRecord extends Model
 	use HasFactory, SoftDeletes;
 
 	protected $fillable = [
-		'record_date',
 		'complaints',
 		'treatment',
 		'diagnosis',

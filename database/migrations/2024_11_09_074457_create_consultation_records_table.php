@@ -12,7 +12,6 @@ return new class extends Migration {
 	{
 		Schema::create('consultation_records', function (Blueprint $table) {
 			$table->id();
-			$table->dateTime('record_date');
 			$table->text('complaints');
 			$table->string('treatment')->nullable();
 			$table->string('diagnosis')->nullable();
