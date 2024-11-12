@@ -11,6 +11,7 @@ use App\Http\Controllers\User\MedicineController;
 use App\Http\Controllers\User\ServiceCategoryController;
 use App\Http\Controllers\User\ServiceTypeController;
 use App\Http\Controllers\User\ConsultationRecordController;
+use App\Http\Controllers\User\PatientController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('user')->group(function () {
@@ -20,7 +21,7 @@ Route::prefix('user')->group(function () {
 		Route::post('/logout', [UserAuthController::class, 'logout']);
 		Route::get('/me', [UserAuthController::class, 'me']);
 
-		Route::resources([
+		Route::apiResources([
 			'departments' => DepartmentController::class,
 			'service-types' => ServiceTypeController::class,
 			'service-categories' => ServiceCategoryController::class,
@@ -28,7 +29,16 @@ Route::prefix('user')->group(function () {
 			'medicines' => MedicineController::class,
 			'appointment-schedules' => AppointmentScheduleController::class,
 			'consultation-records' => ConsultationRecordController::class,
-			'medicine-log-sheets' => MedicineLogSheetController::class,
+		]);
+
+		Route::apiResource('patients', PatientController::class)->except([
+			'store',
+			'update',
+			'destroy'
+		]);
+
+		Route::apiResource('medicine-log-sheets', MedicineLogSheetController::class)->except([
+			'update',
 		]);
 	});
 });
