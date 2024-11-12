@@ -24,14 +24,20 @@
                             class="block text-sm font-medium text-gray-700"
                             >Full Name</label
                         >
-                        <input
-                            type="text"
-                            id="fullname"
-                            name="fullname"
+                        <select
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                            placeholder="Full Name"
-                            v-model="formData.fullname"
-                        />
+                            name="fullname"
+                            id="fullname"
+                            v-model="formData.patient_id"
+                        >
+                            <option
+                                v-for="(item, index) in users"
+                                :key="index"
+                                :value="item.id"
+                            >
+                                {{ item.first_name }} {{ item.last_name }}
+                            </option>
+                        </select>
                     </div>
 
                     <!-- Course -->
@@ -65,7 +71,7 @@
                             rows="3"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             placeholder="Describe the chief complaint"
-                            v-model="formData.chiefComplaint"
+                            v-model="formData.chief_complaint"
                         ></textarea>
                     </div>
 
@@ -80,9 +86,15 @@
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             name="medicine"
                             id="medicine"
+                            v-model="formData.medicine_id"
                         >
-                            <option value="Iburacil">Iburacil</option>
-                            <option value="Paracetamol">Paracetamol</option>
+                            <option
+                                v-for="(item, index) in medicines"
+                                :key="index"
+                                :value="item.id"
+                            >
+                                {{ item.brand_name }}
+                            </option>
                         </select>
                     </div>
 
@@ -117,7 +129,7 @@
                             name="nurse"
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             placeholder="Nurse on Duty"
-                            v-model="formData.nurseOnDuty"
+                            v-model="formData.nurse_on_duty"
                         />
                     </div>
                 </div>
@@ -125,10 +137,11 @@
                 <!-- Submit Button -->
                 <div>
                     <button
+                        :disabled="isAdding"
                         type="submit"
                         class="w-fit bg-[#1e3d2c] px-4 py-2 text-white hover:bg-emerald-600"
                     >
-                        Save Data
+                        {{ isAdding ? "Adding" : "Save Data" }}
                     </button>
                 </div>
             </form>
@@ -164,7 +177,9 @@
                     <tr class="bg-[#1e3d2c]">
                         <th class="whitespace-nowrap p-5">Time/Date</th>
                         <th class="whitespace-nowrap p-5">Full Name</th>
-                        <th class="whitespace-nowrap p-5">College / Department</th>
+                        <th class="whitespace-nowrap p-5">
+                            College / Department
+                        </th>
                         <th class="whitespace-nowrap p-5">Chief Complain</th>
                         <th class="whitespace-nowrap p-5">Medicine Given</th>
                         <th class="whitespace-nowrap p-5">Quantity</th>
@@ -172,14 +187,18 @@
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
-                    <tr>
-                        <td class="p-5 font-medium">Sample</td>
-                        <td class="p-5 font-medium">Sample</td>
-                        <td class="p-5 font-medium">Sample</td>
-                        <td class="p-5 font-medium">Sample</td>
-                        <td class="p-5 font-medium">Sample</td>
-                        <td class="p-5 font-medium">Sample</td>
-                        <td class="p-5 font-medium">Sample</td>
+                    <tr v-for="(item, index) in medicine_logsheet" :key="index">
+                        <td class="p-5 font-medium">{{ item.created_at }}</td>
+                        <td class="p-5 font-medium">{{ item.patient_id }}</td>
+                        <td class="p-5 font-medium">{{ item.patient_id }}</td>
+                        <td class="p-5 font-medium">
+                            {{ item.chief_complaint }}
+                        </td>
+                        <td class="p-5 font-medium">{{ item.medicine_id }}</td>
+                        <td class="p-5 font-medium">{{ item.quantity }}</td>
+                        <td class="p-5 font-medium">
+                            {{ item.nurse_on_duty }}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -187,25 +206,103 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import axios from "axios";
+import { useAuthStore } from "~/stores/auth";
+
 definePageMeta({
     layout: "user",
 });
 
+const users = ref([]);
+const medicine_logsheet = ref([]);
+const medicines = ref([]);
+const submitErrorMessages = ref();
+const isAdding = ref(false);
+const authStore = useAuthStore();
+
 const currentDateAndTime = new Date().toLocaleString();
 
 const formData = ref({
-    currentTimeAndDate: currentDateAndTime,
-    fullname: "",
+    patient_id: "",
     department: "",
-    chiefComplaint: "",
-    medicineGiven: "",
+    chief_complaint: "",
+    medicine_id: "",
     quantity: "",
-    nurseOnDuty: "",
+    nurse_on_duty: "",
 });
 
-const handleSubmit = () => {
-    // FORM VALUE
-    console.log(formData.value);
+const fetchUser = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}user/patients`,
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                },
+            },
+        );
+        users.value = response.data;
+    } catch (error) {
+        console.log("error fetching Users");
+    }
+};
+
+const fetchMedicines = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}user/medicines`,
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                },
+            },
+        );
+        medicines.value = response.data;
+    } catch (error) {
+        console.log("error fetching Medicines");
+    }
+};
+
+const fetchMedicineLogSheet = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}user/medicine-log-sheets`,
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                },
+            },
+        );
+        console.log(response.data);
+        medicine_logsheet.value = response.data;
+    } catch (error) {
+        console.log("error fetching Medicines");
+    }
+};
+
+fetchUser();
+fetchMedicines();
+fetchMedicineLogSheet();
+
+const handleSubmit = async () => {
+    isAdding.value = true;
+    try {
+        await axios.post(
+            `${useRuntimeConfig().public.laravelURL}user/medicine-log-sheets`,
+            formData.value,
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                },
+            },
+        );
+        isAdding.value = false;
+        fetchMedicineLogSheet();
+    } catch (error) {
+        isAdding.value = false;
+        submitErrorMessages.value = error.response.data.errors;
+        console.log("Error Submitting");
+    }
 };
 </script>
