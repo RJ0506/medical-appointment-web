@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\MedicineLogSheetController;
+use App\Http\Controllers\User\MedicineLogSheetController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Patient\AuthController as PatientAuthController;
 use App\Http\Controllers\Patient\AppointmentController as PatientAppointmentController;
