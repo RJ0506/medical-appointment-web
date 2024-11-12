@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Http\Requests\User\UpsertMedicineLogSheetRequest;
 use App\Models\Medicine;
+use App\Http\Controllers\Controller;
 use App\Models\MedicineLogSheet;
 use Illuminate\Support\Facades\DB;
 
