@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
 			DepartmentSeeder::class,
 			UserSeeder::class,
 			PatientSeeder::class,
-			MedicineCategorySeeder::class,
 		]);
 	}
 }
