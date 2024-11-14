@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Patient;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Patient\SearchAppointmentScheduleRequest;
 use App\Http\Requests\Patient\StoreAppointmentRequest;
