@@ -12,9 +12,10 @@ return new class extends Migration {
 	{
 		Schema::create('appointments', function (Blueprint $table) {
 			$table->id();
+			$table->date('scheduled_date')->constrained();
 			$table->foreignId('appointment_schedule_id')->constrained();
 			$table->foreignId('patient_id')->constrained();
-			$table->enum('status', ['Confirmed', 'Completed', 'Pending', 'Canceled', 'Rescheduled', 'No-show', 'Open'])->default('Pending');
+			$table->enum('status', ['Pending', 'Checked In', 'Cancelled'])->default('Pending');
 			$table->timestamps();
 			$table->softDeletes();
 		});

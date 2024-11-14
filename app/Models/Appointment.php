@@ -13,10 +13,10 @@ class Appointment extends Model
 
 
 	protected $fillable = [
+		'scheduled_date',
 		'appointment_schedule_id',
 		'patient_id',
 		'status',
-		'service_type_id',
 	];
 
 	public function appointment_schedule(): BelongsTo

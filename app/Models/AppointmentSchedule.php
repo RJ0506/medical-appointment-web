@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AppointmentSchedule extends Model
@@ -13,15 +13,16 @@ class AppointmentSchedule extends Model
 	use HasFactory, SoftDeletes;
 
 	protected $fillable = [
-		'start_date',
-		'end_date',
+		'day_of_week',
+		'start_time',
+		'end_time',
 		'doctor_id',
 		'service_type_id',
 	];
 
-	public function appointment(): HasOne
+	public function appointment(): HasMany
 	{
-		return $this->hasOne(Appointment::class);
+		return $this->hasMany(Appointment::class);
 	}
 
 	public function service_type(): BelongsTo

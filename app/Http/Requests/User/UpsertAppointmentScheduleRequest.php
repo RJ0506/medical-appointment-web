@@ -23,13 +23,19 @@ class UpsertAppointmentScheduleRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
-		$now = Carbon::now()->timezone('Asia/Manila');
-
 		return [
-			"start_date" => "required|date_format:Y-m-d H:i:s|after:$now",
-			"end_date" => "nullable|date_format:Y-m-d H:i:s|after:start_date",
+			"day_of_week" => "required|in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",
+			"start_time" => "required|date_format:H:i",
+			"end_time" => "required|date_format:H:i|after:start_time",
 			"doctor_id" => ["required", "exists:users,id", new IsDoctor],
 			"service_type_id" => "required|exists:service_types,id",
+		];
+	}
+
+	public function messages(): array
+	{
+		return [
+			'end_time.after' => 'End time must be after start time.',
 		];
 	}
 }

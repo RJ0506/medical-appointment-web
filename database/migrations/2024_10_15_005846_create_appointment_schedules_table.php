@@ -12,8 +12,9 @@ return new class extends Migration {
 	{
 		Schema::create('appointment_schedules', function (Blueprint $table) {
 			$table->id();
-			$table->dateTime('start_date');
-			$table->dateTime('end_date')->nullable();
+			$table->enum('day_of_week', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
+			$table->time('start_time');
+			$table->time('end_time');
 			$table->foreignId('doctor_id')->constrained('users');
 			$table->foreignId('service_type_id')->constrained();
 			$table->timestamps();
