@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Patient;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Carbon\Carbon;
 
 class StoreAppointmentRequest extends FormRequest
 {
@@ -21,10 +22,12 @@ class StoreAppointmentRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		$now = Carbon::now()->timezone('Asia/Manila');
+
 		return [
-			"service_type_id" => "required|exists:appointment_schedules,service_type_id",
-			"datetime" => "required|date_format:Y-m-d H:i:s|exists:appointment_schedules,start_date",
-			"medicine_id" => "nullable|exists:medicines,id",
+			"service_type_id" => "required|exists:service_types,id",
+			"date" => "required|date|after:$now",
+			"time" => "required|date_format:H:i",
 		];
 	}
 }

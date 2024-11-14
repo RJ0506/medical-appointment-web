@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Patient;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Patient\SearchAppointmentTimeSlotsRequest;
+use App\Http\Requests\Patient\SearchAppointmentScheduleRequest;
 use App\Http\Requests\Patient\StoreAppointmentRequest;
 use App\Models\Appointment;
 use App\Models\AppointmentSchedule;
@@ -16,17 +16,21 @@ class AppointmentController extends Controller
 {
 	public function store(StoreAppointmentRequest $request)
 	{
+		$dayOfWeek = $this->getDayOfWeek($request['date']);
+
 		$appointmentSchedule = AppointmentSchedule::
-			where('start_date', $request->datetime)
-			->where('service_type_id', $request->service_type_id)
+			where('day_of_week', $dayOfWeek)
+			->where('service_type_id', $request['service_type_id'])
+			->where('start_time', $request['time'])
 			->first();
 
 		if (!$appointmentSchedule)
-			return response('No appointment schedule found', 404);
+			return response('No appointment schedule found.', 404);
 
 		$appointment = Appointment::create([
 			'appointment_schedule_id' => $appointmentSchedule->id,
 			'patient_id' => auth()->user()->id,
+			'scheduled_date' => $request['date'],
 		]);
 
 		return response()->json($appointment);
@@ -37,27 +41,27 @@ class AppointmentController extends Controller
 		return response()->json(ServiceCategory::all());
 	}
 
-	public function serviceTypes(Request $request)
+	public function serviceTypes(int $serviceCategoryID)
 	{
-		$request->validate([
-			"service_category_id" => "required|exists:service_categories,id"
-		]);
-
-		$rows = ServiceType::where('service_category_id', $request->query('service_category_id'))->get();
+		$rows = ServiceType::where('service_category_id', $serviceCategoryID)->get();
 
 		return response()->json($rows);
 	}
 
-	public function timeSlots(SearchAppointmentTimeSlotsRequest $request)
+	public function schedules(SearchAppointmentScheduleRequest $request)
 	{
-		$startDate = Carbon::parse($request->query('date'))->startOfDay()->format('Y-m-d H:i:s');
-		$endDate = Carbon::parse($request->query('date'))->endOfDay()->format('Y-m-d H:i:s');
+		$dayOfWeek = $this->getDayOfWeek($request->query('date'));
 
 		$rows = AppointmentSchedule::
-			whereBetween('start_date', [$startDate, $endDate])
+			where('day_of_week', $dayOfWeek)
 			->where('service_type_id', $request->query('service_type_id'))
 			->get();
 
 		return response()->json($rows);
+	}
+
+	private function getDayOfWeek(string $date)
+	{
+		return Carbon::parse($date)->format('l');
 	}
 }

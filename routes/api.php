@@ -53,8 +53,8 @@ Route::prefix('patient')->group(function () {
 		Route::prefix('appointment')->controller(PatientAppointmentController::class)->group(function () {
 			Route::post('/', 'store');
 			Route::get('/service-categories', 'serviceCategories');
-			Route::get('/service-types', 'serviceTypes');
-			Route::get('/time-slots', 'timeSlots');
+			Route::get('/service-types/{service_category_id}', 'serviceTypes');
+			Route::get('/schedules', 'schedules');
 		});
 	});
 });

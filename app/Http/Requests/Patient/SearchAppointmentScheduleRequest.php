@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Patient;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Carbon\Carbon;
 
-class SearchAppointmentTimeSlotsRequest extends FormRequest
+class SearchAppointmentScheduleRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -21,9 +22,18 @@ class SearchAppointmentTimeSlotsRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		$now = Carbon::now()->timezone('Asia/Manila');
+
 		return [
 			"service_type_id" => "required|exists:service_types,id",
-			"date" => "required|date",
+			"date" => "required|date|after:$now",
+		];
+	}
+
+	public function messages(): array
+	{
+		return [
+			'date.after' => 'The date must not be an old date'
 		];
 	}
 }
