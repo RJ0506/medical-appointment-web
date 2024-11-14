@@ -6,7 +6,6 @@ use App\Http\Controllers\Patient\AuthController as PatientAuthController;
 use App\Http\Controllers\Patient\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\User\AppointmentScheduleController;
 use App\Http\Controllers\User\DepartmentController;
-use App\Http\Controllers\User\MedicineCategoryController;
 use App\Http\Controllers\User\MedicineController;
 use App\Http\Controllers\User\ServiceCategoryController;
 use App\Http\Controllers\User\ServiceTypeController;
@@ -25,7 +24,6 @@ Route::prefix('user')->group(function () {
 			'departments' => DepartmentController::class,
 			'service-types' => ServiceTypeController::class,
 			'service-categories' => ServiceCategoryController::class,
-			'medicine-categories' => MedicineCategoryController::class,
 			'medicines' => MedicineController::class,
 			'appointment-schedules' => AppointmentScheduleController::class,
 			'consultation-records' => ConsultationRecordController::class,
