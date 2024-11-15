@@ -1,8 +1,5 @@
 import { useAuthStore } from "~/stores/auth";
 export default defineNuxtRouteMiddleware((to, from) => {
-
-    //SKIP MIDDLEWARE ON SERVER
-    if(import.meta.server) return;
     
     const authStore = useAuthStore();
     authStore.loadFromLocalStorage();
