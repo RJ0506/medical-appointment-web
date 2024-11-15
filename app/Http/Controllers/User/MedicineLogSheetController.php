@@ -15,7 +15,7 @@ class MedicineLogSheetController extends Controller
 	 */
 	public function index()
 	{
-		return response()->json(MedicineLogSheet::with(['patient', 'medicine'])->get());
+		return response()->json(MedicineLogSheet::with(['patient.department', 'medicine'])->get());
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -29,7 +29,7 @@ class MedicineLogSheetController extends Controller
 			$medicine->quantity -= $request['quantity'];
 			$medicine->save();
 
-			$medicineLogSheet->load(['patient', 'medicine']);
+			$medicineLogSheet->load(['patient.department', 'medicine']);
 
 			return $medicineLogSheet;
 		});
@@ -42,7 +42,7 @@ class MedicineLogSheetController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(MedicineLogSheet::with(['patient', 'medicine'])->findOrFail($id));
+		return response()->json(MedicineLogSheet::with(['patient.department', 'medicine'])->findOrFail($id));
 	}
 
 	/**
@@ -50,6 +50,6 @@ class MedicineLogSheetController extends Controller
 	 */
 	public function destroy(int $id)
 	{
-		return response()->json(MedicineLogSheet::findOrFail($id));
+		return response()->json(MedicineLogSheet::with(['patient.department', 'medicine'])->findOrFail($id));
 	}
 }
