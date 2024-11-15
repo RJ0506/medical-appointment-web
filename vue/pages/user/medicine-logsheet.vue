@@ -9,7 +9,11 @@
         <div
             class="mx-auto mt-10 max-w-4xl rounded-lg bg-[#d9d9d9] p-6 shadow-md"
         >
-            <form @submit.prevent="handleSubmit" class="space-y-4 rounded p-2">
+            <form
+                ref="formRef"
+                @submit.prevent="handleSubmit"
+                class="space-y-4 rounded p-2"
+            >
                 <div>
                     <h2 class="font-bold">
                         Time and Date: {{ new Date().toLocaleString() }}
@@ -202,12 +206,14 @@
                 <tbody class="whitespace-nowrap">
                     <tr v-for="(item, index) in medicine_logsheet" :key="index">
                         <td class="p-5 font-medium">{{ item.created_at }}</td>
-                        <td class="p-5 font-medium">{{ item.patient_id }}</td>
+                        <td class="p-5 font-medium">{{ item.patient.first_name }} {{ item.patient.last_name }}</td>
                         <td class="p-5 font-medium">{{ item.patient_id }}</td>
                         <td class="p-5 font-medium">
                             {{ item.chief_complaint }}
                         </td>
-                        <td class="p-5 font-medium">{{ item.medicine.brand_name }}</td>
+                        <td class="p-5 font-medium">
+                            {{ item.medicine.brand_name }}
+                        </td>
                         <td class="p-5 font-medium">{{ item.quantity }}</td>
                         <td class="p-5 font-medium">
                             {{ item.nurse_on_duty }}
@@ -231,6 +237,7 @@ const users = ref([]);
 const medicine_logsheet = ref([]);
 const medicines = ref([]);
 const submitErrorMessages = ref();
+const formRef = ref();
 const isAdding = ref(false);
 const authStore = useAuthStore();
 
@@ -288,6 +295,7 @@ const fetchMedicineLogSheet = async () => {
             },
         );
         medicine_logsheet.value = response.data;
+        console.log(response);
     } catch (error) {
         console.log("error fetching Medicines");
     }
@@ -297,7 +305,7 @@ const getDepartment = () => {
     const department = users.value.find(
         (user) => user.id === formData.value.patient_id,
     );
-    formData.value.department = department.id_number;
+    formData.value.department = department.department.name;
 };
 
 fetchUser();
