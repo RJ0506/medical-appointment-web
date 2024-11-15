@@ -29,6 +29,7 @@
                             name="fullname"
                             id="fullname"
                             v-model="formData.patient_id"
+                            @change="getDepartment()"
                         >
                             <option
                                 v-for="(item, index) in users"
@@ -47,14 +48,13 @@
                             class="block text-sm font-medium text-gray-700"
                             >College / Department</label
                         >
-                        <input
+                        <div
                             type="text"
                             id="department"
                             name="department"
-                            class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                            placeholder="department"
-                            v-model="formData.department"
-                        />
+                            class="mt-1 block w-full cursor-not-allowed border-gray-300 bg-gray-200 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
+                        > {{formData.department}}
+                        </div>
                     </div>
                 </div>
                 <div class="-mx-3 flex w-full flex-wrap">
@@ -278,6 +278,14 @@ const fetchMedicineLogSheet = async () => {
     } catch (error) {
         console.log("error fetching Medicines");
     }
+};
+
+const getDepartment = () => {
+    const department = users.value.find(
+        (user) => user.id === formData.value.patient_id,
+    );
+    console.log(department)
+    formData.value.department = department.id_number;
 };
 
 fetchUser();
