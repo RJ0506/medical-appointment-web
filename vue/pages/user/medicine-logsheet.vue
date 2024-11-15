@@ -206,8 +206,11 @@
                 <tbody class="whitespace-nowrap">
                     <tr v-for="(item, index) in medicine_logsheet" :key="index">
                         <td class="p-5 font-medium">{{ item.created_at }}</td>
-                        <td class="p-5 font-medium">{{ item.patient.first_name }} {{ item.patient.last_name }}</td>
-                        <td class="p-5 font-medium">{{ item.patient_id }}</td>
+                        <td class="p-5 font-medium">
+                            {{ item.patient.first_name }}
+                            {{ item.patient.last_name }}
+                        </td>
+                        <td class="p-5 font-medium">{{ item.patient.department.name }}</td>
                         <td class="p-5 font-medium">
                             {{ item.chief_complaint }}
                         </td>
@@ -329,7 +332,6 @@ const handleSubmit = async () => {
     } catch (error) {
         isAdding.value = false;
         submitErrorMessages.value = error.response.data.errors;
-        console.log(submitErrorMessages.value);
     }
 };
 </script>
