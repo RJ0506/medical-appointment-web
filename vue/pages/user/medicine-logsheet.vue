@@ -53,7 +53,8 @@
                             id="department"
                             name="department"
                             class="mt-1 block w-full cursor-not-allowed border-gray-300 bg-gray-200 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                        > {{formData.department}}
+                        >
+                            {{ formData.department }}
                         </div>
                     </div>
                 </div>
@@ -106,6 +107,7 @@
                             >Quantity</label
                         >
                         <input
+                            required
                             type="number"
                             id="quantity"
                             name="quantity"
@@ -113,6 +115,15 @@
                             placeholder="Quantity"
                             v-model="formData.quantity"
                         />
+                        <p
+                            class="text-red-500"
+                            v-if="
+                                submitErrorMessages &&
+                                submitErrorMessages.medicine_id
+                            "
+                        >
+                            {{ submitErrorMessages.medicine_id[0] }}
+                        </p>
                     </div>
                 </div>
                 <!-- Nurse on Duty -->
@@ -124,6 +135,7 @@
                             >Nurse on Duty</label
                         >
                         <input
+                            required
                             type="text"
                             id="nurse"
                             name="nurse"
@@ -150,8 +162,9 @@
         <!-- SEARCH -->
         <div class="relative mt-7">
             <input
+                required
                 type="text"
-                class="search-input rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2"
+                class="search-input required rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2"
                 placeholder="Search brand/generic..."
             />
             <svg
@@ -194,7 +207,7 @@
                         <td class="p-5 font-medium">
                             {{ item.chief_complaint }}
                         </td>
-                        <td class="p-5 font-medium">{{ item.medicine_id }}</td>
+                        <td class="p-5 font-medium">{{ item.medicine.brand_name }}</td>
                         <td class="p-5 font-medium">{{ item.quantity }}</td>
                         <td class="p-5 font-medium">
                             {{ item.nurse_on_duty }}
@@ -288,8 +301,8 @@ const getDepartment = () => {
 };
 
 fetchUser();
-fetchMedicines();
 fetchMedicineLogSheet();
+fetchMedicines();
 
 const handleSubmit = async () => {
     isAdding.value = true;
@@ -304,11 +317,12 @@ const handleSubmit = async () => {
             },
         );
         isAdding.value = false;
+        submitErrorMessages.value = "";
         fetchMedicineLogSheet();
     } catch (error) {
         isAdding.value = false;
         submitErrorMessages.value = error.response.data.errors;
-        console.log("Error Submitting");
+        console.log(submitErrorMessages.value);
     }
 };
 </script>
