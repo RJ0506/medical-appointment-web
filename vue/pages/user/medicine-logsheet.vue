@@ -274,7 +274,6 @@ const fetchMedicineLogSheet = async () => {
                 },
             },
         );
-        console.log(response.data);
         medicine_logsheet.value = response.data;
     } catch (error) {
         console.log("error fetching Medicines");
