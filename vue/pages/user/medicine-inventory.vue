@@ -268,6 +268,11 @@ const formData = ref({
     expiration_date: "",
 });
 
+// const { data } = await useLazyFetch(
+//     "https://jsonplaceholder.typicode.com/posts"
+// );
+// console.log("lazyfetch", data.value);
+
 const fetchMedicines = async () => {
     try {
         const response = await axios.get(
