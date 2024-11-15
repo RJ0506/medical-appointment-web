@@ -52,7 +52,7 @@
                             type="text"
                             id="department"
                             name="department"
-                            class="mt-1 block w-full h-10 cursor-not-allowed border-gray-300 bg-gray-200 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
+                            class="mt-1 block w-full cursor-not-allowed border-gray-300 bg-gray-200 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                         > {{formData.department}}
                         </div>
                     </div>
