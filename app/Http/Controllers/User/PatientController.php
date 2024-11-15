@@ -12,11 +12,11 @@ class PatientController extends Controller
 	 */
 	public function index()
 	{
-		return response()->json(Patient::all());
+		return response()->json(Patient::with('department')->get());
 	}
 
 	public function show(int $id)
 	{
-		return response()->json(Patient::findOrFail($id));
+		return response()->json(Patient::with('department')->findOrFail($id));
 	}
 }
