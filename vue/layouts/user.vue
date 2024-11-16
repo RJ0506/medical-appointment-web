@@ -243,7 +243,7 @@ const logout = async () => {
         {},
         {
             headers: {
-                Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                Authorization: `Bearer ${authStore.token}`,
             },
         },
     );

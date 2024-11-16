@@ -279,7 +279,7 @@ const fetchMedicines = async () => {
             `${useRuntimeConfig().public.laravelURL}user/medicines`,
             {
                 headers: {
-                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                    Authorization: `Bearer ${authStore.token}`,
                 },
             },
         );
@@ -316,7 +316,7 @@ const handleSubmit = async () => {
             formData.value,
             {
                 headers: {
-                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                    Authorization: `Bearer ${authStore.token}`,
                 },
             },
         );
@@ -335,7 +335,7 @@ const deleteMedicine = async (medicine_id) => {
             `${useRuntimeConfig().public.laravelURL}user/medicines/${medicine_id}`,
             {
                 headers: {
-                    Authorization: `Bearer ${JSON.parse(authStore.token).token}`,
+                    Authorization: `Bearer ${authStore.token}`,
                 },
             },
         );

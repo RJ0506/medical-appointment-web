@@ -5,23 +5,24 @@ export const useAuthStore = defineStore("auth", {
     }),
     actions: {
         loadFromLocalStorage() {
-            if (process.client) {
-                const storedToken = localStorage.getItem("current_user");
-                if (storedToken) {
-                    this.token = storedToken;
-                    this.role = JSON.parse(storedToken).patient ? "patient" : "user";
-                }
+            const current_user = useCookie("current_user");
+            const storedToken = current_user.value;
+            if (storedToken) {
+                this.token = storedToken.token;
+                this.role = storedToken.patient ? "patient" : "user";
             }
         },
         setToken(token) {
             this.token = token;
             this.role = token.patient ? "patient" : "user";
-            localStorage.setItem("current_user", JSON.stringify(token));
+            const current_user = useCookie("current_user");
+            current_user.value = JSON.stringify(token);
         },
         logout() {
             this.token = null;
             this.user = null;
-            localStorage.removeItem("current_user");
+            const current_user = useCookie("current_user");
+            current_user.value = null;
         },
     },
     getters: {
