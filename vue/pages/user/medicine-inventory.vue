@@ -234,6 +234,13 @@
                                         style="font-size: 2rem"
                                     />
                                 </button>
+                                <button @click="openDialog()">
+                                    <Icon
+                                        class="text-green-500 hover:text-red-900"
+                                        name="i-material-symbols-light-edit-outline-sharp"
+                                        style="font-size: 2rem"
+                                    />
+                                </button>
                             </td>
                         </tr>
                     </template>
@@ -250,6 +257,172 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Dialog element -->
+        <dialog ref="myDialog">
+            <form
+                @submit.prevent="handleSubmit"
+                class="mt-5 grid bg-[#e0dcdc] p-8"
+            >
+                <div class="w-full">
+                    <label class="block text-lg font-bold" for="category"
+                        >Category:</label
+                    >
+                    <select
+                        class="mt-2 w-full rounded border-2 border-black focus:outline-emerald-800"
+                        name="category"
+                        id="category"
+                        v-model="formData.medicine_category"
+                    >
+                        <option value="Tablet">Tablet</option>
+                        <option value="Capsule">Capsule</option>
+                        <option value="Syrup">Syrup</option>
+                        <option value="Liquid">Liquid</option>
+                    </select>
+                    <p
+                        v-if="
+                            submitErrorMessages &&
+                            submitErrorMessages.medicine_category
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.medicine_category[0] }}
+                    </p>
+                </div>
+                <div class="w-full">
+                    <label class="block text-lg font-bold" for="genericName"
+                        >Generic Name:</label
+                    >
+                    <input
+                        class="w-full rounded border-2 border-black focus:outline-emerald-800"
+                        type="text"
+                        name="genericName"
+                        id="genericName"
+                        v-model="formData.generic_name"
+                    />
+                    <p
+                        v-if="
+                            submitErrorMessages &&
+                            submitErrorMessages.generic_name
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.generic_name[0] }}
+                    </p>
+                </div>
+                <div class="w-full">
+                    <label class="block text-lg font-bold" for="brandName"
+                        >Brand Name:</label
+                    >
+                    <input
+                        class="w-full rounded border-2 border-black focus:outline-emerald-800"
+                        type="text"
+                        name="brandName"
+                        id="brandName"
+                        v-model="formData.brand_name"
+                    />
+                    <p
+                        v-if="
+                            submitErrorMessages &&
+                            submitErrorMessages.brand_name
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.brand_name[0] }}
+                    </p>
+                </div>
+
+                <div class="w-full">
+                    <label class="block text-lg font-bold" for="dosage"
+                        >Dosage:</label
+                    >
+                    <select
+                        class="w-full rounded border-2 border-black focus:outline-emerald-800"
+                        name="dosage"
+                        id="dosage"
+                        v-model="formData.dosage"
+                    >
+                        <option value="1mg">1 mg</option>
+                        <option value="5mg">5 mg</option>
+                        <option value="10mg">10 mg</option>
+                        <option value="25mg">25 mg</option>
+                        <option value="50mg">50 mg</option>
+                        <option value="100mg">100 mg</option>
+                        <option value="200mg">200 mg</option>
+                        <option value="500mg">500 mg</option>
+                        <option value="1mL">1 mL</option>
+                        <option value="5mL">5 mL</option>
+                        <option value="10mL">10 mL</option>
+                        <option value="1tablet">1 Tablet</option>
+                        <option value="2tablets">2 Tablets</option>
+                        <option value="1puff">1 Puff</option>
+                    </select>
+                    <p
+                        v-if="submitErrorMessages && submitErrorMessages.dosage"
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.dosage[0] }}
+                    </p>
+                </div>
+                <div class="w-full">
+                    <label class="block text-lg font-bold" for="quantity"
+                        >Quantity:</label
+                    >
+                    <input
+                        class="w-full rounded border-2 border-black focus:outline-emerald-800"
+                        type="number"
+                        name="quantity"
+                        id="quantity"
+                        v-model="formData.quantity"
+                    />
+                    <p
+                        v-if="
+                            submitErrorMessages && submitErrorMessages.quantity
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.quantity[0] }}
+                    </p>
+                </div>
+                <div class="w-full">
+                    <label class="block text-lg font-bold" for="expirationDate"
+                        >Expiration Date:</label
+                    >
+                    <input
+                        class="w-full rounded border-2 border-black px-4 py-1 focus:outline-emerald-800"
+                        type="date"
+                        id="expirationDate"
+                        name="expirationDate"
+                        :min="currentDate"
+                        v-model="formData.expiration_date"
+                    />
+                    <p
+                        v-if="
+                            submitErrorMessages &&
+                            submitErrorMessages.expiration_date
+                        "
+                        class="text-red-500"
+                    >
+                        {{ submitErrorMessages.expiration_date[0] }}
+                    </p>
+                </div>
+
+                <button
+                    :disabled="isAdding"
+                    type="submit"
+                    class="mt-5 rounded-md bg-[#1E3D2C] px-6 py-2 font-semibold text-white hover:bg-emerald-900"
+                >
+                    {{ isAdding ? "EDITTING..." : "EDIT MEDICINE" }}
+                </button>
+                <button
+                    type="button"
+                    @click="() => closeDialog()"
+                    class="mt-2 rounded-md bg-red-500 px-6 py-2 font-semibold text-white hover:bg-red-900"
+                >
+                    Cancel
+                </button>
+            </form>
+        </dialog>
     </div>
 </template>
 
@@ -260,6 +433,8 @@ import { useAuthStore } from "~/stores/auth";
 definePageMeta({
     layout: "user",
 });
+
+const myDialog = ref(null);
 const authStore = useAuthStore();
 const searchTerm = ref("");
 const currentDate = ref("");
@@ -280,15 +455,21 @@ const formData = ref({
     medicine_category: "",
     generic_name: "",
     brand_name: "",
-    dosage: 2,
+    dosage: 0,
     quantity: "",
     expiration_date: "",
 });
 
-// const { data } = await useLazyFetch(
-//     "https://jsonplaceholder.typicode.com/posts"
-// );
-// console.log("lazyfetch", data.value);
+const closeDialog = () => {
+    if (myDialog.value) {
+        myDialog.value.close();
+    }
+};
+const openDialog = () => {
+    if (myDialog.value) {
+        myDialog.value.showModal();
+    }
+};
 
 const fetchMedicines = async () => {
     try {
@@ -370,3 +551,10 @@ const month = String(today.getMonth() + 1).padStart(2, "0");
 const day = String(today.getDate()).padStart(2, "0");
 currentDate.value = `${year}-${month}-${day}`;
 </script>
+
+<style>
+
+::backdrop {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+</style>
