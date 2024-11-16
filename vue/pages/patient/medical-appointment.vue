@@ -233,7 +233,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 definePageMeta({
     layout: "patient",
 });
@@ -250,7 +250,7 @@ watch(
     () => formData.value.appointment,
     (newVal) => {
         if (newVal !== "vaccine") {
-            formData.value.vaccineType = ""; // Set vaccineType to empty if appointment is not "vaccine"
+            formData.value.vaccineType = "";
         }
     },
 );
@@ -268,4 +268,5 @@ const getCurrentDate = () => {
 };
 
 currentDate.value = getCurrentDate();
+
 </script>
