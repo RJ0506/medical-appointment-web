@@ -14,11 +14,12 @@
                 @submit.prevent="handleSubmit"
                 class="space-y-4 rounded p-2"
             >
-                <div>
+                <!-- DATE AND TIME -->
+                <!-- <div>
                     <h2 class="font-bold">
                         Time and Date: {{ new Date().toLocaleString() }}
                     </h2>
-                </div>
+                </div> -->
 
                 <div class="-mx-3 flex w-full flex-wrap">
                     <!-- Full Name -->
@@ -43,6 +44,15 @@
                                 {{ item.first_name }} {{ item.last_name }}
                             </option>
                         </select>
+                        <p
+                            v-if="
+                                submitErrorMessages &&
+                                submitErrorMessages.patient_id
+                            "
+                            class="text-red-500"
+                        >
+                            Patient is required.
+                        </p>
                     </div>
 
                     <!-- Course -->
@@ -78,6 +88,15 @@
                             placeholder="Describe the chief complaint"
                             v-model="formData.chief_complaint"
                         ></textarea>
+                        <p
+                            v-if="
+                                submitErrorMessages &&
+                                submitErrorMessages.chief_complaint
+                            "
+                            class="text-red-500"
+                        >
+                            {{ submitErrorMessages.chief_complaint[0] }}
+                        </p>
                     </div>
 
                     <!-- Medicine Given -->
@@ -101,6 +120,15 @@
                                 {{ item.brand_name }}
                             </option>
                         </select>
+                        <p
+                            v-if="
+                                submitErrorMessages &&
+                                submitErrorMessages.medicine_id
+                            "
+                            class="text-red-500"
+                        >
+                            {{ submitErrorMessages.medicine_id[0] }}
+                        </p>
                     </div>
 
                     <!-- Quantity -->
@@ -111,7 +139,6 @@
                             >Quantity</label
                         >
                         <input
-                            required
                             type="number"
                             id="quantity"
                             name="quantity"
@@ -123,10 +150,10 @@
                             class="text-red-500"
                             v-if="
                                 submitErrorMessages &&
-                                submitErrorMessages.medicine_id
+                                submitErrorMessages.quantity
                             "
                         >
-                            {{ submitErrorMessages.medicine_id[0] }}
+                            {{ submitErrorMessages.quantity[0] }}
                         </p>
                     </div>
                 </div>
@@ -139,7 +166,6 @@
                             >Nurse on Duty</label
                         >
                         <input
-                            required
                             type="text"
                             id="nurse"
                             name="nurse"
@@ -147,6 +173,15 @@
                             placeholder="Nurse on Duty"
                             v-model="formData.nurse_on_duty"
                         />
+                        <p
+                            class="text-red-500"
+                            v-if="
+                                submitErrorMessages &&
+                                submitErrorMessages.nurse_on_duty
+                            "
+                        >
+                            {{ submitErrorMessages.nurse_on_duty[0] }}
+                        </p>
                     </div>
                 </div>
 
@@ -166,9 +201,8 @@
         <!-- SEARCH -->
         <div class="relative mt-7">
             <input
-                required
                 type="text"
-                class="search-input required rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2"
+                class="search-input rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2"
                 placeholder="Search brand/generic..."
             />
             <svg
@@ -204,24 +238,43 @@
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
-                    <tr v-for="(item, index) in medicine_logsheet" :key="index">
-                        <td class="p-5 font-medium">{{ item.created_at }}</td>
-                        <td class="p-5 font-medium">
-                            {{ item.patient.first_name }}
-                            {{ item.patient.last_name }}
-                        </td>
-                        <td class="p-5 font-medium">{{ item.patient.department.name }}</td>
-                        <td class="p-5 font-medium">
-                            {{ item.chief_complaint }}
-                        </td>
-                        <td class="p-5 font-medium">
-                            {{ item.medicine.brand_name }}
-                        </td>
-                        <td class="p-5 font-medium">{{ item.quantity }}</td>
-                        <td class="p-5 font-medium">
-                            {{ item.nurse_on_duty }}
-                        </td>
-                    </tr>
+                    <template v-if="medicine_logsheet.length > 0">
+                        <tr
+                            v-for="(item, index) in medicine_logsheet"
+                            :key="index"
+                        >
+                            <td class="p-5 font-medium">
+                                {{ item.created_at }}
+                            </td>
+                            <td class="p-5 font-medium">
+                                {{ item.patient.first_name }}
+                                {{ item.patient.last_name }}
+                            </td>
+                            <td class="p-5 font-medium">
+                                {{ item.patient.department.name }}
+                            </td>
+                            <td class="p-5 font-medium">
+                                {{ item.chief_complaint }}
+                            </td>
+                            <td class="p-5 font-medium">
+                                {{ item.medicine.brand_name }}
+                            </td>
+                            <td class="p-5 font-medium">{{ item.quantity }}</td>
+                            <td class="p-5 font-medium">
+                                {{ item.nurse_on_duty }}
+                            </td>
+                        </tr>
+                    </template>
+                    <template v-else>
+                        <tr>
+                            <td
+                                colspan="7"
+                                class="p-5 text-center text-gray-500"
+                            >
+                                No data available
+                            </td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </div>

@@ -207,29 +207,46 @@
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
-                    <tr v-for="(item, index) in filteredRecords" :key="index">
-                        <td class="p-5 font-medium">
-                            {{ item.medicine_category }}
-                        </td>
-                        <td class="p-5 font-medium">{{ item.generic_name }}</td>
-                        <td class="p-5 font-medium">
-                            {{ item.brand_name }}
-                        </td>
-                        <td class="p-5 font-medium">{{ item.dosage }}</td>
-                        <td class="p-5 font-medium">{{ item.quantity }}</td>
-                        <td class="p-5 font-medium">
-                            {{ item.expiration_date }}
-                        </td>
-                        <td class="pl-7">
-                            <button @click="deleteMedicine(item.id)">
-                                <Icon
-                                    class="text-red-500 hover:text-red-900"
-                                    name="i-material-symbols-light-delete-outline-sharp"
-                                    style="font-size: 2rem"
-                                />
-                            </button>
-                        </td>
-                    </tr>
+                    <template v-if="filteredRecords.length > 0">
+                        <tr
+                            v-for="(item, index) in filteredRecords"
+                            :key="index"
+                        >
+                            <td class="p-5 font-medium">
+                                {{ item.medicine_category }}
+                            </td>
+                            <td class="p-5 font-medium">
+                                {{ item.generic_name }}
+                            </td>
+                            <td class="p-5 font-medium">
+                                {{ item.brand_name }}
+                            </td>
+                            <td class="p-5 font-medium">{{ item.dosage }}</td>
+                            <td class="p-5 font-medium">{{ item.quantity }}</td>
+                            <td class="p-5 font-medium">
+                                {{ item.expiration_date }}
+                            </td>
+                            <td class="pl-7">
+                                <button @click="deleteMedicine(item.id)">
+                                    <Icon
+                                        class="text-red-500 hover:text-red-900"
+                                        name="i-material-symbols-light-delete-outline-sharp"
+                                        style="font-size: 2rem"
+                                    />
+                                </button>
+                            </td>
+                        </tr>
+                    </template>
+                    <template v-else>
+                        <tr>
+                            <td
+                                colspan="7"
+                                class="p-5 text-center text-gray-500"
+                            >
+                                No data available
+                            </td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </div>
