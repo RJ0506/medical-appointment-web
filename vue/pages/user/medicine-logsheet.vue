@@ -357,10 +357,15 @@ const fetchMedicineLogSheet = async () => {
 };
 
 const getDepartment = () => {
-    const department = users.value.find(
+    const user = users.value.find(
         (user) => user.id === formData.value.patient_id,
     );
-    formData.value.department = department.department.name;
+
+    if (user.department) {
+        formData.value.department = user.department.name;
+    } else {
+        formData.value.department = "Medical Staff";
+    }
 };
 
 fetchUser();
