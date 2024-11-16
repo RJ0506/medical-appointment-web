@@ -12,68 +12,20 @@
                     Select the service you want to get the appointment for:
                 </h2>
                 <div class="mt-2 flex flex-wrap justify-center gap-2">
-                    <div>
+                    <div v-for="(service, index) in service_types" :key="index">
                         <input
                             class="peer hidden"
                             type="radio"
-                            id="checkup"
+                            :id="service.id"
                             name="appointment"
-                            value="checkup"
+                            :value="service.id"
                             v-model="formData.appointment"
                         />
                         <label
-                            class="inline-flex cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                            for="checkup"
+                            class="inline-flex cursor-pointer rounded bg-[#2abb49] px-10 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
+                            :for="service.id"
                         >
-                            Checkup
-                        </label>
-                    </div>
-                    <div>
-                        <input
-                            class="peer hidden"
-                            type="radio"
-                            id="tooth-extraction"
-                            name="appointment"
-                            value="tooth-extraction"
-                            v-model="formData.appointment"
-                        />
-                        <label
-                            class="inline-flex cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                            for="tooth-extraction"
-                        >
-                            Tooth Extraction
-                        </label>
-                    </div>
-                    <div>
-                        <input
-                            class="peer hidden"
-                            type="radio"
-                            id="filling"
-                            name="appointment"
-                            value="filling"
-                            v-model="formData.appointment"
-                        />
-                        <label
-                            class="inline-flex cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                            for="filling"
-                        >
-                            Filling
-                        </label>
-                    </div>
-                    <div>
-                        <input
-                            class="peer hidden"
-                            type="radio"
-                            id="cleaning"
-                            name="appointment"
-                            value="cleaning"
-                            v-model="formData.appointment"
-                        />
-                        <label
-                            class="inline-flex cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                            for="cleaning"
-                        >
-                            Cleaning
+                            {{ service.name }}
                         </label>
                     </div>
                 </div>
@@ -204,12 +156,17 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import axios from "axios";
+import { useAuthStore } from "~/stores/auth";
+
 definePageMeta({
     layout: "patient",
 });
 
+const authStore = useAuthStore();
 const currentDate = ref("");
+const service_types = ref([]);
 const formData = ref({
     appointment: "",
     date: "",
@@ -225,4 +182,22 @@ const year = today.getFullYear();
 const month = String(today.getMonth() + 1).padStart(2, "0");
 const day = String(today.getDate()).padStart(2, "0");
 currentDate.value = `${year}-${month}-${day}`;
+
+const fetchServiceTypes = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}patient/appointment/service-types/2`,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        service_types.value = response.data;
+    } catch (error) {
+        console.log("Failed to fetch service types");
+    }
+};
+
+fetchServiceTypes();
 </script>

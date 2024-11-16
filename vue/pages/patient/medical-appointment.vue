@@ -13,36 +13,23 @@
                         Select the service you want to get the appointment for:
                     </h2>
                     <div class="mt-2 flex flex-wrap justify-center gap-2">
-                        <div>
+                        <div
+                            v-for="(service, index) in service_types"
+                            :key="index"
+                        >
                             <input
                                 class="peer hidden"
                                 type="radio"
-                                id="checkup"
+                                :id="service.id"
                                 name="appointment"
-                                value="checkup"
+                                :value="service.id"
                                 v-model="formData.appointment"
                             />
                             <label
                                 class="inline-flex cursor-pointer rounded bg-[#2abb49] px-10 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                for="checkup"
+                                :for="service.id"
                             >
-                                Checkup
-                            </label>
-                        </div>
-                        <div>
-                            <input
-                                class="peer hidden"
-                                type="radio"
-                                id="vaccine"
-                                name="appointment"
-                                value="vaccine"
-                                v-model="formData.appointment"
-                            />
-                            <label
-                                class="inline-flex cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                for="vaccine"
-                            >
-                                Vaccination
+                                {{ service.name }}
                             </label>
                         </div>
                     </div>
@@ -234,11 +221,15 @@
 </template>
 
 <script setup>
+import axios from "axios";
+import { useAuthStore } from "~/stores/auth";
 definePageMeta({
     layout: "patient",
 });
 
+const authStore = useAuthStore();
 const currentDate = ref("");
+const service_types = ref([]);
 const formData = ref({
     appointment: "",
     date: "",
@@ -269,4 +260,21 @@ const getCurrentDate = () => {
 
 currentDate.value = getCurrentDate();
 
+const fetchServiceTypes = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}patient/appointment/service-types/1`,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        service_types.value = response.data;
+    } catch (error) {
+        console.log("Failed to fetch service types");
+    }
+};
+
+fetchServiceTypes();
 </script>
