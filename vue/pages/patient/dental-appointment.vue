@@ -175,20 +175,20 @@ const formData = ref({
 
 const handleSubmit = async () => {
     console.log(formData.value);
-    // try {
-    //     const response = await axios.post(
-    //         `${useRuntimeConfig().public.laravelURL}patient/appointment`,
-    //         this.form.value,
-    //         {
-    //             headers: {
-    //                 Authorization: `Bearer ${authStore.token}`,
-    //             },
-    //         },
-    //     );
-    //     console.log(response);
-    // } catch (error) {
-    //     console.log("Failed to create appointment");
-    // }
+    try {
+        const result = await axios.post(
+            `${useRuntimeConfig().public.laravelURL}patient/appointment`,
+            formData.value,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        console.log("resukt: ", result);
+    } catch (error) {
+        console.log("Error Creating appointment");
+    }
 };
 
 const current_service_category_id = ref("2");
@@ -214,22 +214,23 @@ const fetchServiceTypes = async () => {
     }
 };
 
-const fetchSchedule = async () => {
-    try {
-        const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment/schedules`,
-            {
-                headers: {
-                    Authorization: `Bearer ${authStore.token}`,
-                },
-            },
-        );
-        console.log("schedules", response);
-    } catch (error) {
-        console.log("Failed to Schedules");
-    }
-};
+// HAVING ERROR WHEN FETCHING
+// const fetchSchedule = async () => {
+//     try {
+//         const response = await axios.get(
+//             `${useRuntimeConfig().public.laravelURL}patient/appointment/schedules`,
+//             {
+//                 headers: {
+//                     Authorization: `Bearer ${authStore.token}`,
+//                 },
+//             },
+//         );
+//         console.log("schedules", response);
+//     } catch (error) {
+//         console.log("Failed to Schedules");
+//     }
+// };
 
 fetchServiceTypes();
-fetchSchedule();
+// fetchSchedule();
 </script>
