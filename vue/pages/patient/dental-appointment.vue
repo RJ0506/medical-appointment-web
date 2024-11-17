@@ -214,7 +214,7 @@ const fetchServiceTypes = async () => {
     }
 };
 
-// HAVING ERROR WHEN FETCHING
+// HAVING ERROR WHEN FETCHING SCHEDULE
 // const fetchSchedule = async () => {
 //     try {
 //         const response = await axios.get(
