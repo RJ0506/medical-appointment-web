@@ -229,6 +229,7 @@ definePageMeta({
 
 const authStore = useAuthStore();
 const currentDate = ref("");
+const current_service_category_id = ref("1");
 const service_types = ref([]);
 const formData = ref({
     appointment: "",
@@ -263,7 +264,7 @@ currentDate.value = getCurrentDate();
 const fetchServiceTypes = async () => {
     try {
         const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment/service-types/1`,
+            `${useRuntimeConfig().public.laravelURL}patient/appointment/service-types/${current_service_category_id.value}`,
             {
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,

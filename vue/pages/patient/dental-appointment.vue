@@ -19,7 +19,7 @@
                             :id="service.id"
                             name="appointment"
                             :value="service.id"
-                            v-model="formData.appointment"
+                            v-model="formData.service_type_id"
                         />
                         <label
                             class="inline-flex cursor-pointer rounded bg-[#2abb49] px-10 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
@@ -168,15 +168,30 @@ const authStore = useAuthStore();
 const currentDate = ref("");
 const service_types = ref([]);
 const formData = ref({
-    appointment: "",
+    service_type_id: "",
     date: "",
     time: "",
 });
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
     console.log(formData.value);
+    // try {
+    //     const response = await axios.post(
+    //         `${useRuntimeConfig().public.laravelURL}patient/appointment`,
+    //         this.form.value,
+    //         {
+    //             headers: {
+    //                 Authorization: `Bearer ${authStore.token}`,
+    //             },
+    //         },
+    //     );
+    //     console.log(response);
+    // } catch (error) {
+    //     console.log("Failed to create appointment");
+    // }
 };
 
+const current_service_category_id = ref("2");
 const today = new Date();
 const year = today.getFullYear();
 const month = String(today.getMonth() + 1).padStart(2, "0");
@@ -186,7 +201,7 @@ currentDate.value = `${year}-${month}-${day}`;
 const fetchServiceTypes = async () => {
     try {
         const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment/service-types/2`,
+            `${useRuntimeConfig().public.laravelURL}patient/appointment/service-types/${current_service_category_id.value}`,
             {
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,
@@ -199,5 +214,22 @@ const fetchServiceTypes = async () => {
     }
 };
 
+const fetchSchedule = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}patient/appointment/schedules`,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        console.log("schedules", response);
+    } catch (error) {
+        console.log("Failed to Schedules");
+    }
+};
+
 fetchServiceTypes();
+fetchSchedule();
 </script>
