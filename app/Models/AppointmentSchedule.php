@@ -26,6 +26,11 @@ class AppointmentSchedule extends Model
 		return $this->attributes['start_time'] = Carbon::parse($value)->format('H:i');
 	}
 
+	public function getEndTimeAttribute($value)
+	{
+		return $this->attributes['end_time'] = Carbon::parse($value)->format('H:i');
+	}
+
 
 	public function appointment(): HasMany
 	{
