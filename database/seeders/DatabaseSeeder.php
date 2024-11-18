@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Appointment;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
 			DepartmentSeeder::class,
 			UserSeeder::class,
 			PatientSeeder::class,
+			AppointmentScheduleSeeder::class,
 		]);
 	}
 }
