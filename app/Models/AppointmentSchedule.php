@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class AppointmentSchedule extends Model
 {
@@ -19,6 +20,12 @@ class AppointmentSchedule extends Model
 		'doctor_id',
 		'service_type_id',
 	];
+
+	public function getStartTimeAttribute($value)
+	{
+		return $this->attributes['start_time'] = Carbon::parse($value)->format('H:i');
+	}
+
 
 	public function appointment(): HasMany
 	{
