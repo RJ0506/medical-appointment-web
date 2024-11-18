@@ -9,6 +9,7 @@ use App\Models\Appointment;
 use App\Models\AppointmentSchedule;
 use App\Models\ServiceCategory;
 use App\Models\ServiceType;
+use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 
 class AppointmentController extends Controller
@@ -18,7 +19,10 @@ class AppointmentController extends Controller
 		$dayOfWeek = $this->getDayOfWeek($request['date']);
 
 		$appointmentSchedule = AppointmentSchedule::
-			where('day_of_week', $dayOfWeek)
+			whereDoesntHave('appointment', function (Builder $query) use ($request) {
+				$query->where('scheduled_date', '=', $request['date']);
+			})
+			->where('day_of_week', $dayOfWeek)
 			->where('service_type_id', $request['service_type_id'])
 			->where('start_time', $request['time'])
 			->first();
@@ -51,8 +55,10 @@ class AppointmentController extends Controller
 	{
 		$dayOfWeek = $this->getDayOfWeek($request->query('date'));
 
-		$rows = AppointmentSchedule::
-			where('day_of_week', $dayOfWeek)
+		$rows = AppointmentSchedule::whereDoesntHave('appointment', function (Builder $query) use ($request) {
+			$query->where('scheduled_date', '=', $request['date']);
+		})
+			->where('day_of_week', $dayOfWeek)
 			->where('service_type_id', $request->query('service_type_id'))
 			->get();
 
