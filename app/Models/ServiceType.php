@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ServiceType extends Model
@@ -16,5 +17,10 @@ class ServiceType extends Model
 	public function category(): BelongsTo
 	{
 		return $this->belongsTo(ServiceCategory::class);
+	}
+
+	public function appointment_schedules(): HasMany
+	{
+		return $this->hasMany(AppointmentSchedule::class);
 	}
 }
