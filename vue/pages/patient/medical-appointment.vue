@@ -23,7 +23,7 @@
                                 :id="service.id"
                                 name="appointment"
                                 :value="service.id"
-                                v-model="formData.appointment"
+                                v-model="formData.service_type_id"
                             />
                             <label
                                 class="inline-flex cursor-pointer rounded bg-[#2abb49] px-10 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
@@ -34,8 +34,13 @@
                         </div>
                     </div>
                 </div>
-
-                <div v-if="formData.appointment === 'vaccine'">
+                <!-- VACCINE TYPE -->
+                <!-- <div
+                    v-if="
+                        formData.service_type_id &&
+                        formData.service_type_id === '1'
+                    "
+                >
                     <h2 class="font-bold">
                         Please select the vaccine you would like to receive from
                         the list below.
@@ -86,8 +91,8 @@
                             >
                         </div>
                     </div>
-                </div>
-                <div>
+                </div> -->
+                <div v-if="formData.service_type_id">
                     <h2 class="font-bold">
                         What date would you like to schedule your appointment
                         for?
@@ -101,10 +106,11 @@
                             name="date"
                             :min="currentDate"
                             v-model="formData.date"
+                            @change="fetchSchedule()"
                         />
                     </div>
                 </div>
-                <div>
+                <div v-if="formData.date">
                     <h2 class="font-bold">
                         What time would you like your appointment?
                     </h2>
@@ -126,91 +132,12 @@
                                     12:00 PM
                                 </label>
                             </div>
-                            <div>
-                                <input
-                                    class="peer hidden"
-                                    type="radio"
-                                    id="12:20"
-                                    name="time"
-                                    value="12:20PM"
-                                    v-model="formData.time"
-                                />
-                                <label
-                                    class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                    for="12:20"
-                                >
-                                    12:20 PM
-                                </label>
-                            </div>
-                            <div>
-                                <input
-                                    class="peer hidden"
-                                    type="radio"
-                                    id="12:40"
-                                    name="time"
-                                    value="12:40PM"
-                                    v-model="formData.time"
-                                />
-                                <label
-                                    class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                    for="12:40"
-                                >
-                                    12:40 PM
-                                </label>
-                            </div>
-                            <div>
-                                <input
-                                    class="peer hidden"
-                                    type="radio"
-                                    id="01:00"
-                                    name="time"
-                                    value="01:00PM"
-                                    v-model="formData.time"
-                                />
-                                <label
-                                    class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                    for="01:00"
-                                >
-                                    1:00 PM
-                                </label>
-                            </div>
-                            <div>
-                                <input
-                                    class="peer hidden"
-                                    type="radio"
-                                    id="01:20"
-                                    name="time"
-                                    value="01:20PM"
-                                    v-model="formData.time"
-                                />
-                                <label
-                                    class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                    for="01:20"
-                                >
-                                    1:20 PM
-                                </label>
-                            </div>
-                            <div>
-                                <input
-                                    class="peer hidden"
-                                    type="radio"
-                                    id="01:40"
-                                    name="time"
-                                    value="01:40PM"
-                                    v-model="formData.time"
-                                />
-                                <label
-                                    class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                    for="01:40"
-                                >
-                                    1:40 PM
-                                </label>
-                            </div>
                         </div>
                     </div>
                 </div>
 
                 <button
+                    v-if="formData.time"
                     class="mt-5 w-fit self-center rounded bg-[#1e3d2c] px-10 py-1 text-white hover:bg-emerald-800"
                 >
                     Submit Appointment
@@ -232,9 +159,9 @@ const currentDate = ref("");
 const current_service_category_id = ref("1");
 const service_types = ref([]);
 const formData = ref({
-    appointment: "",
+    service_type_id: "",
     date: "",
-    vaccineType: "",
+    // vaccineType: "",
     time: "",
 });
 
@@ -247,8 +174,21 @@ watch(
     },
 );
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
     console.log(formData.value);
+    try {
+        const result = await axios.post(
+            `${useRuntimeConfig().public.laravelURL}patient/appointment`,
+            formData.value,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+    } catch (error) {
+        console.log("Error Creating appointment");
+    }
 };
 
 const getCurrentDate = () => {
@@ -274,6 +214,26 @@ const fetchServiceTypes = async () => {
         service_types.value = response.data;
     } catch (error) {
         console.log("Failed to fetch service types");
+    }
+};
+
+const fetchSchedule = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}patient/appointment/schedules`,
+            {
+                params: {
+                    service_type_id: formData.value.service_type_id,
+                    date: formData.value.date,
+                },
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        available_schedule.value = response.data;
+    } catch (error) {
+        console.log("Failed to fetch schedules", error);
     }
 };
 
