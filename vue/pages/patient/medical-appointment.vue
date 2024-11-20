@@ -111,26 +111,39 @@
                     </div>
                 </div>
                 <div v-if="formData.date">
-                    <h2 class="font-bold">
-                        What time would you like your appointment?
-                    </h2>
-                    <div class="mx-auto mt-3 w-fit">
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <input
-                                    class="peer hidden"
-                                    type="radio"
-                                    id="12:00"
-                                    name="time"
-                                    value="12:00PM"
-                                    v-model="formData.time"
-                                />
-                                <label
-                                    class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                    for="12:00"
+                    <div
+                        v-if="available_schedule.length === 0"
+                        class="col-span-2 text-center text-red-500"
+                    >
+                        No schedules available.
+                    </div>
+                    <div v-else>
+                        <h2 class="font-bold">
+                            What time would you like your appointment?
+                        </h2>
+                        <div class="mx-auto mt-3 w-fit">
+                            <div class="grid grid-cols-2 gap-2">
+                                <div
+                                    v-for="(
+                                        schedule, index
+                                    ) in available_schedule"
+                                    :key="index"
                                 >
-                                    12:00 PM
-                                </label>
+                                    <input
+                                        class="peer hidden"
+                                        type="radio"
+                                        :id="schedule.start_time"
+                                        name="time"
+                                        :value="schedule.start_time"
+                                        v-model="formData.time"
+                                    />
+                                    <label
+                                        class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
+                                        :for="schedule.start_time"
+                                    >
+                                        {{ schedule.start_time }}
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,6 +171,7 @@ const authStore = useAuthStore();
 const currentDate = ref("");
 const current_service_category_id = ref("1");
 const service_types = ref([]);
+const available_schedule = ref([]);
 const formData = ref({
     service_type_id: "",
     date: "",
