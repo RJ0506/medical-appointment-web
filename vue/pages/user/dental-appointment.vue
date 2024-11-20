@@ -71,13 +71,16 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue";
+<script setup>
+import axios from "axios";
+import { useAuthStore } from "~/stores/auth";
 
 definePageMeta({
     layout: "user",
 });
 
+const appointmentSchedule = ref([]);
+const authStore = useAuthStore();
 const searchTerm = ref("");
 const records = ref([
     {
@@ -125,4 +128,23 @@ const filteredRecords = computed(() => {
         return item.name.toLowerCase().includes(searchTerm.value.toLowerCase());
     });
 });
+
+const fetchAppointments = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}user/medicines`,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        console.log("fetchAppointments ", response.data);
+        appointmentSchedule.value = response.data;
+    } catch (error) {
+        console.log("error fetching appointments");
+    }
+};
+
+fetchAppointments();
 </script>

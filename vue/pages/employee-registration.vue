@@ -188,8 +188,8 @@
                                     id="name_extension"
                                     v-model="formData.name_extension"
                                 >
-                                    <option value="Jr.">Sr</option>
-                                    <option value="Sr.">Jr</option>
+                                    <option value="Jr.">Sr.</option>
+                                    <option value="Sr.">Jr.</option>
                                     <option value="I">I</option>
                                     <option value="II">II</option>
                                     <option value="III">III</option>

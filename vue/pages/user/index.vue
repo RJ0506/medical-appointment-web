@@ -58,7 +58,7 @@
                                     Checked In
                                 </button>
                                 <button
-                                    class="rounded-md bg-[#ff0000] p-2 text-white font-bold hover:bg-red-700"
+                                    class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
                                 >
                                     Cancelled
                                 </button>
@@ -71,11 +71,16 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import axios from "axios";
+import { useAuthStore } from "~/stores/auth";
+
 definePageMeta({
     layout: "user",
 });
 
+const appointmentSchedule = ref([]);
+const authStore = useAuthStore();
 const searchTerm = ref("");
 const records = ref([
     {
@@ -119,8 +124,27 @@ const filteredRecords = computed(() => {
     if (!searchTerm.value) {
         return records.value;
     }
-    return records.value.filter((item: any) => {
+    return records.value.filter((item) => {
         return item.name.toLowerCase().includes(searchTerm.value.toLowerCase());
     });
 });
+
+const fetchAppointments = async () => {
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}user/medicines`,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        console.log("fetchAppointments ", response.data);
+        appointmentSchedule.value = response.data;
+    } catch (error) {
+        console.log("error fetching appointments");
+    }
+};
+
+fetchAppointments();
 </script>
