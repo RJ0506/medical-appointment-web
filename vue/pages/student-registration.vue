@@ -93,6 +93,7 @@
                                     <option
                                         v-for="department in departments"
                                         :value="department.id"
+                                        :key="department.id"
                                     >
                                         {{ department.name }}
                                     </option>
