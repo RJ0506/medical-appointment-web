@@ -19,13 +19,14 @@ class Appointment extends Model
 		'status',
 	];
 
-	public function appointment_schedule(): BelongsTo
+	public function schedule(): BelongsTo
 	{
-		return $this->belongsTo(AppointmentSchedule::class);
+		return $this->belongsTo(AppointmentSchedule::class, 'appointment_schedule_id');
 	}
 
 	public function patient(): BelongsTo
 	{
 		return $this->belongsTo(Patient::class);
 	}
+
 }

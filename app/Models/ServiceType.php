@@ -16,7 +16,7 @@ class ServiceType extends Model
 
 	public function category(): BelongsTo
 	{
-		return $this->belongsTo(ServiceCategory::class);
+		return $this->belongsTo(ServiceCategory::class, 'service_category_id');
 	}
 
 	public function appointment_schedules(): HasMany

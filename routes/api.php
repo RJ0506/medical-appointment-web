@@ -4,6 +4,7 @@ use App\Http\Controllers\User\MedicineLogSheetController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Patient\AuthController as PatientAuthController;
 use App\Http\Controllers\Patient\AppointmentController as PatientAppointmentController;
+use App\Http\Controllers\User\AppointmentController as UserAppointmentController;
 use App\Http\Controllers\User\AppointmentScheduleController;
 use App\Http\Controllers\User\DepartmentController;
 use App\Http\Controllers\User\MedicineController;
@@ -29,6 +30,10 @@ Route::prefix('user')->group(function () {
 			'consultation-records' => ConsultationRecordController::class,
 		]);
 
+		Route::prefix('appointments')->controller(UserAppointmentController::class)->group(function () {
+			Route::get('/{service_category_id}', 'appointments');
+		});
+
 		Route::apiResource('patients', PatientController::class)->except([
 			'store',
 			'update',
@@ -50,7 +55,7 @@ Route::prefix('patient')->group(function () {
 		Route::post('/logout', [PatientAuthController::class, 'logout']);
 		Route::get('/me', [PatientAuthController::class, 'me']);
 
-		Route::prefix('appointment')->controller(PatientAppointmentController::class)->group(function () {
+		Route::prefix('appointments')->controller(PatientAppointmentController::class)->group(function () {
 			Route::post('/', 'store');
 			Route::get('/service-categories', 'serviceCategories');
 			Route::get('/service-types/{service_category_id}', 'serviceTypes');
