@@ -238,42 +238,51 @@
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
-                    <template v-if="medicine_logsheet.length > 0">
-                        <tr
-                            v-for="(item, index) in medicine_logsheet"
-                            :key="index"
-                        >
-                            <td class="p-5 font-medium">
-                                {{ item.created_at }}
-                            </td>
-                            <td class="p-5 font-medium">
-                                {{ item.patient.first_name }}
-                                {{ item.patient.last_name }}
-                            </td>
-                            <td class="p-5 font-medium">
-                                {{ item.patient.department.name }}
-                            </td>
-                            <td class="p-5 font-medium">
-                                {{ item.chief_complaint }}
-                            </td>
-                            <td class="p-5 font-medium">
-                                {{ item.medicine.brand_name }}
-                            </td>
-                            <td class="p-5 font-medium">{{ item.quantity }}</td>
-                            <td class="p-5 font-medium">
-                                {{ item.nurse_on_duty }}
-                            </td>
+                    <template v-if="isLoading">
+                        <tr>
+                            <td colspan="7" class="text-center"><Spinner /></td>
                         </tr>
                     </template>
-                    <template v-else>
-                        <tr>
-                            <td
-                                colspan="7"
-                                class="p-5 text-center text-gray-500"
+                    <template v-if="!isLoading">
+                        <template v-if="medicine_logsheet.length > 0">
+                            <tr
+                                v-for="(item, index) in medicine_logsheet"
+                                :key="index"
                             >
-                                No data available
-                            </td>
-                        </tr>
+                                <td class="p-5 font-medium">
+                                    {{ item.created_at }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.patient.first_name }}
+                                    {{ item.patient.last_name }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.patient.department.name }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.chief_complaint }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.medicine.brand_name }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.quantity }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.nurse_on_duty }}
+                                </td>
+                            </tr>
+                        </template>
+                        <template v-else>
+                            <tr>
+                                <td
+                                    colspan="7"
+                                    class="p-5 text-center text-gray-500"
+                                >
+                                    No Records Found
+                                </td>
+                            </tr>
+                        </template>
                     </template>
                 </tbody>
             </table>
@@ -295,6 +304,7 @@ const medicines = ref([]);
 const submitErrorMessages = ref();
 const formRef = ref();
 const isAdding = ref(false);
+const isLoading = ref(true);
 const authStore = useAuthStore();
 
 const currentDateAndTime = new Date().toLocaleString();
@@ -341,6 +351,7 @@ const fetchMedicines = async () => {
 };
 
 const fetchMedicineLogSheet = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(
             `${useRuntimeConfig().public.laravelURL}user/medicine-log-sheets`,
@@ -353,6 +364,8 @@ const fetchMedicineLogSheet = async () => {
         medicine_logsheet.value = response.data;
     } catch (error) {
         console.log("error fetching Medicines");
+    } finally {
+        isLoading.value = false;
     }
 };
 

@@ -8,7 +8,7 @@
                     type="text"
                     v-model="searchTerm"
                     class="search-input w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Search name..."
+                    placeholder="Search name or service..."
                 />
                 <svg
                     class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
@@ -42,29 +42,60 @@
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
-                    <tr v-for="(item, index) in filteredRecords" :key="index">
-                        <td class="p-5 font-medium">{{ item.date }}</td>
-                        <td class="p-5 font-medium">{{ item.time }}</td>
-                        <td class="p-5 font-medium">
-                            {{ item.classification }}
-                        </td>
-                        <td class="p-5 font-medium">{{ item.name }}</td>
-                        <td class="p-5 font-medium">{{ item.service }}</td>
-                        <td>
-                            <div class="flex gap-2">
-                                <button
-                                    class="rounded-md bg-[#2abb49] p-2 font-bold text-white hover:bg-emerald-700"
-                                >
-                                    Checked In
-                                </button>
-                                <button
-                                    class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
-                                >
-                                    Cancelled
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    <template v-if="isLoading">
+                        <tr>
+                            <td colspan="6" class="text-center"><Spinner /></td>
+                        </tr>
+                    </template>
+                    <template v-else>
+                        <template v-if="filteredRecords.length > 0">
+                            <tr
+                                v-for="(item, index) in filteredRecords"
+                                :key="index"
+                            >
+                                <td class="p-5 font-medium">
+                                    {{ item.scheduled_date }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.schedule.start_time }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.patient.nationality }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.patient.first_name }}
+                                    {{
+                                        item.patient.middle_initial
+                                            ? item.patient.middle_initial + ", "
+                                            : ""
+                                    }}
+                                    {{ item.patient.last_name }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.schedule.service_type.name }}
+                                </td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button
+                                            class="rounded-md bg-[#2abb49] p-2 font-bold text-white hover:bg-emerald-700"
+                                        >
+                                            Checked In
+                                        </button>
+                                        <button
+                                            class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
+                                        >
+                                            Cancelled
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                        <template v-else>
+                            <td colspan="6" class="text-center">
+                                No Records Found
+                            </td>
+                        </template>
+                    </template>
                 </tbody>
             </table>
         </div>
@@ -79,60 +110,16 @@ definePageMeta({
     layout: "user",
 });
 
+const current_service_category_id = ref("2");
 const appointmentSchedule = ref([]);
 const authStore = useAuthStore();
+const isLoading = ref(true);
 const searchTerm = ref("");
-const records = ref([
-    {
-        date: "10/01/2023",
-        time: "12:00PM",
-        classification: "Faculty",
-        name: "Jonathan Michael Reyes",
-        service: "Tooth Extraction",
-    },
-    {
-        date: "10/02/2023",
-        time: "1:40PM",
-        classification: "Student",
-        name: "Maria Isabel Santos",
-        service: "Cleaning",
-    },
-    {
-        date: "10/03/2023",
-        time: "12:20PM",
-        classification: "Faculty",
-        name: "Christopher James Lopez",
-        service: "Checkup",
-    },
-    {
-        date: "10/04/2023",
-        time: "12:40PM",
-        classification: "Student",
-        name: "Angela Marie Garcia",
-        service: "Tooth Extraction",
-    },
-    {
-        date: "10/05/2023",
-        time: "1:20PM",
-        classification: "Student",
-        name: "Daniel Francis Cruz",
-        service: "Filling",
-    },
-]);
-
-const filteredRecords = computed(() => {
-    if (!searchTerm.value) {
-        return records.value;
-    }
-    return records.value.filter((item) => {
-        return item.name.toLowerCase().includes(searchTerm.value.toLowerCase());
-    });
-});
 
 const fetchAppointments = async () => {
     try {
         const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}user/medicines`,
+            `${useRuntimeConfig().public.laravelURL}user/appointments/${current_service_category_id.value}`,
             {
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,
@@ -143,8 +130,29 @@ const fetchAppointments = async () => {
         appointmentSchedule.value = response.data;
     } catch (error) {
         console.log("error fetching appointments");
+    } finally {
+        isLoading.value = false;
     }
 };
+
+const filteredRecords = computed(() => {
+    if (!searchTerm.value) {
+        return appointmentSchedule.value;
+    }
+    return appointmentSchedule.value.filter((item) => {
+        return (
+            item.patient.first_name
+                .toLowerCase()
+                .includes(searchTerm.value.toLowerCase()) ||
+            item.patient.last_name
+                .toLowerCase()
+                .includes(searchTerm.value.toLowerCase()) ||
+            item.schedule.service_type.name
+                .toLowerCase()
+                .includes(searchTerm.value.toLowerCase())
+        );
+    });
+});
 
 fetchAppointments();
 </script>

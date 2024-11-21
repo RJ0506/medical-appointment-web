@@ -2,7 +2,7 @@ import { useAuthStore } from "~/stores/auth";
 export default defineNuxtRouteMiddleware((to, from) => {
     const current_user = useCookie("current_user");
     const authStore = useAuthStore();
-    authStore.loadFromLocalStorage();
+    authStore.loadFromCookies();
     const isAuthenticated = authStore.isAuthenticated;
     const isAdmin = authStore.isAdmin;
 
