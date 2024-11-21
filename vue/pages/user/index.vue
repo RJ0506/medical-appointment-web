@@ -79,6 +79,7 @@ definePageMeta({
     layout: "user",
 });
 
+const current_service_category_id = ref("1");
 const appointmentSchedule = ref([]);
 const authStore = useAuthStore();
 const searchTerm = ref("");
@@ -132,7 +133,7 @@ const filteredRecords = computed(() => {
 const fetchAppointments = async () => {
     try {
         const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}user/medicines`,
+            `${useRuntimeConfig().public.laravelURL}user/appointments/${current_service_category_id.value}`,
             {
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,
