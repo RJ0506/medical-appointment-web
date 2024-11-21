@@ -163,7 +163,7 @@ const checkIn = async (id) => {
     try {
         const response = await axios.patch(
             `${useRuntimeConfig().public.laravelURL}user/appointments/status/${id}`,
-            { action: "Checked in" },
+            { action: "Checked In" },
             {
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,
