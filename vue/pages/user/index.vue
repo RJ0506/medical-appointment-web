@@ -48,9 +48,9 @@
                         </tr>
                     </template>
                     <template v-else>
-                        <template v-if="appointmentSchedule.length > 0">
+                        <template v-if="filteredRecords.length > 0">
                             <tr
-                                v-for="(item, index) in appointmentSchedule"
+                                v-for="(item, index) in filteredRecords"
                                 :key="index"
                             >
                                 <td class="p-5 font-medium">
@@ -118,10 +118,10 @@ const isLoading = ref(true);
 
 const filteredRecords = computed(() => {
     if (!searchTerm.value) {
-        return records.value;
+        return appointmentSchedule.value;
     }
-    return records.value.filter((item) => {
-        return item.name.toLowerCase().includes(searchTerm.value.toLowerCase());
+    return appointmentSchedule.value.filter((item) => {
+        return item.patient.first_name.toLowerCase().includes(searchTerm.value.toLowerCase());
     });
 });
 
