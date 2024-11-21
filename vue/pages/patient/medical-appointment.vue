@@ -200,7 +200,6 @@ watch(
 );
 
 const handleSubmit = async () => {
-    console.log(formData.value);
     try {
         const result = await axios.post(
             `${useRuntimeConfig().public.laravelURL}patient/appointments`,
@@ -211,6 +210,7 @@ const handleSubmit = async () => {
                 },
             },
         );
+        navigateTo("/patient/history");
     } catch (error) {
         console.log("Error Creating appointment");
     }
