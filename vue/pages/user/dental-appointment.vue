@@ -119,6 +119,7 @@ const isLoading = ref(true);
 const searchTerm = ref("");
 
 const fetchAppointments = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(
             `${useRuntimeConfig().public.laravelURL}user/appointments/${current_service_category_id.value}`,
