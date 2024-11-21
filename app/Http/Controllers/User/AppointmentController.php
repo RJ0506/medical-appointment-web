@@ -15,7 +15,7 @@ class AppointmentController extends Controller
 			$query->where('id', $serviceCategoryID);
 		});
 
-		if ($request->filled('actions'))
+		if ($request->filled('actions') && is_array($request->query('actions')))
 			$rows->whereIn('status', $request->query('actions'));
 
 		$rows = $rows->orderBy('created_at', 'desc')->get();
