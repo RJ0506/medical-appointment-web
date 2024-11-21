@@ -8,20 +8,26 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-	public function appointments(int $serviceCategoryID)
+	public function appointments(Request $request, int $serviceCategoryID)
 	{
 		$rows = Appointment::with('schedule.service_type.category', 'patient')->whereRelation('schedule.service_type.category', function ($query) use ($serviceCategoryID) {
 
 			$query->where('id', $serviceCategoryID);
-		})->orderBy('created_at', 'desc')->get();
+		});
+
+		if ($request->filled('action'))
+			$rows->where('status', $request->query('action'));
+
+		$rows = $rows->orderBy('created_at', 'desc')->get();
 
 		return response()->json($rows);
+
 	}
 
 	public function updateStatus(Request $request, int $appointmentID)
 	{
 		$request->validate([
-			'action' => 'required|in:Checked in,Cancelled',
+			'action' => 'required|in:Checked In,Cancelled',
 		]);
 
 		$row = Appointment::where('status', 'Pending')->findOrFail($appointmentID);
