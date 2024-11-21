@@ -79,6 +79,28 @@
                         </span>
                     </div>
                 </NuxtLink>
+                <NuxtLink to="/patient/history">
+                    <div
+                        :class="{
+                            'justify-start': isSidebarCollapsed,
+                            'justify-center': !isSidebarCollapsed,
+                        }"
+                        class="flex items-center gap-3 px-4 py-5 text-xl font-bold hover:bg-[#1e3d2c]"
+                    >
+                        <Icon
+                            name="i-material-symbols-light-work-history"
+                            style="color: white; font-size: 2rem"
+                        />
+                        <span
+                            :class="{
+                                block: isSidebarCollapsed,
+                                hidden: !isSidebarCollapsed,
+                            }"
+                        >
+                            History
+                        </span>
+                    </div>
+                </NuxtLink>
             </div>
             <button
                 @click="logout()"
