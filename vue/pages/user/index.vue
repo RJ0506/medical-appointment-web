@@ -77,11 +77,13 @@
                                 <td>
                                     <div class="flex gap-2">
                                         <button
+                                            @click="checkIn(item.id)"
                                             class="rounded-md bg-[#2abb49] p-2 font-bold text-white hover:bg-emerald-700"
                                         >
                                             Checked In
                                         </button>
                                         <button
+                                            @click="cancel(item.id)"
                                             class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
                                         >
                                             Cancelled
@@ -156,4 +158,38 @@ const fetchAppointments = async () => {
 };
 
 fetchAppointments();
+
+const checkIn = async (id) => {
+    try {
+        const response = await axios.patch(
+            `${useRuntimeConfig().public.laravelURL}user/appointments/status/${id}`,
+            { action: "Checked in" },
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        fetchAppointments();
+    } catch (error) {
+        console.log("Error Checking In Appointment");
+    }
+};
+
+const cancel = async (id) => {
+    try {
+        const response = await axios.patch(
+            `${useRuntimeConfig().public.laravelURL}user/appointments/status/${id}`,
+            { action: "Cancelled" },
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        fetchAppointments();
+    } catch (error) {
+        console.log("Error Cancelling Appointment");
+    }
+};
 </script>

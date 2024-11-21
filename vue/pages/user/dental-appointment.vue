@@ -77,11 +77,13 @@
                                 <td>
                                     <div class="flex gap-2">
                                         <button
+                                            @click="checkIn(item.id)"
                                             class="rounded-md bg-[#2abb49] p-2 font-bold text-white hover:bg-emerald-700"
                                         >
                                             Checked In
                                         </button>
                                         <button
+                                            @click="cancel(item.id)"
                                             class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
                                         >
                                             Cancelled
@@ -117,6 +119,7 @@ const isLoading = ref(true);
 const searchTerm = ref("");
 
 const fetchAppointments = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(
             `${useRuntimeConfig().public.laravelURL}user/appointments/${current_service_category_id.value}`,
@@ -155,4 +158,38 @@ const filteredRecords = computed(() => {
 });
 
 fetchAppointments();
+
+const checkIn = async (id) => {
+    try {
+        const response = await axios.patch(
+            `${useRuntimeConfig().public.laravelURL}user/appointments/status/${id}`,
+            { action: "Checked in" },
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        fetchAppointments();
+    } catch (error) {
+        console.log("Error Checking In Appointment");
+    }
+};
+
+const cancel = async (id) => {
+    try {
+        const response = await axios.patch(
+            `${useRuntimeConfig().public.laravelURL}user/appointments/status/${id}`,
+            { action: "Cancelled" },
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        fetchAppointments();
+    } catch (error) {
+        console.log("Error Cancelling Appointment");
+    }
+};
 </script>
