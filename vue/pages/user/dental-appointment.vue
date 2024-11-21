@@ -44,7 +44,7 @@
                 <tbody class="whitespace-nowrap">
                     <template v-if="isLoading">
                         <tr>
-                            <td colspan="6" class="text-center">Loading...</td>
+                            <td colspan="6" class="text-center"><Spinner /></td>
                         </tr>
                     </template>
                     <template v-else>
