@@ -57,6 +57,7 @@ Route::prefix('patient')->group(function () {
 		Route::get('/me', [PatientAuthController::class, 'me']);
 
 		Route::prefix('appointments')->controller(PatientAppointmentController::class)->group(function () {
+			Route::get('/', 'index');
 			Route::post('/', 'store');
 			Route::get('/service-categories', 'serviceCategories');
 			Route::get('/service-types/{service_category_id}', 'serviceTypes');

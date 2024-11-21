@@ -9,20 +9,28 @@ use App\Models\Appointment;
 use App\Models\AppointmentSchedule;
 use App\Models\ServiceCategory;
 use App\Models\ServiceType;
-use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
+
+	public function index()
+	{
+		return response()->json(
+			Appointment::
+				with('schedule.doctor')
+				->where('patient_id', auth()->user()->id)
+				->orderBy('scheduled_date', 'desc')
+				->get()
+		);
+	}
+
 	public function store(StoreAppointmentRequest $request)
 	{
 		$dayOfWeek = $this->getDayOfWeek($request['date']);
 
 		$appointmentSchedule = AppointmentSchedule::
-			whereDoesntHave('appointment', function (Builder $query) use ($request) {
-				$query->where('scheduled_date', '=', $request['date']);
-			})
-			->where('day_of_week', $dayOfWeek)
+			where('day_of_week', $dayOfWeek)
 			->where('service_type_id', $request['service_type_id'])
 			->where('start_time', $request['time'])
 			->first();
@@ -55,10 +63,8 @@ class AppointmentController extends Controller
 	{
 		$dayOfWeek = $this->getDayOfWeek($request->query('date'));
 
-		$rows = AppointmentSchedule::whereDoesntHave('appointment', function (Builder $query) use ($request) {
-			$query->where('scheduled_date', '=', $request['date']);
-		})
-			->where('day_of_week', $dayOfWeek)
+		$rows = AppointmentSchedule::
+			where('day_of_week', $dayOfWeek)
 			->where('service_type_id', $request->query('service_type_id'))
 			->get();
 
