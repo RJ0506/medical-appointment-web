@@ -13,12 +13,11 @@ use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
-
 	public function index()
 	{
 		return response()->json(
 			Appointment::
-				with('schedule.doctor')
+				with(['schedule.doctor', 'schedule.service_type.category'])
 				->where('patient_id', auth()->user()->id)
 				->orderBy('scheduled_date', 'desc')
 				->get()
