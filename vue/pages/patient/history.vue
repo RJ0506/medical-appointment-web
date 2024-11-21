@@ -37,8 +37,22 @@
                                 <td class="p-5 font-medium">
                                     {{ item.schedule.service_type.name }}
                                 </td>
-                                <td>
-                                   {{ item.status }}
+                                <td class="pl-6">
+                                    <Icon
+                                        v-if="item.status === 'Checked In'"
+                                        name="i-material-symbols-light-check-circle-rounded"
+                                        style="color: green; font-size: 2rem"
+                                    />
+                                    <Icon
+                                        v-if="item.status === 'Pending'"
+                                        name="i-material-symbols-light-pending"
+                                        style="color: green; font-size: 2rem"
+                                    />
+                                    <Icon
+                                        v-if="item.status === 'Cancelled'"
+                                        name="i-material-symbols-light-cancel"
+                                        style="color: red; font-size: 2rem"
+                                    />
                                 </td>
                             </tr>
                         </template>
@@ -65,7 +79,6 @@ const isLoading = ref(true);
 const historyList = ref([]);
 const authStore = useAuthStore();
 
-
 const fetchHistory = async () => {
     isLoading.value = true;
     try {
@@ -77,7 +90,6 @@ const fetchHistory = async () => {
                 },
             },
         );
-        console.log("fetchhistory ", response.data);
         historyList.value = response.data;
     } catch (error) {
         console.log("error fetching history");
