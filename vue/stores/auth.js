@@ -4,7 +4,7 @@ export const useAuthStore = defineStore("auth", {
         role: null,
     }),
     actions: {
-        loadFromLocalStorage() {
+        loadFromCookies() {
             const current_user = useCookie("current_user");
             const storedToken = current_user.value;
             if (storedToken) {
