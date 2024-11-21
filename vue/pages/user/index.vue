@@ -42,29 +42,60 @@
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
-                    <tr v-for="(item, index) in filteredRecords" :key="index">
-                        <td class="p-5 font-medium">{{ item.date }}</td>
-                        <td class="p-5 font-medium">{{ item.time }}</td>
-                        <td class="p-5 font-medium">
-                            {{ item.classification }}
-                        </td>
-                        <td class="p-5 font-medium">{{ item.name }}</td>
-                        <td class="p-5 font-medium">{{ item.service }}</td>
-                        <td>
-                            <div class="flex gap-2">
-                                <button
-                                    class="rounded-md bg-[#2abb49] p-2 font-bold text-white hover:bg-emerald-700"
-                                >
-                                    Checked In
-                                </button>
-                                <button
-                                    class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
-                                >
-                                    Cancelled
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    <template v-if="isLoading">
+                        <tr>
+                            <td colspan="6" class="text-center">Loading...</td>
+                        </tr>
+                    </template>
+                    <template v-else>
+                        <template v-if="appointmentSchedule.length > 0">
+                            <tr
+                                v-for="(item, index) in appointmentSchedule"
+                                :key="index"
+                            >
+                                <td class="p-5 font-medium">
+                                    {{ item.scheduled_date }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.schedule.start_time }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.patient.nationality }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.patient.first_name }}
+                                    {{
+                                        item.patient.middle_initial
+                                            ? item.patient.middle_initial + ", "
+                                            : ""
+                                    }}
+                                    {{ item.patient.last_name }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.schedule.service_type.name }}
+                                </td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button
+                                            class="rounded-md bg-[#2abb49] p-2 font-bold text-white hover:bg-emerald-700"
+                                        >
+                                            Checked In
+                                        </button>
+                                        <button
+                                            class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
+                                        >
+                                            Cancelled
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                        <template v-else>
+                            <td colspan="6" class="text-center">
+                                No Records Found
+                            </td>
+                        </template>
+                    </template>
                 </tbody>
             </table>
         </div>
@@ -83,43 +114,7 @@ const current_service_category_id = ref("1");
 const appointmentSchedule = ref([]);
 const authStore = useAuthStore();
 const searchTerm = ref("");
-const records = ref([
-    {
-        date: "10/01/2023",
-        time: "12:00PM",
-        classification: "Student",
-        name: "Alice Johnson",
-        service: "Vaccination",
-    },
-    {
-        date: "10/02/2023",
-        time: "1:40PM",
-        classification: "Faculty",
-        name: "Bob Smith",
-        service: "Checkup",
-    },
-    {
-        date: "10/03/2023",
-        time: "12:20PM",
-        classification: "Student",
-        name: "Charlie Brown",
-        service: "Checkup",
-    },
-    {
-        date: "10/04/2023",
-        time: "12:40PM",
-        classification: "Faculty",
-        name: "Professor Mary Davis",
-        service: "Vaccination",
-    },
-    {
-        date: "10/05/2023",
-        time: "1:20PM",
-        classification: "Student",
-        name: "Emma Wilson",
-        service: "Vaccination",
-    },
-]);
+const isLoading = ref(true);
 
 const filteredRecords = computed(() => {
     if (!searchTerm.value) {
@@ -131,6 +126,7 @@ const filteredRecords = computed(() => {
 });
 
 const fetchAppointments = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(
             `${useRuntimeConfig().public.laravelURL}user/appointments/${current_service_category_id.value}`,
@@ -144,6 +140,8 @@ const fetchAppointments = async () => {
         appointmentSchedule.value = response.data;
     } catch (error) {
         console.log("error fetching appointments");
+    } finally {
+        isLoading.value = false;
     }
 };
 
