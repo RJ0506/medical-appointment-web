@@ -12,7 +12,12 @@
                     <h2 class="font-bold">
                         Select the service you want to get the appointment for:
                     </h2>
-                    <div class="mt-2 flex flex-wrap justify-center gap-2">
+                    <div v-if="isLoading" class="text-center"><Spinner /></div>
+
+                    <div
+                        v-if="!isLoading"
+                        class="mt-2 flex flex-wrap justify-center gap-2"
+                    >
                         <div
                             v-for="(service, index) in service_types"
                             :key="index"
@@ -111,7 +116,7 @@
                     </div>
                 </div>
                 <div v-if="isFetchingTime">
-                    <div class="text-center">Loading...</div>
+                    <div class="text-center"><Spinner /></div>
                 </div>
                 <div v-if="!isFetchingTime">
                     <div v-if="formData.date">
@@ -174,6 +179,7 @@ definePageMeta({
 const authStore = useAuthStore();
 const currentDate = ref("");
 const isFetchingTime = ref(false);
+const isLoading = ref(true);
 const current_service_category_id = ref("1");
 const service_types = ref([]);
 const available_schedule = ref([]);
@@ -221,6 +227,7 @@ const getCurrentDate = () => {
 currentDate.value = getCurrentDate();
 
 const fetchServiceTypes = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(
             `${useRuntimeConfig().public.laravelURL}patient/appointments/service-types/${current_service_category_id.value}`,
@@ -233,6 +240,8 @@ const fetchServiceTypes = async () => {
         service_types.value = response.data;
     } catch (error) {
         console.log("Failed to fetch service types");
+    }finally{
+        isLoading.value = false;
     }
 };
 

@@ -11,7 +11,7 @@
                 <h2 class="font-bold">
                     Select the service you want to get the appointment for:
                 </h2>
-                <div v-if="isLoading" class="text-center">Loading...</div>
+                <div v-if="isLoading" class="text-center"><Spinner/></div>
                 <div
                     v-if="!isLoading"
                     class="mt-2 flex flex-wrap justify-center gap-2"
@@ -49,7 +49,7 @@
                         />
                     </div>
                     <div v-if="isFetchingTime">
-                        <div class="text-center">Loading...</div>
+                        <div class="text-center"><Spinner/></div>
                     </div>
                     <div v-if="!isFetchingTime">
                         <div v-if="formData.date" class="mt-3">
