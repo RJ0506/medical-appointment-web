@@ -1,7 +1,8 @@
 <template>
     <div>
+        <h1 class="mt-10 text-2xl font-bold sm:text-4xl">History</h1>
         <!-- TABLE -->
-        <div class="mt-7 overflow-x-auto">
+        <div class="mt-8 overflow-x-auto">
             <table class="w-full table-auto text-left">
                 <thead class="text-white">
                     <tr class="bg-[#1e3d2c]">

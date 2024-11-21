@@ -19,7 +19,7 @@ class AppointmentController extends Controller
 			Appointment::
 				with(['schedule.doctor', 'schedule.service_type.category'])
 				->where('patient_id', auth()->user()->id)
-				->orderBy('scheduled_date', 'desc')
+				->orderBy('created_at', 'desc')
 				->get()
 		);
 	}
