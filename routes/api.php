@@ -32,6 +32,7 @@ Route::prefix('user')->group(function () {
 
 		Route::prefix('appointments')->controller(UserAppointmentController::class)->group(function () {
 			Route::get('/{service_category_id}', 'appointments');
+			Route::patch('status/{appointment_id}', 'updateStatus');
 		});
 
 		Route::apiResource('patients', PatientController::class)->except([
