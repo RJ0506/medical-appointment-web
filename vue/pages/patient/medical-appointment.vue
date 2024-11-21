@@ -110,45 +110,49 @@
                         />
                     </div>
                 </div>
-                <div v-if="formData.date">
-                    <div
-                        v-if="available_schedule.length === 0"
-                        class="col-span-2 text-center text-red-500"
-                    >
-                        No schedules available.
-                    </div>
-                    <div v-else>
-                        <h2 class="font-bold">
-                            What time would you like your appointment?
-                        </h2>
-                        <div class="mx-auto mt-3 w-fit">
-                            <div class="grid grid-cols-2 gap-2">
-                                <div
-                                    v-for="(
-                                        schedule, index
-                                    ) in available_schedule"
-                                    :key="index"
-                                >
-                                    <input
-                                        class="peer hidden"
-                                        type="radio"
-                                        :id="schedule.start_time"
-                                        name="time"
-                                        :value="schedule.start_time"
-                                        v-model="formData.time"
-                                    />
-                                    <label
-                                        class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
-                                        :for="schedule.start_time"
+                <div v-if="isFetchingTime">
+                    <div class="text-center">Loading...</div>
+                </div>
+                <div v-if="!isFetchingTime">
+                    <div v-if="formData.date">
+                        <div
+                            v-if="available_schedule.length === 0"
+                            class="col-span-2 text-center text-red-500"
+                        >
+                            No schedules available.
+                        </div>
+                        <div v-else>
+                            <h2 class="font-bold">
+                                What time would you like your appointment?
+                            </h2>
+                            <div class="mx-auto mt-3 w-fit">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div
+                                        v-for="(
+                                            schedule, index
+                                        ) in available_schedule"
+                                        :key="index"
                                     >
-                                        {{ schedule.start_time }}
-                                    </label>
+                                        <input
+                                            class="peer hidden"
+                                            type="radio"
+                                            :id="schedule.start_time"
+                                            name="time"
+                                            :value="schedule.start_time"
+                                            v-model="formData.time"
+                                        />
+                                        <label
+                                            class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
+                                            :for="schedule.start_time"
+                                        >
+                                            {{ schedule.start_time }}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <button
                     v-if="formData.time"
                     class="mt-5 w-fit self-center rounded bg-[#1e3d2c] px-10 py-1 text-white hover:bg-emerald-800"
@@ -169,6 +173,7 @@ definePageMeta({
 
 const authStore = useAuthStore();
 const currentDate = ref("");
+const isFetchingTime = ref(false);
 const current_service_category_id = ref("1");
 const service_types = ref([]);
 const available_schedule = ref([]);
@@ -232,6 +237,7 @@ const fetchServiceTypes = async () => {
 };
 
 const fetchSchedule = async () => {
+    isFetchingTime.value = true;
     try {
         const response = await axios.get(
             `${useRuntimeConfig().public.laravelURL}patient/appointments/schedules`,
@@ -248,6 +254,8 @@ const fetchSchedule = async () => {
         available_schedule.value = response.data;
     } catch (error) {
         console.log("Failed to fetch schedules", error);
+    } finally {
+        isFetchingTime.value = false;
     }
 };
 
