@@ -143,6 +143,9 @@ const fetchAppointments = async () => {
         const response = await axios.get(
             `${useRuntimeConfig().public.laravelURL}user/appointments/${current_service_category_id.value}`,
             {
+                params: {
+                    "actions[]": "Pending",
+                },
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,
                 },
