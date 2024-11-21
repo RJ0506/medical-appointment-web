@@ -192,7 +192,7 @@ const handleSubmit = async () => {
     console.log(formData.value);
     try {
         const result = await axios.post(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment`,
+            `${useRuntimeConfig().public.laravelURL}patient/appointments`,
             formData.value,
             {
                 headers: {
@@ -218,7 +218,7 @@ currentDate.value = getCurrentDate();
 const fetchServiceTypes = async () => {
     try {
         const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment/service-types/${current_service_category_id.value}`,
+            `${useRuntimeConfig().public.laravelURL}patient/appointments/service-types/${current_service_category_id.value}`,
             {
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,
@@ -234,7 +234,7 @@ const fetchServiceTypes = async () => {
 const fetchSchedule = async () => {
     try {
         const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment/schedules`,
+            `${useRuntimeConfig().public.laravelURL}patient/appointments/schedules`,
             {
                 params: {
                     service_type_id: formData.value.service_type_id,

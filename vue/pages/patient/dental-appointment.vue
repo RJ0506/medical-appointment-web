@@ -11,7 +11,8 @@
                 <h2 class="font-bold">
                     Select the service you want to get the appointment for:
                 </h2>
-                <div class="mt-2 flex flex-wrap justify-center gap-2">
+                <div v-if="isLoading" class="text-center">Loading...</div>
+                <div v-if="!isLoading" class="mt-2 flex flex-wrap justify-center gap-2">
                     <div v-for="(service, index) in service_types" :key="index">
                         <input
                             class="peer hidden"
@@ -101,6 +102,8 @@ definePageMeta({
 
 const authStore = useAuthStore();
 const currentDate = ref("");
+const isLoading = ref(true);
+const isFetchingTime = ref(false);
 const service_types = ref([]);
 const formData = ref({
     service_type_id: "",
@@ -112,7 +115,7 @@ const handleSubmit = async () => {
     console.log(formData.value);
     try {
         const result = await axios.post(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment`,
+            `${useRuntimeConfig().public.laravelURL}patient/appointments`,
             formData.value,
             {
                 headers: {
@@ -134,9 +137,10 @@ const available_schedule = ref([]);
 currentDate.value = `${year}-${month}-${day}`;
 
 const fetchServiceTypes = async () => {
+    isLoading.value = true;
     try {
         const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment/service-types/${current_service_category_id.value}`,
+            `${useRuntimeConfig().public.laravelURL}patient/appointments/service-types/${current_service_category_id.value}`,
             {
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,
@@ -146,13 +150,16 @@ const fetchServiceTypes = async () => {
         service_types.value = response.data;
     } catch (error) {
         console.log("Failed to fetch service types");
+    }finally{
+        isLoading.value = false
     }
 };
 
 const fetchSchedule = async () => {
+    isFetchingTime.value = true;
     try {
         const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}patient/appointment/schedules`,
+            `${useRuntimeConfig().public.laravelURL}patient/appointments/schedules`,
             {
                 params: {
                     service_type_id: formData.value.service_type_id,
@@ -166,6 +173,8 @@ const fetchSchedule = async () => {
         available_schedule.value = response.data;
     } catch (error) {
         console.log("Failed to fetch schedules", error);
+    }finally{
+        isFetchingTime.value = false
     }
 };
 
