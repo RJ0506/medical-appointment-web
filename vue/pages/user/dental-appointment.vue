@@ -48,9 +48,9 @@
                         </tr>
                     </template>
                     <template v-else>
-                        <template v-if="appointmentSchedule.length > 0">
+                        <template v-if="filteredRecords.length > 0">
                             <tr
-                                v-for="(item, index) in appointmentSchedule"
+                                v-for="(item, index) in filteredRecords"
                                 :key="index"
                             >
                                 <td class="p-5 font-medium">
@@ -113,15 +113,8 @@ definePageMeta({
 const current_service_category_id = ref("2");
 const appointmentSchedule = ref([]);
 const authStore = useAuthStore();
+const isLoading = ref(true);
 const searchTerm = ref("");
-const filteredRecords = computed(() => {
-    if (!searchTerm.value) {
-        return records.value;
-    }
-    return records.value.filter((item) => {
-        return item.name.toLowerCase().includes(searchTerm.value.toLowerCase());
-    });
-});
 
 const fetchAppointments = async () => {
     try {
@@ -138,7 +131,20 @@ const fetchAppointments = async () => {
     } catch (error) {
         console.log("error fetching appointments");
     }
+    finally{
+        isLoading.value = false
+    }
 };
+
+const filteredRecords = computed(() => {
+    if (!searchTerm.value) {
+        return appointmentSchedule.value;
+    }
+    return appointmentSchedule.value.filter((item) => {
+        return item.patient.first_name.toLowerCase().includes(searchTerm.value.toLowerCase());
+    });
+});
+
 
 fetchAppointments();
 </script>
