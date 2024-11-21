@@ -8,7 +8,7 @@
                     type="text"
                     v-model="searchTerm"
                     class="search-input w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Search name..."
+                    placeholder="Search name or service..."
                 />
                 <svg
                     class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
@@ -121,7 +121,17 @@ const filteredRecords = computed(() => {
         return appointmentSchedule.value;
     }
     return appointmentSchedule.value.filter((item) => {
-        return item.patient.first_name.toLowerCase().includes(searchTerm.value.toLowerCase());
+        return (
+            item.patient.first_name
+                .toLowerCase()
+                .includes(searchTerm.value.toLowerCase()) ||
+            item.patient.last_name
+                .toLowerCase()
+                .includes(searchTerm.value.toLowerCase()) ||
+            item.schedule.service_type.name
+                .toLowerCase()
+                .includes(searchTerm.value.toLowerCase())
+        );
     });
 });
 
