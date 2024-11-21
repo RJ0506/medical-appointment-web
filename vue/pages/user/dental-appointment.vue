@@ -170,7 +170,7 @@ const checkIn = async (id) => {
                 },
             },
         );
-        console.log("fetchAppointments ", response.data);
+        fetchAppointments();
     } catch (error) {
         console.log("Error Checking In Appointment");
     }
@@ -187,7 +187,7 @@ const cancel = async (id) => {
                 },
             },
         );
-        console.log("fetchAppointments ", response.data);
+        fetchAppointments();
     } catch (error) {
         console.log("Error Cancelling Appointment");
     }
