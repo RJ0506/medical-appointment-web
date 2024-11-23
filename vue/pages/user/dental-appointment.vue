@@ -57,7 +57,7 @@
                                     {{ item.scheduled_date }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{ item.schedule.start_time }}
+                                    {{ convertTo12HourFormat(item.schedule.start_time) }}                                    
                                 </td>
                                 <td class="p-5 font-medium">
                                     {{ item.patient.nationality }}
@@ -122,6 +122,15 @@ const appointmentSchedule = ref([]);
 const authStore = useAuthStore();
 const isLoading = ref(true);
 const searchTerm = ref("");
+
+const convertTo12HourFormat = (time) => {
+    let [hours, minutes] = time.split(":");
+    hours = parseInt(hours);
+    const amPm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours === 0 ? 12 : hours;
+    return `${hours}:${minutes} ${amPm}`;
+};
 
 const fetchAppointments = async () => {
     isLoading.value = true;
