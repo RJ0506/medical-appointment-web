@@ -29,7 +29,7 @@
                                     {{ item.scheduled_date }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{ item.schedule.start_time }}
+                                    {{ convertTo12HourFormat(item.schedule.start_time) }}
                                 </td>
                                 <td class="p-5 font-medium">
                                     {{ item.schedule.doctor.first_name }}
@@ -84,6 +84,15 @@ definePageMeta({
 const isLoading = ref(true);
 const historyList = ref([]);
 const authStore = useAuthStore();
+
+const convertTo12HourFormat = (time) => {
+    let [hours, minutes] = time.split(":");
+    hours = parseInt(hours);
+    const amPm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours === 0 ? 12 : hours;
+    return `${hours}:${minutes} ${amPm}`;
+};
 
 const fetchHistory = async () => {
     isLoading.value = true;

@@ -151,7 +151,7 @@
                                             class="inline-flex w-full cursor-pointer rounded bg-[#2abb49] px-7 py-1 font-semibold text-white hover:bg-emerald-600 peer-checked:bg-emerald-800"
                                             :for="schedule.start_time"
                                         >
-                                            {{ schedule.start_time }}
+                                            {{ convertTo12HourFormat(schedule.start_time) }}
                                         </label>
                                     </div>
                                 </div>
@@ -219,6 +219,15 @@ watch(
         }
     },
 );
+
+const convertTo12HourFormat = (time) => {
+    let [hours, minutes] = time.split(":");
+    hours = parseInt(hours);
+    const amPm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours === 0 ? 12 : hours;
+    return `${hours}:${minutes} ${amPm}`;
+};
 
 const handleSubmit = async () => {
     try {
