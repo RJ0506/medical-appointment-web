@@ -161,7 +161,7 @@
         >
             <div class="px-5">
                 <header
-                    class="flex justify-between rounded-md bg-[#1e3d2c] px-5 py-2"
+                    class="flex flex-wrap gap-2 justify-between rounded-md bg-[#1e3d2c] px-5 py-2"
                 >
                     <button
                         class="group flex items-center justify-center rounded border px-2 py-1 transition-all hover:bg-white"
