@@ -23,6 +23,7 @@
                             :id="service.id"
                             name="appointment"
                             :value="service.id"
+                            @change="fetchSchedule()"
                             v-model="formData.service_type_id"
                         />
                         <label
@@ -140,20 +141,20 @@ const formData = ref({
 });
 
 const handleSubmit = async () => {
-    // try {
-    //     const result = await axios.post(
-    //         `${useRuntimeConfig().public.laravelURL}patient/appointments`,
-    //         formData.value,
-    //         {
-    //             headers: {
-    //                 Authorization: `Bearer ${authStore.token}`,
-    //             },
-    //         },
-    //     );
+    try {
+        const result = await axios.post(
+            `${useRuntimeConfig().public.laravelURL}patient/appointments`,
+            formData.value,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
         dialogRef.value?.showModal();
-    // } catch (error) {
-    //     console.log("Error Creating appointment");
-    // }
+    } catch (error) {
+        console.log("Error Creating appointment");
+    }
 };
 
 const current_service_category_id = ref("2");

@@ -163,22 +163,47 @@
                 <slot />
             </div>
         </div>
+        <dialog ref="dialogRef" class="w-96 rounded-lg bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                Logout Confirmation
+            </h2>
+            <p class="mb-6 text-gray-600">Are you sure you want to logout?</p>
+            <div class="flex justify-end gap-4">
+                <button
+                    @click="closeDialog"
+                    class="rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300"
+                >
+                    Cancel
+                </button>
+                <button
+                    @click="confirmLogout"
+                    class="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                >
+                    Logout
+                </button>
+            </div>
+        </dialog>
     </div>
 </template>
 
 <script setup>
 import { useAuthStore } from "~/stores/auth";
-import { ref } from "vue";
 import axios from "axios";
 
 const isSidebarCollapsed = ref(true);
 const authStore = useAuthStore();
+
+const dialogRef = ref(null);
 
 const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;
 };
 
 const logout = async () => {
+    dialogRef.value?.showModal();
+};
+
+const confirmLogout = async () => {
     await axios.post(
         `${useRuntimeConfig().public.laravelURL}patient/logout`,
         {},
@@ -190,5 +215,16 @@ const logout = async () => {
     );
     authStore.logout();
     navigateTo("/");
+    dialogRef.value?.close();
+};
+
+const closeDialog = () => {
+    dialogRef.value?.close();
 };
 </script>
+
+<style scoped>
+::backdrop {
+    backdrop-filter: blur(5px);
+}
+</style>

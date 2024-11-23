@@ -23,6 +23,7 @@
                             :key="index"
                         >
                             <input
+                                @change="fetchSchedule()"
                                 class="peer hidden"
                                 type="radio"
                                 :id="service.id"
@@ -235,7 +236,6 @@ const handleSubmit = async () => {
         console.log("Error Creating appointment");
     }
 };
-
 
 const getCurrentDate = () => {
     const today = new Date();
