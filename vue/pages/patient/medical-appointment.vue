@@ -166,6 +166,24 @@
                 </button>
             </form>
         </div>
+        <!-- DIALOG -->
+        <dialog
+            ref="dialogRef"
+            class="w-full max-w-3xl rounded-md border border-[#000000] p-6 text-center shadow-lg"
+        >
+            <h1 class="mb-4 text-lg font-bold">Thank you!</h1>
+            <p class="font-bold">
+                Your appointment has been successfully scheduled, and we look
+                forward to seeing you!
+            </p>
+
+            <button
+                @click="closeDialog"
+                class="mt-4 rounded bg-[#347956] px-4 py-2 font-bold text-white"
+            >
+                OK
+            </button>
+        </dialog>
     </div>
 </template>
 
@@ -175,6 +193,8 @@ import { useAuthStore } from "~/stores/auth";
 definePageMeta({
     layout: "patient",
 });
+
+const dialogRef = ref(null);
 
 const authStore = useAuthStore();
 const currentDate = ref("");
@@ -210,11 +230,12 @@ const handleSubmit = async () => {
                 },
             },
         );
-        navigateTo("/patient/history");
+        dialogRef.value?.showModal();
     } catch (error) {
         console.log("Error Creating appointment");
     }
 };
+
 
 const getCurrentDate = () => {
     const today = new Date();
@@ -240,7 +261,7 @@ const fetchServiceTypes = async () => {
         service_types.value = response.data;
     } catch (error) {
         console.log("Failed to fetch service types");
-    }finally{
+    } finally {
         isLoading.value = false;
     }
 };
@@ -269,4 +290,15 @@ const fetchSchedule = async () => {
 };
 
 fetchServiceTypes();
+
+const closeDialog = () => {
+    dialogRef.value?.close();
+    navigateTo("/patient/history");
+};
 </script>
+
+<style scoped>
+::backdrop {
+    backdrop-filter: blur(1px);
+}
+</style>
