@@ -112,16 +112,17 @@ const handleSubmit = async () => {
             formData.value,
         );
 
-        isLoading.value = false;
         const token = response.data;
-
+        
         if (token) {
             authStore.setToken(token);
             if (token.patient) {
                 navigateTo("/patient");
+                isLoading.value = false;
                 return;
             }
             navigateTo("/user");
+            isLoading.value = false;
         } else {
             submitErrorMessages.value = "Login failed";
         }
