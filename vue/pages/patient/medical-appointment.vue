@@ -299,6 +299,6 @@ const closeDialog = () => {
 
 <style scoped>
 ::backdrop {
-    backdrop-filter: blur(1px);
+    backdrop-filter: blur(5px);
 }
 </style>
