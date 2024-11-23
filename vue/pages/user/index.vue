@@ -93,9 +93,14 @@
                             </tr>
                         </template>
                         <template v-else>
-                            <td colspan="6" class="text-center">
-                                No Records Found
-                            </td>
+                            <tr>
+                                <td
+                                    colspan="6"
+                                    class="p-5 text-center text-gray-500"
+                                >
+                                    No Records Found
+                                </td>
+                            </tr>
                         </template>
                     </template>
                 </tbody>
@@ -151,7 +156,6 @@ const fetchAppointments = async () => {
                 },
             },
         );
-        console.log("fetchAppointments ", response.data);
         appointmentSchedule.value = response.data;
     } catch (error) {
         console.log("error fetching appointments");

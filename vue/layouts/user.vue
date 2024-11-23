@@ -184,7 +184,6 @@
                 <slot />
             </div>
         </div>
-        // LOGOUT DIALOG
         <dialog ref="dialogRef" class="w-96 rounded-lg bg-white p-6 shadow-lg">
             <h2 class="mb-4 text-xl font-bold text-gray-800">
                 Logout Confirmation
