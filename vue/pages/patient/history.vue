@@ -41,17 +41,17 @@
                                 <td class="pl-6">
                                     <Icon
                                         v-if="item.status === 'Checked In'"
-                                        name="i-material-symbols-light-check-circle-rounded"
+                                        name="ep:circle-check-filled"
                                         style="color: green; font-size: 2rem"
                                     />
                                     <Icon
                                         v-if="item.status === 'Pending'"
-                                        name="i-material-symbols-light-pending"
-                                        style="color: green; font-size: 2rem"
+                                        name="ic:baseline-pending"
+                                        style="color: #f1c232; font-size: 2rem"
                                     />
                                     <Icon
                                         v-if="item.status === 'Cancelled'"
-                                        name="i-material-symbols-light-cancel"
+                                        name="ep:circle-close-filled"
                                         style="color: red; font-size: 2rem"
                                     />
                                 </td>

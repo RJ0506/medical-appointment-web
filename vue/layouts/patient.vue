@@ -88,7 +88,7 @@
                         class="flex items-center gap-3 px-4 py-5 text-xl font-bold hover:bg-[#1e3d2c]"
                     >
                         <Icon
-                            name="i-material-symbols-light-work-history"
+                            name="ep:histogram"
                             style="color: white; font-size: 2rem"
                         />
                         <span
