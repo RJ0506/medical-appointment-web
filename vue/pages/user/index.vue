@@ -170,7 +170,6 @@ const fetchAppointments = async () => {
                 },
             },
         );
-        console.log(response.data);
         appointmentSchedule.value = response.data;
     } catch (error) {
         console.log("error fetching appointments");
