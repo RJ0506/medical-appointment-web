@@ -177,7 +177,8 @@
                     <div
                         class="w-fit rounded-md bg-[#d9d9d9] p-3 text-xl font-bold text-black"
                     >
-                        PP
+                        {{ current_user.valueOf().user.last_name }},
+                        {{ current_user.valueOf().user.first_name }}
                     </div>
                 </header>
                 <!-- MAIN CONTENT -->
@@ -214,6 +215,7 @@ const authStore = useAuthStore();
 const isSidebarCollapsed = ref(true);
 const activeLink = ref(null);
 const dialogRef = ref(null);
+const current_user = useCookie("current_user");
 const sidebarLinks = ref([
     {
         label: "Appointment",

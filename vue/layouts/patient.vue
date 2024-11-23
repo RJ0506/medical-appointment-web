@@ -156,7 +156,8 @@
                     <div
                         class="w-fit rounded-md bg-[#d9d9d9] p-3 text-xl font-bold text-black"
                     >
-                        PP
+                        {{ current_user.valueOf().patient.last_name }},
+                        {{ current_user.valueOf().patient.first_name }}
                     </div>
                 </header>
                 <!-- MAIN CONTENT -->
@@ -194,6 +195,7 @@ const isSidebarCollapsed = ref(true);
 const authStore = useAuthStore();
 
 const dialogRef = ref(null);
+const current_user = useCookie("current_user");
 
 const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;
