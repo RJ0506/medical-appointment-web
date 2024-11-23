@@ -250,7 +250,7 @@
                                 :key="index"
                             >
                                 <td class="p-5 font-medium">
-                                    {{ item.created_at }}
+                                    {{ formatTimestamp(item.created_at) }}
                                 </td>
                                 <td class="p-5 font-medium">
                                     {{ item.patient.first_name }}
@@ -307,8 +307,6 @@ const isAdding = ref(false);
 const isLoading = ref(true);
 const authStore = useAuthStore();
 
-const currentDateAndTime = new Date().toLocaleString();
-
 const formData = ref({
     patient_id: "",
     department: "",
@@ -317,6 +315,19 @@ const formData = ref({
     quantity: "",
     nurse_on_duty: "",
 });
+
+const formatTimestamp = (timestamp) => {
+    const dateObj = new Date(timestamp);
+
+    return dateObj.toLocaleString("en-US", {
+        year: "numeric", 
+        month: "numeric", 
+        day: "numeric", 
+        hour: "2-digit", 
+        minute: "2-digit", 
+        hour12: true, 
+    });
+};
 
 const fetchUser = async () => {
     try {
