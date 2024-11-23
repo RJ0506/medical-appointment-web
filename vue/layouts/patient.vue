@@ -168,7 +168,7 @@
                 Logout Confirmation
             </h2>
             <p class="mb-6 text-gray-600">Are you sure you want to logout?</p>
-            <div class="flex flex-wrap justify-center sm:justify-end gap-4">
+            <div class="flex flex-wrap justify-center gap-4 sm:justify-end">
                 <button
                     @click="closeDialog"
                     class="rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300"
@@ -226,5 +226,6 @@ const closeDialog = () => {
 <style scoped>
 ::backdrop {
     backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 </style>

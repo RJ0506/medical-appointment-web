@@ -99,27 +99,28 @@
                             style="color: white; font-size: 2rem"
                         />
                     </div>
-                    <div
-                        class="flex flex-col"
-                        v-if="activeLink === index"
-                        v-for="(child, index) in item.subLinks"
-                        :key="index"
-                    >
-                        <NuxtLink
-                            :class="[
-                                {
-                                    'pl-14': isSidebarCollapsed,
-                                    'text-center': !isSidebarCollapsed,
-                                },
-                            ]"
-                            class="w-full cursor-pointer px-4 py-5 font-bold hover:bg-[#1e3d2c]"
-                            :to="child.link"
+                    <template v-if="activeLink === index">
+                        <div
+                            class="flex flex-col"
+                            v-for="(child, index) in item.subLinks"
+                            :key="index"
                         >
-                            <span>
-                                {{ child.label }}
-                            </span>
-                        </NuxtLink>
-                    </div>
+                            <NuxtLink
+                                :class="[
+                                    {
+                                        'pl-14': isSidebarCollapsed,
+                                        'text-center': !isSidebarCollapsed,
+                                    },
+                                ]"
+                                class="w-full cursor-pointer px-4 py-5 font-bold hover:bg-[#1e3d2c]"
+                                :to="child.link"
+                            >
+                                <span>
+                                    {{ child.label }}
+                                </span>
+                            </NuxtLink>
+                        </div>
+                    </template>
                 </div>
             </div>
             <button
@@ -183,6 +184,27 @@
                 <slot />
             </div>
         </div>
+        // LOGOUT DIALOG
+        <dialog ref="dialogRef" class="w-96 rounded-lg bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                Logout Confirmation
+            </h2>
+            <p class="mb-6 text-gray-600">Are you sure you want to logout?</p>
+            <div class="flex flex-wrap justify-center gap-4 sm:justify-end">
+                <button
+                    @click="closeDialog"
+                    class="rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300"
+                >
+                    Cancel
+                </button>
+                <button
+                    @click="confirmLogout"
+                    class="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                >
+                    Logout
+                </button>
+            </div>
+        </dialog>
     </div>
 </template>
 
@@ -192,6 +214,7 @@ import axios from "axios";
 const authStore = useAuthStore();
 const isSidebarCollapsed = ref(true);
 const activeLink = ref(null);
+const dialogRef = ref(null);
 const sidebarLinks = ref([
     {
         label: "Appointment",
@@ -238,6 +261,10 @@ const toggleSubLinks = (index) => {
 };
 
 const logout = async () => {
+    dialogRef.value?.showModal();
+};
+
+const confirmLogout = async () => {
     await axios.post(
         `${useRuntimeConfig().public.laravelURL}user/logout`,
         {},
@@ -249,5 +276,17 @@ const logout = async () => {
     );
     authStore.logout();
     navigateTo("/");
+    dialogRef.value?.close();
+};
+
+const closeDialog = () => {
+    dialogRef.value?.close();
 };
 </script>
+
+<style scoped>
+::backdrop {
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+</style>

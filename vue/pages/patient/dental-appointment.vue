@@ -185,7 +185,7 @@ const fetchServiceTypes = async () => {
 };
 
 const fetchSchedule = async () => {
-    if(!formData.value.service_type_id || !formData.value.date) return
+    if (!formData.value.service_type_id || !formData.value.date) return;
     isFetchingTime.value = true;
     try {
         const response = await axios.get(
@@ -219,5 +219,6 @@ const closeDialog = () => {
 <style scoped>
 ::backdrop {
     backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 </style>
