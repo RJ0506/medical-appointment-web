@@ -161,7 +161,7 @@
         >
             <div class="px-5">
                 <header
-                    class="flex flex-wrap gap-2 justify-between rounded-md bg-[#1e3d2c] px-5 py-2"
+                    class="flex flex-wrap justify-between gap-2 rounded-md bg-[#1e3d2c] px-5 py-2"
                 >
                     <button
                         class="group flex items-center justify-center rounded border px-2 py-1 transition-all hover:bg-white"
@@ -218,11 +218,19 @@ const dialogRef = ref(null);
 const current_user = useCookie("current_user");
 const sidebarLinks = ref([
     {
-        label: "Appointment",
-        icon: "ep:calendar",
+        label: "Medical",
+        icon: "i-material-symbols-medical-services-outline-sharp",
         subLinks: [
-            { label: "Medical", link: "/user" },
-            { label: "Dental", link: "/user/dental-appointment" },
+            { label: "Schedule", link: "/user/medical-appointment" },
+            { label: "Record", link: "/user/medical-record" },
+        ],
+    },
+    {
+        label: "Dental",
+        icon: "i-material-symbols-medical-mask-outline-sharp",
+        subLinks: [
+            { label: "Schedule", link: "/user/dental-appointment" },
+            { label: "Record", link: "/user" },
         ],
     },
     {

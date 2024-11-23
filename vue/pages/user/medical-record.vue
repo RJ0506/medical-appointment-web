@@ -2,7 +2,7 @@
     <div>
         <!-- TITLE AND SEARCH -->
         <div class="mt-7 flex items-center justify-between">
-            <h1 class="text-xl font-bold sm:text-5xl">Dental Records</h1>
+            <h1 class="text-xl font-bold sm:text-5xl">Medical Records</h1>
             <div class="relative">
                 <input
                     type="text"
@@ -122,7 +122,7 @@ definePageMeta({
     layout: "user",
 });
 
-const current_service_category_id = ref("2");
+const current_service_category_id = ref("1");
 const appointmentSchedule = ref([]);
 const authStore = useAuthStore();
 const searchTerm = ref("");

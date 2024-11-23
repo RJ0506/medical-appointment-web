@@ -2,7 +2,7 @@
     <div>
         <!-- TITLE AND SEARCH -->
         <div class="mt-7 flex items-center justify-between">
-            <h1 class="text-xl font-bold sm:text-5xl">Dental Records</h1>
+            <h1 class="text-xl font-bold sm:text-5xl">Medical Appointment</h1>
             <div class="relative">
                 <input
                     type="text"
@@ -38,7 +38,7 @@
                         <th class="p-5">Classification</th>
                         <th class="p-5">Fullname</th>
                         <th class="p-5">Service</th>
-                        <th class="p-5">Status</th>
+                        <th class="p-5">Action</th>
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
@@ -57,11 +57,7 @@
                                     {{ item.scheduled_date }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{
-                                        convertTo12HourFormat(
-                                            item.schedule.start_time,
-                                        )
-                                    }}
+                                    {{ convertTo12HourFormat(item.schedule.start_time) }}                                    
                                 </td>
                                 <td class="p-5 font-medium">
                                     {{ item.patient.nationality }}
@@ -78,22 +74,21 @@
                                 <td class="p-5 font-medium">
                                     {{ item.schedule.service_type.name }}
                                 </td>
-                                <td class="pl-6">
-                                    <Icon
-                                        v-if="item.status === 'Checked In'"
-                                        name="ep:circle-check-filled"
-                                        style="color: green; font-size: 2rem"
-                                    />
-                                    <Icon
-                                        v-if="item.status === 'Pending'"
-                                        name="ic:baseline-pending"
-                                        style="color: #f1c232; font-size: 2rem"
-                                    />
-                                    <Icon
-                                        v-if="item.status === 'Cancelled'"
-                                        name="ep:circle-close-filled"
-                                        style="color: red; font-size: 2rem"
-                                    />
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button
+                                            @click="checkIn(item.id)"
+                                            class="rounded-md bg-[#2abb49] p-2 font-bold text-white hover:bg-emerald-700"
+                                        >
+                                            Checked In
+                                        </button>
+                                        <button
+                                            @click="cancel(item.id)"
+                                            class="rounded-md bg-[#ff0000] p-2 font-bold text-white hover:bg-red-700"
+                                        >
+                                            Cancelled
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         </template>
@@ -122,11 +117,42 @@ definePageMeta({
     layout: "user",
 });
 
-const current_service_category_id = ref("2");
+const current_service_category_id = ref("1");
 const appointmentSchedule = ref([]);
 const authStore = useAuthStore();
-const searchTerm = ref("");
 const isLoading = ref(true);
+const searchTerm = ref("");
+
+const convertTo12HourFormat = (time) => {
+    let [hours, minutes] = time.split(":");
+    hours = parseInt(hours);
+    const amPm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours === 0 ? 12 : hours;
+    return `${hours}:${minutes} ${amPm}`;
+};
+
+const fetchAppointments = async () => {
+    isLoading.value = true;
+    try {
+        const response = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}user/appointments/${current_service_category_id.value}`,
+            {
+                params: {
+                    "actions[]": "Pending",
+                },
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        appointmentSchedule.value = response.data;
+    } catch (error) {
+        console.log("error fetching appointments");
+    } finally {
+        isLoading.value = false;
+    }
+};
 
 const filteredRecords = computed(() => {
     if (!searchTerm.value) {
@@ -147,37 +173,39 @@ const filteredRecords = computed(() => {
     });
 });
 
-const convertTo12HourFormat = (time) => {
-    let [hours, minutes] = time.split(":");
-    hours = parseInt(hours);
-    const amPm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12;
-    hours = hours === 0 ? 12 : hours;
-    return `${hours}:${minutes} ${amPm}`;
-};
+fetchAppointments();
 
-const fetchAppointments = async () => {
-    isLoading.value = true;
+const checkIn = async (id) => {
     try {
-        const response = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}user/appointments/${current_service_category_id.value}`,
+        const response = await axios.patch(
+            `${useRuntimeConfig().public.laravelURL}user/appointments/status/${id}`,
+            { action: "Checked In" },
             {
-                params: {
-                    actions: ["Checked In", "Cancelled"],
-                },
                 headers: {
                     Authorization: `Bearer ${authStore.token}`,
                 },
             },
         );
-        console.log(response.data);
-        appointmentSchedule.value = response.data;
+        fetchAppointments();
     } catch (error) {
-        console.log("error fetching appointments");
-    } finally {
-        isLoading.value = false;
+        console.log("Error Checking In Appointment");
     }
 };
 
-fetchAppointments();
+const cancel = async (id) => {
+    try {
+        const response = await axios.patch(
+            `${useRuntimeConfig().public.laravelURL}user/appointments/status/${id}`,
+            { action: "Cancelled" },
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        fetchAppointments();
+    } catch (error) {
+        console.log("Error Cancelling Appointment");
+    }
+};
 </script>
