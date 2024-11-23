@@ -185,6 +185,7 @@ const fetchServiceTypes = async () => {
 };
 
 const fetchSchedule = async () => {
+    if(!formData.value.service_type_id || !formData.value.date) return
     isFetchingTime.value = true;
     try {
         const response = await axios.get(
