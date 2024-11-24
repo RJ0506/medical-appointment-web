@@ -13,7 +13,7 @@ class AppointmentScheduleController extends Controller
 	 */
 	public function index()
 	{
-		return response()->json(AppointmentSchedule::all());
+		return response()->json(AppointmentSchedule::with(['doctor', 'service_type'])->get());
 	}
 
 	/**
@@ -21,7 +21,9 @@ class AppointmentScheduleController extends Controller
 	 */
 	public function store(UpsertAppointmentScheduleRequest $request)
 	{
-		return response()->json(AppointmentSchedule::create($request->all()));
+		$row = AppointmentSchedule::create($request->all());
+		$row->load(['doctor', 'service_type']);
+		return response()->json($row);
 	}
 
 	/**
@@ -29,7 +31,7 @@ class AppointmentScheduleController extends Controller
 	 */
 	public function show(int $id)
 	{
-		return response()->json(AppointmentSchedule::findOrFail($id));
+		return response()->json(AppointmentSchedule::with(['doctor', 'service_type'])->findOrFail($id));
 	}
 
 
@@ -40,6 +42,7 @@ class AppointmentScheduleController extends Controller
 	{
 		$row = AppointmentSchedule::findOrFail($id);
 		$row->update($request->all());
+		$row->load(['doctor', 'service_type']);
 
 		return response()->json($row);
 	}
