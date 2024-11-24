@@ -113,6 +113,7 @@
                                     <option value="Dean">Dean</option>
                                     <option value="Professor">Professor</option>
                                     <option value="Faculty">Faculty</option>
+                                    <option value="Employee">Employee</option>
                                 </select>
                             </div>
                         </div>
