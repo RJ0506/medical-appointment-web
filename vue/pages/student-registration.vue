@@ -227,6 +227,7 @@
                                     type="date"
                                     id="datebirth"
                                     v-model="formData.date_of_birth"
+                                    :max="maxDate"
                                 />
                             </div>
                             <div class="mb-2 w-full px-3 md:mb-0 md:w-1/6">
@@ -240,6 +241,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="age"
+                                    disabled
                                     v-model="formData.age"
                                 />
                             </div>
@@ -526,12 +528,37 @@ watch(
     () => ({
         department_id: formData.value.department_id,
         middle_initial: formData.value.middle_initial,
+        date_of_birth: formData.value.date_of_birth,
     }),
     (newValues) => {
         formData.value.department_id = Number(newValues.department_id);
         formData.value.middle_initial = newValues.middle_initial.toUpperCase();
+        formData.value.age = calculateAge(newValues.date_of_birth);
     },
 );
+
+const calculateAge = (dateOfBirth) => {
+    if (!dateOfBirth) return "";
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+    if (
+        monthDifference < 0 ||
+        (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
+        age--;
+    }
+    return age;
+};
+
+const maxDate = computed(() => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+});
 
 const handleSubmit = async () => {
     passwordErrorMessage.value = "";

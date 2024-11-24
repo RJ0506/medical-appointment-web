@@ -244,13 +244,13 @@
                                             style="font-size: 2rem"
                                         />
                                     </button>
-                                    <button @click="openDialog()">
+                                    <!-- <button @click="openDialog()">
                                         <Icon
                                             class="text-green-500 hover:text-red-900"
                                             name="i-material-symbols-light-edit-outline-sharp"
                                             style="font-size: 2rem"
                                         />
-                                    </button>
+                                    </button> -->
                                 </td>
                             </tr>
                         </template>

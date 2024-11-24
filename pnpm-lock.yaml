@@ -30,6 +30,9 @@ importers:
         specifier: latest
         version: 4.4.5(vue@3.5.11)
     devDependencies:
+      '@iconify-json/material-symbols-light':
+        specifier: ^1.2.8
+        version: 1.2.8
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
@@ -649,6 +652,9 @@ packages:
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
+
+  '@iconify-json/material-symbols-light@1.2.8':
+    resolution: {integrity: sha512-EWj/nzvYXVm5sPNbhB7kHR35HClXZyVErytGkaNa6DSp7iFSHi1iG1sg9gzZX8SbR9pz7zjHs5m+p4D+JFJBSA==}
 
   '@iconify/collections@1.0.470':
     resolution: {integrity: sha512-6N1f1iNMNWvM56pUhcv+0TSP6Apl2VRfejtZH8h9H8fMRiDsROWxeQeEBxI394QnVWrOyoK1XXnNyVbn6xlF6A==}
@@ -4095,6 +4101,10 @@ snapshots:
     optional: true
 
   '@fastify/busboy@2.1.1': {}
+
+  '@iconify-json/material-symbols-light@1.2.8':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify/collections@1.0.470':
     dependencies:
