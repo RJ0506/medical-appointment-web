@@ -64,7 +64,7 @@
                                     }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{ item.patient.classification }}
+                                    {{ item.patient.classification ?? "Student" }}
                                 </td>
                                 <td class="p-5 font-medium">
                                     {{ item.patient.first_name }}
