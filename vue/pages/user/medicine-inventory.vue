@@ -240,7 +240,7 @@
                                     <button @click="deleteMedicine(item.id)">
                                         <Icon
                                             class="text-red-500 hover:text-red-900"
-                                            name="i-material-symbols-light-delete-outline-sharp"
+                                            name="ep:delete"
                                             style="font-size: 2rem"
                                         />
                                     </button>
