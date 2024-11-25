@@ -318,7 +318,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contact"
-                                    placeholder="Ex. +639232123111"
+                                    placeholder="Ex. 09232323212"
                                     v-model="formData.contact_number"
                                 />
                                 <p
@@ -372,7 +372,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contactPersonNumber"
-                                    placeholder="Ex. +639232123111"
+                                    placeholder="Ex. 09232323212"
                                     v-model="formData.contact_person_number"
                                 />
                             </div>
