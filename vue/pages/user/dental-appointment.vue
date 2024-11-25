@@ -50,6 +50,7 @@
                     <template v-else>
                         <template v-if="filteredRecords.length > 0">
                             <tr
+                                class="odd:bg-[#D9D9D9] even:bg-white"
                                 v-for="(item, index) in filteredRecords"
                                 :key="index"
                             >
@@ -57,10 +58,16 @@
                                     {{ item.scheduled_date }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{ convertTo12HourFormat(item.schedule.start_time) }}                                    
+                                    {{
+                                        convertTo12HourFormat(
+                                            item.schedule.start_time,
+                                        )
+                                    }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{ item.patient.classification ?? "Student" }}
+                                    {{
+                                        item.patient.classification ?? "Student"
+                                    }}
                                 </td>
                                 <td class="p-5 font-medium">
                                     {{ item.patient.first_name }}

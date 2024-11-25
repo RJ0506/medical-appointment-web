@@ -175,6 +175,7 @@
                     <template v-else>
                         <template v-if="filteredRecords.length > 0">
                             <tr
+                                class="odd:bg-[#D9D9D9] even:bg-white"
                                 v-for="(item, index) in filteredRecords"
                                 :key="index"
                             >

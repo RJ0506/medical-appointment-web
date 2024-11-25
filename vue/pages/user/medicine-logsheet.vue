@@ -246,6 +246,7 @@
                     <template v-if="!isLoading">
                         <template v-if="medicine_logsheet.length > 0">
                             <tr
+                                class="odd:bg-[#D9D9D9] even:bg-white"
                                 v-for="(item, index) in medicine_logsheet"
                                 :key="index"
                             >
