@@ -57,7 +57,7 @@
             </div>
 
             <!-- NAVLINKS -->
-            <div class="mt-24 flex flex-grow flex-col text-white">
+            <div class="mt-12 flex flex-grow flex-col text-white">
                 <div
                     v-for="(item, index) in sidebarLinks"
                     :key="index"
