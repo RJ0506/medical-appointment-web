@@ -7,7 +7,7 @@
 
         <!-- ADD INVENTORY -->
         <div
-            class="mx-auto mt-10 max-w-4xl rounded-lg bg-[#d9d9d9] p-6 shadow-md"
+            class="mx-auto mt-10 max-w-4xl rounded-lg bg-[#D9D9D9] p-6 shadow-md"
         >
             <form
                 ref="formRef"
@@ -26,7 +26,7 @@
                     <div class="w-full px-3 md:w-2/3">
                         <label
                             for="fullname"
-                            class="block text-sm font-medium text-gray-700"
+                            class="block text-sm font-bold "
                             >Full Name</label
                         >
                         <select
@@ -59,7 +59,7 @@
                     <div class="w-full px-3 md:w-1/3">
                         <label
                             for="department"
-                            class="block text-sm font-medium text-gray-700"
+                            class="block text-sm font-bold "
                             >College / Department</label
                         >
                         <input
@@ -77,7 +77,7 @@
                     <div class="w-full px-3 md:w-1/3">
                         <label
                             for="chief_complain"
-                            class="block text-sm font-medium text-gray-700"
+                            class="block text-sm font-bold "
                             >Chief Complaint</label
                         >
                         <textarea
@@ -103,7 +103,7 @@
                     <div class="w-full px-3 md:w-1/3">
                         <label
                             for="medicine"
-                            class="block text-sm font-medium text-gray-700"
+                            class="block text-sm font-bold "
                             >Medicine Given</label
                         >
                         <select
@@ -135,7 +135,7 @@
                     <div class="w-full px-3 md:w-1/3">
                         <label
                             for="quantity"
-                            class="block text-sm font-medium text-gray-700"
+                            class="block text-sm font-bold "
                             >Quantity</label
                         >
                         <input
@@ -162,7 +162,7 @@
                     <div class="w-full px-3">
                         <label
                             for="nurse"
-                            class="block text-sm font-medium text-gray-700"
+                            class="block text-sm font-bold "
                             >Nurse on Duty</label
                         >
                         <input
