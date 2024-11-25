@@ -114,7 +114,7 @@
             >
                 <div class="flex items-center gap-2">
                     <Icon
-                        name="i-material-symbols-power-settings-new-outline"
+                        name="i-material-symbols-light-power-settings-new-outline"
                         style="color: white; font-size: 2rem"
                     />
                     <span
