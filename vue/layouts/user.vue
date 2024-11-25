@@ -246,20 +246,20 @@ const sidebarLinks = ref([
             { label: "Medicine Log Sheet", link: "/user/medicine-logsheet" },
         ],
     },
-    {
-        label: "Patient Record",
-        icon: "i-material-symbols-light-drive-folder-upload-outline",
-        subLinks: [
-            {
-                label: "Medical Health Record",
-                link: "/user/medical-health-record",
-            },
-            {
-                label: "Dental Health Record",
-                link: "/user/dental-health-record",
-            },
-        ],
-    },
+    // {
+    //     label: "Patient Record",
+    //     icon: "i-material-symbols-light-drive-folder-upload-outline",
+    //     subLinks: [
+    //         {
+    //             label: "Medical Health Record",
+    //             link: "/user/medical-health-record",
+    //         },
+    //         {
+    //             label: "Dental Health Record",
+    //             link: "/user/dental-health-record",
+    //         },
+    //     ],
+    // },
 ]);
 
 const toggleSidebar = () => {
