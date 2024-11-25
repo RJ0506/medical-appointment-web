@@ -95,7 +95,7 @@
                                 },
                                 { 'rotate-180': activeLink === index },
                             ]"
-                            name="i-material-symbols-arrow-downward-alt"
+                            name="i-material-symbols-light-arrow-downward-alt"
                             style="color: white; font-size: 2rem"
                         />
                     </div>
@@ -135,7 +135,7 @@
             >
                 <div class="flex items-center gap-2">
                     <Icon
-                        name="i-material-symbols-power-settings-new-outline"
+                        name="i-material-symbols-light-power-settings-new-outline"
                         style="color: white; font-size: 2rem"
                     />
                     <span
@@ -219,7 +219,7 @@ const current_user = useCookie("current_user");
 const sidebarLinks = ref([
     {
         label: "Medical",
-        icon: "i-material-symbols-medical-services-outline-sharp",
+        icon: "i-material-symbols-light-medical-services-outline-sharp",
         subLinks: [
             { label: "Schedule", link: "/user/medical-appointment" },
             { label: "Record", link: "/user/medical-record" },
@@ -227,7 +227,7 @@ const sidebarLinks = ref([
     },
     {
         label: "Dental",
-        icon: "i-material-symbols-medical-mask-outline-sharp",
+        icon: "i-material-symbols-light-medical-mask-outline-sharp",
         subLinks: [
             { label: "Schedule", link: "/user/dental-appointment" },
             { label: "Record", link: "/user" },
@@ -246,20 +246,20 @@ const sidebarLinks = ref([
             { label: "Medicine Log Sheet", link: "/user/medicine-logsheet" },
         ],
     },
-    // {
-    //     label: "Patient Record",
-    //     icon: "i-material-symbols-light-drive-folder-upload-outline",
-    //     subLinks: [
-    //         {
-    //             label: "Medical Health Record",
-    //             link: "/user/medical-health-record",
-    //         },
-    //         {
-    //             label: "Dental Health Record",
-    //             link: "/user/dental-health-record",
-    //         },
-    //     ],
-    // },
+    {
+        label: "Patient Record",
+        icon: "i-material-symbols-light-drive-folder-upload-outline",
+        subLinks: [
+            {
+                label: "Medical Health Record",
+                link: "/user/medical-health-record",
+            },
+            {
+                label: "Dental Health Record",
+                link: "/user/dental-health-record",
+            },
+        ],
+    },
 ]);
 
 const toggleSidebar = () => {
