@@ -374,11 +374,11 @@
                                 <p
                                     v-if="
                                         submitErrorMessages &&
-                                        submitErrorMessages.contact_number
+                                        submitErrorMessages.contact_person_number
                                     "
                                     class="text-red-500"
                                 >
-                                    {{ submitErrorMessages.contact_number[0] }}
+                                    {{ submitErrorMessages.contact_person_number[0] }}
                                 </p>
                             </div>
                         </div>
@@ -399,10 +399,12 @@
                             >
                                 <input
                                     required
-                                    type="email"
+                                    type="text"
                                     id="email"
                                     class="w-full rounded-md border border-black"
                                     v-model="formData.email"
+                                    maxlength="20"
+                                    @input="validateEmail"
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
@@ -415,9 +417,12 @@
                             >
                                 {{ submitErrorMessages.email[0] }}
                             </p>
+                            <p v-if="emailErrorMessage" class="text-red-500">
+                                {{ emailErrorMessage }}
+                            </p>
                         </div>
                         <div>
-                            <label class="font-bold" for="email_confirmation"
+                            <label class="font-bold" for="re-enter-email"
                                 >Re-enter Email</label
                             >
                             <div
@@ -425,15 +430,16 @@
                             >
                                 <input
                                     required
-                                    type="email"
-                                    id="email_confirmation"
+                                    type="text"
+                                    id="re-enter-email"
                                     class="w-full rounded-md border border-black"
                                     v-model="formData.email_confirmation"
+                                    @input="validateConfirmEmail"
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
-                            <p v-if="emailErrorMessage" class="text-red-500">
-                                {{ emailErrorMessage }}
+                            <p v-if="emailConfirmationErrorMessage" class="text-red-500">
+                                {{ emailConfirmationErrorMessage }}
                             </p>
                         </div>
                     </div>
@@ -495,6 +501,7 @@ definePageMeta({
 });
 const passwordErrorMessage = ref("");
 const emailErrorMessage = ref("");
+const emailConfirmationErrorMessage = ref("");
 const submitErrorMessages = ref();
 const departments = ref([]);
 const isLoading = ref(false);
@@ -537,6 +544,28 @@ watch(
     },
 );
 
+const validateEmail = () => {
+    const emailPattern = /^[a-zA-Z]+$/;
+    const email = formData.value.email;
+
+    if (!emailPattern.test(email)) {
+        emailErrorMessage.value = "Please enter a valid email address.";
+    } else {
+        emailErrorMessage.value = "";
+    }
+};
+
+const validateConfirmEmail = () => {
+    const emailPattern = /^[a-zA-Z]+$/;
+    const email_confirmation = formData.value.email_confirmation;
+
+    if (!emailPattern.test(email_confirmation)) {
+        emailConfirmationErrorMessage.value = "Please enter a valid email address.";
+    } else {
+        emailConfirmationErrorMessage.value = "";
+    }
+};
+
 const calculateAge = (dateOfBirth) => {
     if (!dateOfBirth) return "";
     const today = new Date();
@@ -553,11 +582,11 @@ const calculateAge = (dateOfBirth) => {
 };
 
 const maxDate = computed(() => {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
 });
 
 const handleSubmit = async () => {
@@ -573,6 +602,15 @@ const handleSubmit = async () => {
         emailErrorMessage.value = "Email do not match";
         return;
     }
+
+    if (!formData.value.email.includes("@tua.edu.ph")) {
+        formData.value.email = `${formData.value.email}@tua.edu.ph`;
+    }
+
+    if (!formData.value.email_confirmation.includes("@tua.edu.ph")) {
+        formData.value.email_confirmation = `${formData.value.email_confirmation}@tua.edu.ph`;
+    }
+
     isLoading.value = true;
 
     await axios
