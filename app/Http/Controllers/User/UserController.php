@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpsertUserRequest;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -15,7 +17,17 @@ class UserController extends Controller
 
 	public function store(UpsertUserRequest $request)
 	{
-		return response()->json(User::create($request->all()));
+		$data = DB::transaction(function () use ($request) {
+			$row = User::create($request->all());
+			$role = Role::findOrFail($request['role_id']);
+
+			$row->assignRole($role);
+			$row->load(['roles']);
+
+			return $row;
+		});
+
+		return response()->json($data);
 	}
 
 	public function show(int $id)
@@ -27,6 +39,7 @@ class UserController extends Controller
 	{
 		$row = User::findOrFail($id);
 		$row->update($request->all());
+		$row->load(['roles']);
 
 		return response()->json($row);
 	}

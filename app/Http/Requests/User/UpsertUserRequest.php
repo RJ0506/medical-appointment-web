@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UpsertUserRequest extends FormRequest
 {
@@ -21,8 +22,22 @@ class UpsertUserRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
-		return [
-			//
+		$rules = [
+			"first_name" => "required|min:2",
+			"middle_initial" => "nullable|max:1|uppercase",
+			"last_name" => "required|min:2",
+			"email" => "required|email|unique:users,email,",
+			"password" => ["required", "confirmed", Password::min(8)->mixedCase()->numbers()->uncompromised()],
+			"role_id" => "required|exists:roles,id",
 		];
+
+		if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
+			$explodedPaths = explode('/', $this->path());
+			$routeParam = $explodedPaths[count($explodedPaths) - 1];
+
+			$rules['email'] .= $routeParam;
+		}
+
+		return $rules;
 	}
 }

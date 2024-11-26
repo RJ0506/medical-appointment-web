@@ -24,7 +24,7 @@ Route::prefix('user')->group(function () {
 		Route::get('/me', [UserAuthController::class, 'me']);
 
 		Route::apiResources([
-			'' => UserController::class,
+			'users' => UserController::class,
 			'departments' => DepartmentController::class,
 			'service-types' => ServiceTypeController::class,
 			'service-categories' => ServiceCategoryController::class,
