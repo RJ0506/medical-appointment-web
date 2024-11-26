@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Medicine extends Model
@@ -19,8 +20,13 @@ class Medicine extends Model
 		'expiration_date',
 	];
 
-	public function log_sheets()
+	public function log_sheets(): HasMany
 	{
 		return $this->hasMany(MedicineLogSheet::class);
+	}
+
+	public function emergency_cases(): HasMany
+	{
+		return $this->hasMany(EmergencyCase::class);
 	}
 }

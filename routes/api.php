@@ -11,6 +11,7 @@ use App\Http\Controllers\User\MedicineController;
 use App\Http\Controllers\User\ServiceCategoryController;
 use App\Http\Controllers\User\ServiceTypeController;
 use App\Http\Controllers\User\ConsultationRecordController;
+use App\Http\Controllers\User\EmergencyCaseController;
 use App\Http\Controllers\User\PatientController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,10 @@ Route::prefix('user')->group(function () {
 		]);
 
 		Route::apiResource('medicine-log-sheets', MedicineLogSheetController::class)->except([
+			'update',
+		]);
+
+		Route::apiResource('emergency-cases', EmergencyCaseController::class)->except([
 			'update',
 		]);
 	});

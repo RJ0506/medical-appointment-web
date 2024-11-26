@@ -53,13 +53,19 @@ class User extends Authenticatable
 		];
 	}
 
-	public function appointments(): HasMany
+	public function appointment_schedules(): HasMany
 	{
-		return $this->hasMany(Appointment::class);
+		return $this->hasMany(AppointmentSchedule::class);
 	}
 
 	public function consultation_records(): HasMany
 	{
 		return $this->hasMany(ConsultationRecord::class);
 	}
+
+	public function emergency_cases(): HasMany
+	{
+		return $this->hasMany(EmergencyCase::class);
+	}
+
 }

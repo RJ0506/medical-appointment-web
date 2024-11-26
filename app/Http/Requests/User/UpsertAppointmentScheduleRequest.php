@@ -2,8 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use App\Rules\IsDoctor;
-use Carbon\Carbon;
+use App\Rules\HasUserRoles;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpsertAppointmentScheduleRequest extends FormRequest
@@ -27,7 +26,7 @@ class UpsertAppointmentScheduleRequest extends FormRequest
 			"day_of_week" => "required|in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",
 			"start_time" => "required|date_format:H:i",
 			"end_time" => "required|date_format:H:i|after:start_time",
-			"doctor_id" => ["required", "exists:users,id", new IsDoctor],
+			"doctor_id" => ["required", "exists:users,id", new HasUserRoles(['Doctor'])],
 			"service_type_id" => "required|exists:service_types,id",
 		];
 	}

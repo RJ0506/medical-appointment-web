@@ -75,4 +75,9 @@ class Patient extends Authenticatable
 	{
 		return $this->hasMany(ConsultationRecord::class);
 	}
+
+	public function emergency_cases(): HasMany
+	{
+		return $this->hasMany(EmergencyCase::class);
+	}
 }
