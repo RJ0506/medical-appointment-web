@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Patient;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Patient\SearchAppointmentScheduleRequest;
 use App\Http\Requests\Patient\StoreAppointmentRequest;
@@ -17,7 +18,7 @@ class AppointmentController extends Controller
 	{
 		return response()->json(
 			Appointment::
-				with(['schedule.doctor', 'schedule.service_type.category'])
+				with(['schedule.doctor', 'schedule.service_type.category', 'patient.roles', 'patient.department'])
 				->where('patient_id', auth()->user()->id)
 				->orderBy('created_at', 'desc')
 				->get()
@@ -29,7 +30,10 @@ class AppointmentController extends Controller
 		$dayOfWeek = $this->getDayOfWeek($request['date']);
 
 		$appointmentSchedule = AppointmentSchedule::
-			where('day_of_week', $dayOfWeek)
+			whereDoesntHave('appointment', function (Builder $query) use ($request) {
+				$query->where('scheduled_date', '=', $request['date']);
+			})
+			->where('day_of_week', $dayOfWeek)
 			->where('service_type_id', $request['service_type_id'])
 			->where('start_time', $request['time'])
 			->first();
@@ -42,6 +46,7 @@ class AppointmentController extends Controller
 			'patient_id' => auth()->user()->id,
 			'scheduled_date' => $request['date'],
 		]);
+		$appointment->load(['schedule.doctor', 'schedule.service_type.category', 'patient.roles', 'patient.department']);
 
 		return response()->json($appointment);
 	}
@@ -63,7 +68,10 @@ class AppointmentController extends Controller
 		$dayOfWeek = $this->getDayOfWeek($request->query('date'));
 
 		$rows = AppointmentSchedule::
-			where('day_of_week', $dayOfWeek)
+			whereDoesntHave('appointment', function (Builder $query) use ($request) {
+				$query->where('scheduled_date', '=', $request['date']);
+			})
+			->where('day_of_week', $dayOfWeek)
 			->where('service_type_id', $request->query('service_type_id'))
 			->get();
 
