@@ -24,7 +24,7 @@ class UpsertUserRequest extends FormRequest
 	{
 		$rules = [
 			"first_name" => "required|min:2",
-			"middle_initial" => "nullable|max:1|uppercase",
+			"middle_name" => "nullable|min:2",
 			"last_name" => "required|min:2",
 			"email" => "required|email|unique:users,email,",
 			"password" => ["required", "confirmed", Password::min(8)->mixedCase()->numbers()->uncompromised()],
