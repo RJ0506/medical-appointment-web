@@ -1,16 +1,5 @@
 <template>
     <div class="px-2 py-12">
-        <div class="text-center">
-            <h1 class="mx-auto max-w-2xl text-xl font-bold sm:text-4xl">
-                Welcome to Medical and Dental Unit of Trinity University of
-                Asia!
-            </h1>
-            <p class="mt-3 text-sm text-[#928F8F] sm:text-lg">
-                Register to create your account and gain access to exclusive
-                resources, including appointment scheduling for medical and
-                dental services!
-            </p>
-        </div>
         <div v-if="isLoading" class="mx-auto mt-12 w-1/4 lg:w-1/6">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150">
                 <path
@@ -34,24 +23,12 @@
             </svg>
         </div>
         <div v-if="!isLoading" class="mx-auto mt-12 grid max-w-5xl">
-            <p class="text-xl">
-                Please fill out the form below to get started:
-            </p>
-            <div
-                class="my-2 border border-l-[1rem] border-black border-l-[#ffeb3b] bg-[#ffffcc] px-2 py-2 text-lg text-black shadow-md"
-            >
-                <span class="font-bold"> NOTE: </span>
-                Fields with asterisk (
-                <span class="text-xl text-red-500">*</span>
-                ) are required.
-            </div>
-
             <form @submit.prevent="handleSubmit" class="mt-5 grid">
                 <div
                     class="grid gap-4 border border-black bg-white px-4 py-8 shadow-md"
                 >
                     <h2 class="bg-black text-center font-bold text-white">
-                        MEDICAL HEATH RECORD
+                        PROFILE
                     </h2>
                     <div class="border border-black bg-[#d9d9d9] p-3">
                         <div class="-mx-3 flex flex-wrap">
@@ -62,7 +39,7 @@
                                     >ID Number:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -86,7 +63,7 @@
                                     >Course:</label
                                 >
                                 <select
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     id="course"
@@ -108,7 +85,7 @@
                                     >Year Level:</label
                                 >
                                 <select
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     id="year_level"
@@ -129,7 +106,7 @@
                                     >Lastname:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -153,7 +130,7 @@
                                     >First Name:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -177,7 +154,7 @@
                                     >Middle Initial:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="middle_initial"
@@ -192,7 +169,7 @@
                                     >Name Extension:</label
                                 >
                                 <select
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     class="w-full rounded-md border border-black"
                                     id="name_extension"
                                     v-model="formData.name_extension"
@@ -215,7 +192,7 @@
                                     >Place of Birth:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -230,7 +207,7 @@
                                     >Date of Birth:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="date"
@@ -246,7 +223,7 @@
                                     >Age:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -262,7 +239,7 @@
                                     >Gender:</label
                                 >
                                 <select
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     id="gender"
@@ -281,7 +258,7 @@
                                     >Nationality:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -299,7 +276,7 @@
                                     >Address:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -314,7 +291,7 @@
                                     >Zip Code:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -329,7 +306,7 @@
                                     >Contact Number:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -356,7 +333,7 @@
                                     >Name of Parent/Guardian:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -380,7 +357,7 @@
                                     >Parent / Guardian Contact Number:</label
                                 >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -418,7 +395,7 @@
                                 class="mb-2 flex w-full items-center gap-3 md:mb-0"
                             >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     type="text"
                                     id="email"
@@ -450,7 +427,7 @@
                                 class="mb-2 flex w-full items-center gap-3 md:mb-0"
                             >
                                 <input
-                                    :disabled="isEditing"
+                                    :disabled="!isEditing"
                                     required
                                     type="text"
                                     id="re-enter-email"
@@ -476,7 +453,7 @@
                                 >Password</label
                             >
                             <input
-                                :disabled="isEditing"
+                                :disabled="!isEditing"
                                 required
                                 class="w-full rounded-md border border-black"
                                 type="password"
@@ -489,7 +466,7 @@
                                 >Confirm Password</label
                             >
                             <input
-                                :disabled="isEditing"
+                                :disabled="!isEditing"
                                 required
                                 class="w-full rounded-md border border-black"
                                 type="password"
@@ -512,7 +489,7 @@
                     </div>
                 </div>
                 <button
-                    v-if="!isEditing"
+                    v-if="isEditing"
                     class="mt-16 rounded-md bg-[#347956] py-3 text-xl font-bold text-white hover:bg-emerald-900"
                     type="submit"
                 >
@@ -522,12 +499,12 @@
                     @click="toggleEditing()"
                     class="mt-2 rounded-md py-3 text-xl font-bold text-white "
                     :class="{
-                        'bg-red-500 hover:bg-red-700': !isEditing,
-                        'bg-[#347956] hover:bg-emerald-900': isEditing,
+                        'bg-red-500 hover:bg-red-700': isEditing,
+                        'bg-[#347956] hover:bg-emerald-900': !isEditing,
                     }"
                     type="button"
                 >
-                    {{ isEditing ? "Edit" : "Cancel" }}
+                    {{ isEditing ? "Cancel" : "Edit" }}
                 </button>
             </form>
         </div>
