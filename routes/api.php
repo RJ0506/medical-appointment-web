@@ -5,6 +5,7 @@ use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Patient\AuthController as PatientAuthController;
 use App\Http\Controllers\Patient\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\Patient\ProfileController as PatientProfileController;
+use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\User\AppointmentController as UserAppointmentController;
 use App\Http\Controllers\User\AppointmentScheduleController;
 use App\Http\Controllers\User\DepartmentController;
@@ -23,6 +24,11 @@ Route::prefix('user')->group(function () {
 	Route::middleware(['auth:sanctum', 'token_name:user-token'])->group(function () {
 		Route::post('/logout', [UserAuthController::class, 'logout']);
 		Route::get('/me', [UserAuthController::class, 'me']);
+
+		Route::prefix('profile')->controller(UserProfileController::class)->group(function () {
+			Route::patch('/', 'update');
+			Route::patch('/password', 'changePassword');
+		});
 
 		Route::apiResources([
 			'users' => UserController::class,
