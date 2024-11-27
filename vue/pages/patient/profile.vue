@@ -62,6 +62,7 @@
                                     >ID Number:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -85,6 +86,7 @@
                                     >Course:</label
                                 >
                                 <select
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     id="course"
@@ -106,6 +108,7 @@
                                     >Year Level:</label
                                 >
                                 <select
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     id="year_level"
@@ -126,6 +129,7 @@
                                     >Lastname:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -149,6 +153,7 @@
                                     >First Name:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -172,6 +177,7 @@
                                     >Middle Initial:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     class="w-full rounded-md border border-black"
                                     type="text"
                                     id="middle_initial"
@@ -186,6 +192,7 @@
                                     >Name Extension:</label
                                 >
                                 <select
+                                    :disabled="isEditing"
                                     class="w-full rounded-md border border-black"
                                     id="name_extension"
                                     v-model="formData.name_extension"
@@ -208,6 +215,7 @@
                                     >Place of Birth:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -222,6 +230,7 @@
                                     >Date of Birth:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="date"
@@ -237,6 +246,7 @@
                                     >Age:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -252,6 +262,7 @@
                                     >Gender:</label
                                 >
                                 <select
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     id="gender"
@@ -270,6 +281,7 @@
                                     >Nationality:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -287,6 +299,7 @@
                                     >Address:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -301,6 +314,7 @@
                                     >Zip Code:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -315,6 +329,7 @@
                                     >Contact Number:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -341,6 +356,7 @@
                                     >Name of Parent/Guardian:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="text"
@@ -364,6 +380,7 @@
                                     >Parent / Guardian Contact Number:</label
                                 >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     class="w-full rounded-md border border-black"
                                     type="number"
@@ -378,7 +395,10 @@
                                     "
                                     class="text-red-500"
                                 >
-                                    {{ submitErrorMessages.contact_person_number[0] }}
+                                    {{
+                                        submitErrorMessages
+                                            .contact_person_number[0]
+                                    }}
                                 </p>
                             </div>
                         </div>
@@ -398,6 +418,7 @@
                                 class="mb-2 flex w-full items-center gap-3 md:mb-0"
                             >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     type="text"
                                     id="email"
@@ -429,6 +450,7 @@
                                 class="mb-2 flex w-full items-center gap-3 md:mb-0"
                             >
                                 <input
+                                    :disabled="isEditing"
                                     required
                                     type="text"
                                     id="re-enter-email"
@@ -438,7 +460,10 @@
                                 />
                                 <p>@tua.edu.ph</p>
                             </div>
-                            <p v-if="emailConfirmationErrorMessage" class="text-red-500">
+                            <p
+                                v-if="emailConfirmationErrorMessage"
+                                class="text-red-500"
+                            >
                                 {{ emailConfirmationErrorMessage }}
                             </p>
                         </div>
@@ -451,6 +476,7 @@
                                 >Password</label
                             >
                             <input
+                                :disabled="isEditing"
                                 required
                                 class="w-full rounded-md border border-black"
                                 type="password"
@@ -463,6 +489,7 @@
                                 >Confirm Password</label
                             >
                             <input
+                                :disabled="isEditing"
                                 required
                                 class="w-full rounded-md border border-black"
                                 type="password"
@@ -485,19 +512,33 @@
                     </div>
                 </div>
                 <button
+                    v-if="!isEditing"
                     class="mt-16 rounded-md bg-[#347956] py-3 text-xl font-bold text-white hover:bg-emerald-900"
                     type="submit"
                 >
-                    Register
+                    Update
+                </button>
+                <button
+                    @click="toggleEditing()"
+                    class="mt-2 rounded-md py-3 text-xl font-bold text-white "
+                    :class="{
+                        'bg-red-500 hover:bg-red-700': !isEditing,
+                        'bg-[#347956] hover:bg-emerald-900': isEditing,
+                    }"
+                    type="button"
+                >
+                    {{ isEditing ? "Edit" : "Cancel" }}
                 </button>
             </form>
         </div>
     </div>
 </template>
 <script setup>
+import { useAuthStore } from "~/stores/auth";
 import axios from "axios";
+
 definePageMeta({
-    layout: "selection",
+    layout: "patient",
 });
 const passwordErrorMessage = ref("");
 const emailErrorMessage = ref("");
@@ -505,7 +546,9 @@ const emailConfirmationErrorMessage = ref("");
 const submitErrorMessages = ref();
 const departments = ref([]);
 const isLoading = ref(false);
+const isEditing = ref(false);
 
+const authStore = useAuthStore();
 const formData = ref({
     id_number: "",
     department_id: 0,
@@ -560,7 +603,8 @@ const validateConfirmEmail = () => {
     const email_confirmation = formData.value.email_confirmation;
 
     if (!emailPattern.test(email_confirmation)) {
-        emailConfirmationErrorMessage.value = "Please enter a valid email address.";
+        emailConfirmationErrorMessage.value =
+            "Please enter a valid email address.";
     } else {
         emailConfirmationErrorMessage.value = "";
     }
@@ -631,6 +675,10 @@ const handleSubmit = async () => {
         });
 };
 
+const toggleEditing = () => {
+    isEditing.value = !isEditing.value;
+};
+
 const fetchDepartments = async () => {
     try {
         const response = await axios.get(
@@ -642,5 +690,24 @@ const fetchDepartments = async () => {
     }
 };
 
-fetchDepartments();
+const apiFetchMe = async () => {
+    try {
+        const { data } = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}patient/me`,
+            {
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        formData.value = data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+// onMounted(async () => {
+//     await apiFetchMe();
+//     await fetchDepartments();
+// });
 </script>
