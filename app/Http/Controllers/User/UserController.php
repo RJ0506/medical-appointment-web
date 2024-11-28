@@ -5,21 +5,32 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpsertUserRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		return response()->json(User::with('roles')->get());
+		$request->validate([
+			'roles.*' => 'filled|exists:roles,name',
+		]);
+
+		$rows = User::with('roles');
+
+		if ($request->filled('roles') && is_array($request->query('roles')))
+			$rows->role($request->query('roles'));
+
+
+		return response()->json($rows->get());
 	}
 
 	public function store(UpsertUserRequest $request)
 	{
 		$data = DB::transaction(function () use ($request) {
 			$row = User::create($request->all());
-			$role = Role::findOrFail($request['role_id']);
+			$role = Role::findOrFail($request->role_id);
 
 			$row->assignRole($role);
 			$row->load(['roles']);
