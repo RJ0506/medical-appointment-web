@@ -18,7 +18,7 @@ class AuthController extends Controller
 			'password' => 'required|min:3',
 		]);
 
-		$user = User::where('email', $request->email)->first();
+		$user = User::with('roles')->where('email', $request->email)->first();
 
 		if (!$user || !Hash::check($request->password, $user->password)) {
 			return response('The provided credentials are incorrect', 401);

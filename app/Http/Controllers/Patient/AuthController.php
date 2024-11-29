@@ -50,7 +50,7 @@ class AuthController extends Controller
 			'password' => 'required|min:3',
 		]);
 
-		$patient = Patient::where('email', $request->email)->first();
+		$patient = Patient::with('roles', 'department')->where('email', $request->email)->first();
 
 		if (!$patient || !Hash::check($request->password, $patient->password)) {
 			return response('The provided credentials are incorrect', 401);
