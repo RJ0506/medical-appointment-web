@@ -15,6 +15,7 @@ use App\Http\Controllers\User\ServiceTypeController;
 use App\Http\Controllers\User\ConsultationRecordController;
 use App\Http\Controllers\User\EmergencyCaseController;
 use App\Http\Controllers\User\PatientController;
+use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,7 @@ Route::prefix('user')->group(function () {
 
 		Route::apiResources([
 			'users' => UserController::class,
+			'roles' => RoleController::class,
 			'departments' => DepartmentController::class,
 			'service-types' => ServiceTypeController::class,
 			'service-categories' => ServiceCategoryController::class,
