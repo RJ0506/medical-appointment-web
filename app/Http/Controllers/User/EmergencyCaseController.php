@@ -13,7 +13,7 @@ class EmergencyCaseController extends Controller
 
 	public function index()
 	{
-		return response()->json(EmergencyCase::with(['patient.department', 'medicine'])->get());
+		return response()->json(EmergencyCase::with(['patient.department', 'medicine', 'nurse'])->get());
 	}
 
 	public function store(UpsertEmergencyCaseRequest $request)
@@ -25,7 +25,7 @@ class EmergencyCaseController extends Controller
 			$medicine->quantity -= $request['quantity'];
 			$medicine->save();
 
-			$emergencyCase->load(['patient.department', 'medicine']);
+			$emergencyCase->load(['patient.department', 'medicine', 'nurse']);
 
 			return $emergencyCase;
 		});
@@ -35,11 +35,11 @@ class EmergencyCaseController extends Controller
 
 	public function show(int $id)
 	{
-		return response()->json(EmergencyCase::with(['patient.department', 'medicine'])->findOrFail($id));
+		return response()->json(EmergencyCase::with(['patient.department', 'medicine', 'nurse'])->findOrFail($id));
 	}
 
 	public function destroy(int $id)
 	{
-		return response()->json(EmergencyCase::with(['patient.department', 'medicine'])->findOrFail($id));
+		return response()->json(EmergencyCase::findOrFail($id));
 	}
 }
