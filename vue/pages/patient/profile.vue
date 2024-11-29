@@ -228,7 +228,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="age"
-                                    v-disabled
+                                    disabled
                                     v-model="formData.age"
                                 />
                             </div>
@@ -663,7 +663,7 @@ const fetchDepartments = async () => {
         );
         departments.value = response.data;
     } catch (error) {
-        console.log("Error fetching departments");
+        console.log(error);
     }
 };
 
@@ -677,14 +677,14 @@ const apiFetchMe = async () => {
                 },
             },
         );
-        // formData.value = data;
+        formData.value = data;
     } catch (error) {
         console.log(error);
     }
 };
 
-onMounted(async () => {
-    await apiFetchMe();
-    await fetchDepartments();
-});
+// onMounted(async () => {
+//     await apiFetchMe();
+//     await fetchDepartments();
+// });
 </script>
