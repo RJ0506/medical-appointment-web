@@ -228,7 +228,6 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="age"
-                                    disabled
                                     v-model="formData.age"
                                 />
                             </div>
