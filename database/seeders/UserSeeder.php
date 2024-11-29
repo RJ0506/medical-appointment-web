@@ -23,5 +23,17 @@ class UserSeeder extends Seeder
 			->each(function ($user) {
 				$user->assignRole('Doctor');
 			});
+
+		User::factory(2)
+			->create()
+			->each(function ($user) {
+				$user->assignRole('Head Nurse');
+			});
+
+		User::factory(5)
+			->create()
+			->each(function ($user) {
+				$user->assignRole('Nurse');
+			});
 	}
 }
