@@ -5,7 +5,6 @@
             <h1 class="pl-5 text-xl font-bold sm:text-5xl">Emergency Case</h1>
         </div>
 
-        <!-- ADD INVENTORY -->
         <div
             class="mx-auto mt-10 max-w-4xl rounded-lg bg-[#D9D9D9] p-6 shadow-md"
         >
@@ -147,7 +146,7 @@
                         </p>
                     </div>
                 </div>
-                <!-- Nurse on Duty -->
+                <!-- TREATMENT GIVEN -->
                 <div class="-mx-3 flex w-full flex-wrap">
                     <div class="w-full px-3">
                         <label
@@ -174,29 +173,34 @@
                     </div>
                 </div>
                 <!-- Nurse on Duty -->
-                <!-- <div class="-mx-3 flex w-full flex-wrap">
-                    <div class="w-full px-3">
+                 <div class="w-full">
                         <label for="nurse" class="block text-sm font-bold"
-                            >Nurse on Duty</label
+                            >Nurse</label
                         >
-                        <input
-                            type="text"
-                            id="nurse"
-                            name="nurse"
+                        <select
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
-                            v-model="formData.nurse_on_duty"
-                        />
+                            name="nurse"
+                            id="nurse"
+                            v-model="formData.nurse_id"
+                        >
+                            <option
+                                v-for="(item, index) in nurses"
+                                :key="index"
+                                :value="item.id"
+                            >
+                                {{ item.first_name }} {{ item.last_name }}
+                            </option>
+                        </select>
                         <p
-                            class="text-red-500"
                             v-if="
                                 submitErrorMessages &&
-                                submitErrorMessages.nurse_on_duty
+                                submitErrorMessages.patient_id
                             "
+                            class="text-red-500"
                         >
-                            {{ submitErrorMessages.nurse_on_duty[0] }}
+                            Nurse is required.
                         </p>
                     </div>
-                </div> -->
 
                 <!-- Submit Button -->
                 <div>
@@ -272,10 +276,13 @@
                                     {{ item.patient.last_name }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{ item.patient.department.name }}
+                                    {{ item.patient.department?.name ?? "" }}
                                 </td>
                                 <td class="p-5 font-medium">
                                     {{ item.chief_complaint }}
+                                </td>
+                                <td class="p-5 font-medium">
+                                    {{ item.treatment_given }}
                                 </td>
                                 <td class="p-5 font-medium">
                                     {{ item.medicine.brand_name }}
@@ -284,10 +291,7 @@
                                     {{ item.quantity }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{ item.nurse_on_duty }}
-                                </td>
-                                <td class="p-5 font-medium">
-                                    {{ item.nurse_on_duty }}
+                                    {{ item.nurse_id }}
                                 </td>
                             </tr>
                         </template>
@@ -319,11 +323,22 @@ definePageMeta({
 const users = ref([]);
 const medicine_logsheet = ref([]);
 const medicines = ref([]);
+const nurses = ref([]);
 const submitErrorMessages = ref();
 const formRef = ref();
 const isAdding = ref(false);
 const isLoading = ref(true);
 const authStore = useAuthStore();
+
+const initialFormData = ref({
+    patient_id: "",
+    department: "",
+    chief_complaint: "",
+    medicine_id: "",
+    quantity: "",
+    treatment_given: "",
+    nurse_id: "",
+});
 
 const formData = ref({
     patient_id: "",
@@ -332,7 +347,7 @@ const formData = ref({
     medicine_id: "",
     quantity: "",
     treatment_given: "",
-    nurse_id: "1",
+    nurse_id: "",
 });
 
 const formatTimestamp = (timestamp) => {
@@ -391,6 +406,7 @@ const fetchEmergencyCases = async () => {
                 },
             },
         );
+        console.log("Emergency Case" , response.data);
         medicine_logsheet.value = response.data;
     } catch (error) {
         console.log("error fetching Emergency cases");
@@ -403,11 +419,29 @@ const getDepartment = () => {
     const user = users.value.find(
         (user) => user.id === formData.value.patient_id,
     );
-    console.log(user);
     if (user.department) {
         formData.value.department = user.department.name;
     } else {
         formData.value.department = "Medical Staff";
+    }
+};
+
+const fetchNurse = async () => {
+    try {
+        const { data } = await axios.get(
+            `${useRuntimeConfig().public.laravelURL}user/users`,
+            {
+                params: {
+                    "roles[]": "nurse",
+                },
+                headers: {
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+            },
+        );
+        nurses.value = data;
+    } catch (error) {
+        console.log("error fetching nurse");
     }
 };
 
@@ -425,10 +459,12 @@ const handleSubmit = async () => {
         );
         isAdding.value = false;
         submitErrorMessages.value = "";
+        formData.value = { ...initialFormData.value };
         fetchEmergencyCases();
     } catch (error) {
         isAdding.value = false;
         submitErrorMessages.value = error.response.data.errors;
+        console.log("error submitting");
     }
 };
 
@@ -436,5 +472,6 @@ onMounted(async () => {
     await fetchUser();
     await fetchEmergencyCases();
     await fetchMedicines();
+    await fetchNurse();
 });
 </script>

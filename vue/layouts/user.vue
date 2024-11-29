@@ -109,7 +109,7 @@
                         >
                             Emergency Case
                         </span>
-                    </NuxtLink to="/user">
+                    </NuxtLink>
                 </div>
                 <div
                     v-for="(item, index) in sidebarLinks"
@@ -295,7 +295,7 @@
 import { useAuthStore } from "~/stores/auth";
 import axios from "axios";
 const authStore = useAuthStore();
-const isSidebarCollapsed = ref(true);
+const isSidebarCollapsed = ref(false);
 const activeLink = ref(null);
 const dialogRef = ref(null);
 const current_user = useCookie("current_user");
