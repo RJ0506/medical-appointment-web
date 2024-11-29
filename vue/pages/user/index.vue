@@ -444,22 +444,6 @@ const fetchNurse = async () => {
     }
 };
 
-const fetchMe = async () => {
-    try {
-        const { data } = await axios.get(
-            `${useRuntimeConfig().public.laravelURL}user/me`,
-            {
-                headers: {
-                    Authorization: `Bearer ${authStore.token}`,
-                },
-            },
-        );
-        console.log("me ", data);
-    } catch (error) {
-        console.log("error fetching me");
-    }
-};
-
 const handleSubmit = async () => {
     isAdding.value = true;
     try {
@@ -488,6 +472,5 @@ onMounted(async () => {
     await fetchEmergencyCases();
     await fetchMedicines();
     await fetchNurse();
-    await fetchMe();
 });
 </script>
