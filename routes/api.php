@@ -6,6 +6,7 @@ use App\Http\Controllers\Patient\AuthController as PatientAuthController;
 use App\Http\Controllers\Patient\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\Patient\ProfileController as PatientProfileController;
 use App\Http\Controllers\Patient\PhysicalExamController as PatientPhysicalExamController;
+use App\Http\Controllers\User\PhysicalExamController as UserPhysicalExamController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\User\AppointmentController as UserAppointmentController;
 use App\Http\Controllers\User\AppointmentScheduleController;
@@ -46,6 +47,11 @@ Route::prefix('user')->group(function () {
 		Route::prefix('appointments')->controller(UserAppointmentController::class)->group(function () {
 			Route::get('/{service_category_id}', 'appointments');
 			Route::patch('status/{appointment_id}', 'updateStatus');
+		});
+
+		Route::prefix('physical-exams')->controller(UserPhysicalExamController::class)->group(function () {
+			Route::get('/', 'index');
+			Route::patch('status/{physical_exam_id}', 'updateStatus');
 		});
 
 		Route::apiResource('patients', PatientController::class)->except([
