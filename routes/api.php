@@ -5,6 +5,7 @@ use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Patient\AuthController as PatientAuthController;
 use App\Http\Controllers\Patient\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\Patient\ProfileController as PatientProfileController;
+use App\Http\Controllers\Patient\PhysicalExamController as PatientPhysicalExamController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\User\AppointmentController as UserAppointmentController;
 use App\Http\Controllers\User\AppointmentScheduleController;
@@ -85,5 +86,9 @@ Route::prefix('patient')->group(function () {
 			Route::get('/service-types/{service_category_id}', 'serviceTypes');
 			Route::get('/schedules', 'schedules');
 		});
+
+		Route::resource('physical-exams', PatientPhysicalExamController::class)->only([
+			'store',
+		]);
 	});
 });

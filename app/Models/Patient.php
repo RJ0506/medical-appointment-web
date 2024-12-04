@@ -80,4 +80,9 @@ class Patient extends Authenticatable
 	{
 		return $this->hasMany(EmergencyCase::class);
 	}
+
+	public function physical_exams(): HasMany
+	{
+		return $this->hasMany(PhysicalExam::class);
+	}
 }
