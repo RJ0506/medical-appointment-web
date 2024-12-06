@@ -30,6 +30,12 @@ importers:
         specifier: latest
         version: 4.4.5(vue@3.5.11)
     devDependencies:
+      '@iconify-json/ep':
+        specifier: ^1.2.1
+        version: 1.2.1
+      '@iconify-json/ic':
+        specifier: ^1.2.1
+        version: 1.2.1
       '@iconify-json/material-symbols':
         specifier: ^1.2.8
         version: 1.2.8
@@ -655,6 +661,12 @@ packages:
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
+
+  '@iconify-json/ep@1.2.1':
+    resolution: {integrity: sha512-m72jNpdlWI7Wd3TPs3RUd6nPiU1WWnWSvpOkM67HWNsyQrZDlTtLstLF9hAK8nhOxENi6ZO670A16mDvWJD9Cw==}
+
+  '@iconify-json/ic@1.2.1':
+    resolution: {integrity: sha512-UjL/bjJP/T5EV881+hTzcfTKVo0KEUjhnMiJcLtPzNgPtU2KZZmRx8BSKKR61H4CN/5FTEbyawGyG0aEt3SwGQ==}
 
   '@iconify-json/material-symbols-light@1.2.8':
     resolution: {integrity: sha512-EWj/nzvYXVm5sPNbhB7kHR35HClXZyVErytGkaNa6DSp7iFSHi1iG1sg9gzZX8SbR9pz7zjHs5m+p4D+JFJBSA==}
@@ -4107,6 +4119,14 @@ snapshots:
     optional: true
 
   '@fastify/busboy@2.1.1': {}
+
+  '@iconify-json/ep@1.2.1':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/ic@1.2.1':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify-json/material-symbols-light@1.2.8':
     dependencies:
