@@ -162,7 +162,7 @@
         >
             <div class="px-5">
                 <header
-                    class="flex flex-wrap gap-2 justify-between rounded-md bg-[#1e3d2c] px-5 py-2"
+                    class="flex flex-wrap items-center justify-between gap-2 rounded-md bg-[#1e3d2c] px-5 py-2"
                 >
                     <button
                         class="group flex items-center justify-center rounded border px-2 py-1 transition-all hover:bg-white"
@@ -176,10 +176,10 @@
                     </button>
 
                     <div
-                        class="w-fit rounded-md bg-[#d9d9d9] p-3 text-xl font-bold text-black"
+                        class="flex items-center justify-center rounded-full bg-[#d9d9d9] p-1 font-bold text-black"
                     >
-                        {{ current_user.valueOf().patient.last_name }},
-                        {{ current_user.valueOf().patient.first_name }}
+                        {{ current_user.valueOf().patient.last_name[0]
+                        }}{{ current_user.valueOf().patient.first_name[0] }}
                     </div>
                 </header>
                 <!-- MAIN CONTENT -->
