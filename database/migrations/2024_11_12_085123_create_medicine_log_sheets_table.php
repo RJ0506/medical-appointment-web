@@ -16,7 +16,7 @@ return new class extends Migration {
 			$table->foreignId('medicine_id')->constrained();
 			$table->text('chief_complaint');
 			$table->bigInteger('quantity');
-			$table->string('nurse_on_duty');
+			$table->foreignId('nurse_id')->constrained('users');
 			$table->timestamps();
 			$table->softDeletes();
 		});

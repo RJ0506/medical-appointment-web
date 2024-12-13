@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use App\Rules\HasMedicineStock;
+use App\Rules\HasUserRoles;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpsertMedicineLogSheetRequest extends FormRequest
@@ -27,7 +28,7 @@ class UpsertMedicineLogSheetRequest extends FormRequest
 			'medicine_id' => ['required', 'exists:medicines,id', new HasMedicineStock],
 			"chief_complaint" => "required|min:2",
 			"quantity" => "required|gt:0",
-			"nurse_on_duty" => "required|min:2",
+			"nurse_id" => ["required", "exists:users,id", new HasUserRoles(['Head Nurse', 'Nurse'])],
 		];
 	}
 }

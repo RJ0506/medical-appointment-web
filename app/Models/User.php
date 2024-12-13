@@ -68,4 +68,9 @@ class User extends Authenticatable
 		return $this->hasMany(EmergencyCase::class);
 	}
 
+	public function medicine_log_sheets(): HasMany
+	{
+		return $this->hasMany(MedicineLogSheet::class);
+	}
+
 }

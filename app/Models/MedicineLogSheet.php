@@ -16,13 +16,19 @@ class MedicineLogSheet extends Model
 		'medicine_id',
 		'chief_complaint',
 		'quantity',
-		'nurse_on_duty',
+		'nurse_id',
 	];
 
 	public function medicine(): BelongsTo
 	{
 		return $this->belongsTo(Medicine::class);
 	}
+
+	public function nurse(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'nurse_id');
+	}
+
 
 	public function patient(): BelongsTo
 	{
