@@ -59,6 +59,7 @@
             <!-- NAVLINKS -->
             <div class="mt-12 flex flex-grow flex-col text-white">
                 <div
+                    v-if="!isDoctor"
                     :class="[
                         {
                             'justify-between': isSidebarCollapsed,
@@ -350,9 +351,9 @@ const sidebarLinks = ref([
 ]);
 
 const filteredSidebarLinks = computed(() =>
-  isDoctor.value
-    ? sidebarLinks.value.filter((link) => link.label === "Patient Record")
-    : sidebarLinks.value
+    isDoctor.value
+        ? sidebarLinks.value.filter((link) => link.label === "Patient Record")
+        : sidebarLinks.value,
 );
 
 const toggleSidebar = () => {
