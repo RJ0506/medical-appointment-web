@@ -112,7 +112,7 @@
                     </NuxtLink>
                 </div>
                 <div
-                    v-for="(item, index) in sidebarLinks"
+                    v-for="(item, index) in filteredSidebarLinks"
                     :key="index"
                     @click="toggleSubLinks(index)"
                 >
@@ -300,6 +300,7 @@ const authStore = useAuthStore();
 const isSidebarCollapsed = ref(false);
 const activeLink = ref(null);
 const dialogRef = ref(null);
+const isDoctor = ref(authStore.isDoctor);
 const role = ref("");
 const current_user = useCookie("current_user");
 const sidebarLinks = ref([
@@ -332,21 +333,27 @@ const sidebarLinks = ref([
             { label: "Medicine Log Sheet", link: "/user/medicine-logsheet" },
         ],
     },
-    // {
-    //     label: "Patient Record",
-    //     icon: "i-material-symbols-light-drive-folder-upload-outline",
-    //     subLinks: [
-    //         {
-    //             label: "Medical Health Record",
-    //             link: "/user/medical-health-record",
-    //         },
-    //         {
-    //             label: "Dental Health Record",
-    //             link: "/user/dental-health-record",
-    //         },
-    //     ],
-    // },
+    {
+        label: "Patient Record",
+        icon: "i-material-symbols-light-drive-folder-upload-outline",
+        subLinks: [
+            {
+                label: "Medical Health Record",
+                link: "/user/medical-health-record",
+            },
+            {
+                label: "Dental Health Record",
+                link: "/user/dental-health-record",
+            },
+        ],
+    },
 ]);
+
+const filteredSidebarLinks = computed(() =>
+  isDoctor.value
+    ? sidebarLinks.value.filter((link) => link.label === "Patient Record")
+    : sidebarLinks.value
+);
 
 const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;
