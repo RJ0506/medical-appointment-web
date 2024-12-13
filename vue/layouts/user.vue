@@ -244,7 +244,7 @@
         >
             <div class="px-5">
                 <header
-                    class="flex flex-wrap justify-between gap-2 rounded-md bg-[#1e3d2c] px-5 py-2"
+                    class="flex flex-wrap items-center justify-between gap-2 rounded-md bg-[#1e3d2c] px-5 py-2"
                 >
                     <button
                         class="group flex items-center justify-center rounded border px-2 py-1 transition-all hover:bg-white"
@@ -256,12 +256,14 @@
                             style="color: white; font-size: 2rem"
                         />
                     </button>
-
-                    <div
-                        class="w-fit rounded-md bg-[#d9d9d9] p-3 text-xl font-bold text-black"
-                    >
-                        {{ current_user.valueOf().user.last_name }},
-                        {{ current_user.valueOf().user.first_name }}
+                    <div class="flex items-center gap-2 text-white">
+                        {{ role }}
+                        <div
+                            class="flex items-center justify-center rounded-full bg-[#d9d9d9] p-1 font-bold text-black"
+                        >
+                            {{ current_user.valueOf().user.last_name[0]
+                            }}{{ current_user.valueOf().user.first_name[0] }}
+                        </div>
                     </div>
                 </header>
                 <!-- MAIN CONTENT -->
@@ -298,6 +300,7 @@ const authStore = useAuthStore();
 const isSidebarCollapsed = ref(false);
 const activeLink = ref(null);
 const dialogRef = ref(null);
+const role = ref("");
 const current_user = useCookie("current_user");
 const sidebarLinks = ref([
     {
@@ -379,6 +382,14 @@ const confirmLogout = async () => {
 const closeDialog = () => {
     dialogRef.value?.close();
 };
+
+const fetchRole = async () => {
+    role.value = authStore.role;
+};
+
+onMounted(async () => {
+    await fetchRole();
+});
 </script>
 
 <style scoped>
