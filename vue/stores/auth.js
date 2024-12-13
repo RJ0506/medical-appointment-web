@@ -32,5 +32,8 @@ export const useAuthStore = defineStore("auth", {
         isAdmin(state) {
             return state.role != "patient";
         },
+        isDoctor(state) {
+            return state.role === "Doctor";
+        },
     },
 });

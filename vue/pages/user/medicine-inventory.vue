@@ -444,6 +444,7 @@ import { useAuthStore } from "~/stores/auth";
 
 definePageMeta({
     layout: "user",
+    middleware: ["doctor"],
 });
 
 const myDialog = ref(null);
@@ -451,6 +452,7 @@ const isLoading = ref(true);
 const authStore = useAuthStore();
 const searchTerm = ref("");
 const currentDate = ref("");
+const role = ref("");
 const submitErrorMessages = ref("");
 const isAdding = ref(false);
 const medicineList = ref([]);
@@ -559,7 +561,15 @@ const deleteMedicine = async (medicine_id) => {
     }
 };
 
-fetchMedicines();
+const fetchRole = async () => {
+  role.value = authStore.role
+}
+
+
+onMounted(async () => {
+    await fetchRole();
+    await fetchMedicines();
+});
 
 const today = new Date();
 const year = today.getFullYear();
