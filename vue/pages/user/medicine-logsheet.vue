@@ -297,6 +297,7 @@ import { useAuthStore } from "~/stores/auth";
 
 definePageMeta({
     layout: "user",
+    middleware: ["doctor"],
 });
 
 const users = ref([]);

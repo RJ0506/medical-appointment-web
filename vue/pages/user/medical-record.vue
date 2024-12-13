@@ -123,6 +123,7 @@ import { useAuthStore } from "~/stores/auth";
 
 definePageMeta({
     layout: "user",
+    middleware: ["doctor"],
 });
 
 const current_service_category_id = ref("1");
