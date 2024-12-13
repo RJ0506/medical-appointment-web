@@ -159,7 +159,7 @@
                             class="mt-1 block w-full border-gray-300 px-2 py-2 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm"
                             name="nurse"
                             id="nurse"
-                            v-model="formData.nurse_on_duty"
+                            v-model="formData.nurse_id"
                         >
                             <option
                                 v-for="(item, index) in nurses"
@@ -266,7 +266,7 @@
                                     {{ item.quantity }}
                                 </td>
                                 <td class="p-5 font-medium">
-                                    {{ item.nurse_on_duty }}
+                                    {{ item.nurse.first_name }} {{ item.nurse.last_name }}
                                 </td>
                             </tr>
                         </template>
@@ -312,7 +312,7 @@ const formData = ref({
     chief_complaint: "",
     medicine_id: "",
     quantity: "",
-    nurse_on_duty: "",
+    nurse_id: "",
 });
 
 const formatTimestamp = (timestamp) => {
