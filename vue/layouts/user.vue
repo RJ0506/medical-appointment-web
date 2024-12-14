@@ -257,13 +257,63 @@
                             style="color: white; font-size: 2rem"
                         />
                     </button>
-                    <div class="flex items-center gap-2 text-white">
+                    <div class="relative flex items-center gap-2 text-white">
                         {{ role }}
-                        <div
-                            class="flex items-center justify-center rounded-full bg-[#d9d9d9] p-1 font-bold text-black"
+
+                        <button
+                            class="transition-transform ease-out hover:scale-110"
+                            @click="toggleUserProfileDialog()"
                         >
-                            {{ current_user.valueOf().user.last_name[0]
-                            }}{{ current_user.valueOf().user.first_name[0] }}
+                            <div
+                                class="flex items-center justify-center rounded-full bg-[#d9d9d9] p-1 font-bold text-black"
+                            >
+                                {{ current_user.valueOf().user.first_name[0]
+                                }}{{ current_user.valueOf().user.last_name[0] }}
+                            </div>
+                        </button>
+
+                        <!-- USER PROFILE DIALOG -->
+                        <div
+                            v-if="isUserProfileDialogOpen"
+                            class="absolute right-0 top-10 z-20 w-72 rounded border bg-white px-4 pb-2 pt-5 text-black shadow-lg"
+                        >
+                            <h3 class="text-xs font-semibold">ACCOUNT</h3>
+                            <div class="mt-3 flex items-center gap-4">
+                                <div
+                                    class="flex items-center justify-center rounded-full bg-[#d9d9d9] p-1 font-bold text-black"
+                                >
+                                    {{
+                                        current_user.valueOf().user
+                                            .first_name[0]
+                                    }}{{
+                                        current_user.valueOf().user.last_name[0]
+                                    }}
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                    <p class="text-lg">
+                                        {{
+                                            current_user.valueOf().user
+                                                .first_name
+                                        }}
+                                        {{
+                                            current_user.valueOf().user
+                                                .last_name
+                                        }}
+                                    </p>
+                                    <span class="text-sm">{{ current_user.valueOf().user.email }}</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <div
+                                    class="border-b border-[#AAAAAA] py-1"
+                                ></div>
+                                <button
+                                    class="mt-2 max-w-[5rem] self-end rounded-md bg-red-500 px-2 py-1 text-red-100 hover:bg-red-700"
+                                    @click="logout()"
+                                >
+                                    Sign out
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -301,6 +351,7 @@ const authStore = useAuthStore();
 const isSidebarCollapsed = ref(false);
 const activeLink = ref(null);
 const dialogRef = ref(null);
+const isUserProfileDialogOpen = ref(false);
 const isDoctor = ref(authStore.isDoctor);
 const role = ref("");
 const current_user = useCookie("current_user");
@@ -358,6 +409,10 @@ const filteredSidebarLinks = computed(() =>
 
 const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;
+};
+
+const toggleUserProfileDialog = () => {
+    isUserProfileDialogOpen.value = !isUserProfileDialogOpen.value;
 };
 
 const toggleSubLinks = (index) => {
