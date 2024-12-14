@@ -57,7 +57,7 @@
             </div>
 
             <!-- NAVLINKS -->
-            <div class="mt-12 flex flex-grow flex-col text-white">
+            <div class="mt-6 flex flex-grow flex-col text-white">
                 <NuxtLink
                     to="/user"
                     class="flex items-center gap-2 hover:bg-[#1e3d2c]"
@@ -209,34 +209,6 @@
                         </div>
                     </template>
                 </div>
-                <NuxtLink
-                    to="/user/accounts"
-                    class="flex items-center gap-2 hover:bg-[#1e3d2c]"
-                    :class="[
-                        {
-                            'justify-between': isSidebarCollapsed,
-                            'justify-center': !isSidebarCollapsed,
-                        },
-                    ]"
-                >
-                    <div
-                        v-if="!isDoctor"
-                        class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold"
-                    >
-                        <Icon
-                            name="i-material-symbols-light-account-circle"
-                            style="color: white; font-size: 2rem"
-                        />
-                        <span
-                            :class="{
-                                block: isSidebarCollapsed,
-                                hidden: !isSidebarCollapsed,
-                            }"
-                        >
-                            Accounts
-                        </span>
-                    </div>
-                </NuxtLink>
             </div>
             <button
                 @click="logout()"
@@ -406,9 +378,12 @@ const sidebarLinks = ref([
         ],
     },
     {
-        label: "Schedule",
-        icon: "i-ep-calendar",
-        subLinks: [{ label: "Manage Schedule", link: "/user/manage-schedule" }],
+        label: "Manage",
+        icon: "i-material-symbols-light-account-circle",
+        subLinks: [
+            { label: "Manage Schedule", link: "/user/manage-schedule" },
+            { label: "Manage Accounts", link: "/user/accounts" },
+        ],
     },
     {
         label: "Inventory",
