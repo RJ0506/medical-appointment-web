@@ -58,17 +58,17 @@
 
             <!-- NAVLINKS -->
             <div class="mt-12 flex flex-grow flex-col text-white">
-                <div
-                    v-if="!isDoctor"
-                    :class="[
-                        {
-                            'justify-between': isSidebarCollapsed,
-                            'justify-center': !isSidebarCollapsed,
-                        },
-                    ]"
-                    class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold hover:bg-[#1e3d2c]"
-                >
-                    <NuxtLink to="/user" class="flex items-center gap-2">
+                <NuxtLink to="/user" class="flex items-center gap-2 hover:bg-[#1e3d2c]">
+                    <div
+                        v-if="!isDoctor"
+                        :class="[
+                            {
+                                'justify-between': isSidebarCollapsed,
+                                'justify-center': !isSidebarCollapsed,
+                            },
+                        ]"
+                        class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold "
+                    >
                         <svg
                             width="40"
                             height="40"
@@ -110,8 +110,8 @@
                         >
                             Emergency Case
                         </span>
-                    </NuxtLink>
-                </div>
+                    </div>
+                </NuxtLink>
                 <div
                     v-for="(item, index) in filteredSidebarLinks"
                     :key="index"
@@ -206,6 +206,34 @@
                         </div>
                     </template>
                 </div>
+                <NuxtLink
+                    to="/user/accounts"
+                    class="flex items-center gap-2 hover:bg-[#1e3d2c]"
+                >
+                    <div
+                        v-if="!isDoctor"
+                        :class="[
+                            {
+                                'justify-between': isSidebarCollapsed,
+                                'justify-center': !isSidebarCollapsed,
+                            },
+                        ]"
+                        class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold"
+                    >
+                        <Icon
+                            name="i-material-symbols-light-account-circle"
+                            style="color: white; font-size: 2rem"
+                        />
+                        <span
+                            :class="{
+                                block: isSidebarCollapsed,
+                                hidden: !isSidebarCollapsed,
+                            }"
+                        >
+                            Accounts
+                        </span>
+                    </div>
+                </NuxtLink>
             </div>
             <button
                 @click="logout()"
@@ -300,7 +328,9 @@
                                                 .last_name
                                         }}
                                     </p>
-                                    <span class="text-sm">{{ current_user.valueOf().user.email }}</span>
+                                    <span class="text-sm">{{
+                                        current_user.valueOf().user.email
+                                    }}</span>
                                 </div>
                             </div>
                             <div class="flex flex-col">
