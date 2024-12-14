@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="mx-auto max-w-md rounded-lg bg-white p-6 shadow-md">
+        <div class="mx-auto mt-5 max-w-md rounded-lg bg-white p-6 shadow-md">
             <h2 class="mb-4 text-center text-2xl font-bold">Manage Accounts</h2>
             <form @submit.prevent="handleSubmit" class="space-y-4">
                 <div>
@@ -71,14 +71,6 @@
                         v-model="formData.password"
                         class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-800"
                     />
-                    <p
-                        v-if="
-                            submitErrorMessages && submitErrorMessages.password
-                        "
-                        class="text-red-500"
-                    >
-                        {{ submitErrorMessages.password[0] }}
-                    </p>
                 </div>
                 <div>
                     <label
@@ -95,12 +87,11 @@
                     />
                     <p
                         v-if="
-                            submitErrorMessages &&
-                            submitErrorMessages.password_confirmation
+                            submitErrorMessages && submitErrorMessages.password
                         "
                         class="text-red-500"
                     >
-                        {{ submitErrorMessages.password_confirmation[0] }}
+                        {{ submitErrorMessages.password[0] }}
                     </p>
                 </div>
                 <div>
@@ -135,7 +126,7 @@
                     type="submit"
                     class="w-full rounded-lg bg-[#1E3D2C] px-4 py-2 text-white hover:bg-emerald-900"
                 >
-                    {{ isAdding ? "Adding..." : "Submit" }}
+                    {{ isAdding ? "Creating..." : "Create Account" }}
                 </button>
             </form>
         </div>
@@ -171,7 +162,7 @@
                         <th class="p-5">Name</th>
                         <th class="p-5">Email</th>
                         <th class="p-5">Role</th>
-                        <th class="p-5">Action</th>
+                        <!-- <th class="p-5">Action</th> -->
                     </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
@@ -196,7 +187,7 @@
                                 <td class="p-5 font-medium">
                                     {{ item.roles[0].name }}
                                 </td>
-                                <td class="pl-7">
+                                <!-- <td class="pl-7">
                                     <button @click="deleteSchedule(item.id)">
                                         <Icon
                                             class="text-red-500 hover:text-red-900"
@@ -204,7 +195,7 @@
                                             style="font-size: 2rem"
                                         />
                                     </button>
-                                </td>
+                                </td> -->
                             </tr>
                         </template>
                         <template v-else>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="mx-auto max-w-md rounded-lg bg-white p-6 shadow-md">
+        <div class="mx-auto max-w-md rounded-lg bg-white p-6 shadow-md mt-5">
             <h2 class="mb-4 text-center text-2xl font-bold">Manage Schedule</h2>
             <form @submit.prevent="handleSubmit" class="space-y-4">
                 <div>
