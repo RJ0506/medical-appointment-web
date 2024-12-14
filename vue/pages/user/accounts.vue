@@ -12,7 +12,7 @@
                         maxlength="25"
                         id="first_name"
                         v-model="formData.first_name"
-                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-400"
+                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-800"
                     />
                     <p
                         v-if="
@@ -33,7 +33,7 @@
                         maxlength="25"
                         id="last_name"
                         v-model="formData.last_name"
-                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-400"
+                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-800"
                     />
                     <p
                         v-if="
@@ -51,7 +51,7 @@
                         maxlength="25"
                         id="email"
                         v-model="formData.email"
-                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-400"
+                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-800"
                     />
                     <p
                         v-if="submitErrorMessages && submitErrorMessages.email"
@@ -69,7 +69,7 @@
                         maxlength="25"
                         id="password"
                         v-model="formData.password"
-                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-400"
+                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-800"
                     />
                     <p
                         v-if="
@@ -80,27 +80,29 @@
                         {{ submitErrorMessages.password[0] }}
                     </p>
                 </div>
-                <!-- <div>
-                    <label for="confirm_password" class="block text-gray-700"
+                <div>
+                    <label
+                        for="password_confirmation"
+                        class="block text-gray-700"
                         >Confirm Password</label
                     >
                     <input
                         type="password"
                         maxlength="25"
-                        id="confirm_password"
-                        v-model="formData.confirm_password"
-                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-400"
+                        id="password_confirmation"
+                        v-model="formData.password_confirmation"
+                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-800"
                     />
                     <p
                         v-if="
                             submitErrorMessages &&
-                            submitErrorMessages.confirm_password
+                            submitErrorMessages.password_confirmation
                         "
                         class="text-red-500"
                     >
-                        {{ submitErrorMessages.confirm_password[0] }}
+                        {{ submitErrorMessages.password_confirmation[0] }}
                     </p>
-                </div> -->
+                </div>
                 <div>
                     <label for="role_id" class="block font-medium text-gray-700"
                         >Role</label
@@ -108,7 +110,7 @@
                     <select
                         id="role_id"
                         v-model="formData.role_id"
-                        class="w-full rounded-lg border px-4 py-2 focus:ring focus:ring-purple-500"
+                        class="w-full rounded-lg border px-4 py-2 focus:outline-emerald-800"
                     >
                         <option value="" disabled>Select a role type</option>
                         <option
@@ -143,7 +145,7 @@
                 type="text"
                 v-model="searchTerm"
                 class="search-input rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2"
-                placeholder="Search day..."
+                placeholder="Search name..."
             />
             <svg
                 class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
@@ -169,7 +171,6 @@
                         <th class="p-5">Name</th>
                         <th class="p-5">Email</th>
                         <th class="p-5">Role</th>
-                        <!-- <th class="p-5">Doctor</th> -->
                         <th class="p-5">Action</th>
                     </tr>
                 </thead>
@@ -187,7 +188,6 @@
                                 :key="index"
                             >
                                 <td class="p-5 font-medium">
-                                    <!-- {{ item.day_of_week }} -->
                                     {{ item.first_name }} {{ item.last_name }}
                                 </td>
                                 <td class="p-5 font-medium">
@@ -196,10 +196,6 @@
                                 <td class="p-5 font-medium">
                                     {{ item.roles[0].name }}
                                 </td>
-                                <!-- <td class="p-5 font-medium"> -->
-                                <!-- {{ item.schedule.service_type.name }} -->
-                                <!-- doctor name -->
-                                <!-- </td> -->
                                 <td class="pl-7">
                                     <button @click="deleteSchedule(item.id)">
                                         <Icon
@@ -244,12 +240,22 @@ const role_types = ref([]);
 const users = ref([]);
 const isLoading = ref(true);
 const isAdding = ref(false);
+
+const initialFormData = ref({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    role_id: "",
+});
+
 const formData = ref({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
-    // password_confirmation: "",
+    password_confirmation: "",
     role_id: "",
 });
 
@@ -311,7 +317,8 @@ const handleSubmit = async () => {
                 },
             },
         );
-        await fetchSchedule();
+        formData.value = { ...initialFormData.value };
+        await fetchUsers();
         submitErrorMessages.value = "";
     } catch (error) {
         submitErrorMessages.value = error.response.data.errors;
