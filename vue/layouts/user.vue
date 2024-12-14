@@ -58,16 +58,19 @@
 
             <!-- NAVLINKS -->
             <div class="mt-12 flex flex-grow flex-col text-white">
-                <NuxtLink to="/user" class="flex items-center gap-2 hover:bg-[#1e3d2c]">
+                <NuxtLink
+                    to="/user"
+                    class="flex items-center gap-2 hover:bg-[#1e3d2c]"
+                    :class="[
+                        {
+                            'justify-between': isSidebarCollapsed,
+                            'justify-center': !isSidebarCollapsed,
+                        },
+                    ]"
+                >
                     <div
                         v-if="!isDoctor"
-                        :class="[
-                            {
-                                'justify-between': isSidebarCollapsed,
-                                'justify-center': !isSidebarCollapsed,
-                            },
-                        ]"
-                        class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold "
+                        class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold"
                     >
                         <svg
                             width="40"
@@ -209,15 +212,15 @@
                 <NuxtLink
                     to="/user/accounts"
                     class="flex items-center gap-2 hover:bg-[#1e3d2c]"
+                    :class="[
+                        {
+                            'justify-between': isSidebarCollapsed,
+                            'justify-center': !isSidebarCollapsed,
+                        },
+                    ]"
                 >
                     <div
                         v-if="!isDoctor"
-                        :class="[
-                            {
-                                'justify-between': isSidebarCollapsed,
-                                'justify-center': !isSidebarCollapsed,
-                            },
-                        ]"
                         class="flex cursor-pointer items-center gap-3 px-4 py-5 text-xl font-bold"
                     >
                         <Icon
