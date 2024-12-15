@@ -310,7 +310,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contact"
-                                    placeholder="Ex. 09232323212"
+                                    placeholder="Ex. +63932323212"
                                     v-model="formData.contact_number"
                                 />
                                 <p
@@ -361,7 +361,7 @@
                                     class="w-full rounded-md border border-black"
                                     type="number"
                                     id="contactPersonNumber"
-                                    placeholder="Ex. 09232323212"
+                                    placeholder="Ex. +63932323212"
                                     v-model="formData.contact_person_number"
                                 />
                                 <p
@@ -496,7 +496,7 @@
                 </button>
                 <button
                     @click="toggleEditing()"
-                    class="mt-2 rounded-md py-3 text-xl font-bold text-white "
+                    class="mt-2 rounded-md py-3 text-xl font-bold text-white"
                     :class="{
                         'bg-red-500 hover:bg-red-700': isEditing,
                         'bg-[#347956] hover:bg-emerald-900': !isEditing,
@@ -535,6 +535,8 @@ const formData = ref({
     name_extension: "",
     place_of_birth: "",
     date_of_birth: "",
+    classification: "",
+    profession: "",
     age: "",
     gender: "",
     nationality: "",
@@ -676,14 +678,38 @@ const apiFetchMe = async () => {
                 },
             },
         );
-        formData.value = data;
+        console.log("me", data);
+        formData.value = {
+            id_number: data.id_number || "",
+            department_id: data.department_id || 0,
+            year_level: data.year_level || "",
+            last_name: data.last_name || "",
+            first_name: data.first_name || "",
+            middle_initial: data.middle_initial || "",
+            name_extension: data.name_extension || "",
+            place_of_birth: data.place_of_birth || "",
+            date_of_birth: data.date_of_birth || "",
+            age: data.age || "",
+            gender: data.gender || "",
+            nationality: data.nationality || "",
+            address: data.address || "",
+            zip_code: data.zip_code || "",
+            contact_number: data.contact_number || "",
+            contact_person: data.contact_person || "",
+            contact_person_number: data.contact_person_number || "",
+            email: data.email || "",
+            email_confirmation: data.email_confirmation || "",
+            password: data.password || "",
+            password_confirmation: data.password_confirmation || "",
+            type: data.roles[0].name || "Student", // Defaults to "Student" if not provided
+        };
     } catch (error) {
         console.log(error);
     }
 };
 
-// onMounted(async () => {
-//     await apiFetchMe();
-//     await fetchDepartments();
-// });
+onMounted(async () => {
+    await apiFetchMe();
+    await fetchDepartments();
+});
 </script>
