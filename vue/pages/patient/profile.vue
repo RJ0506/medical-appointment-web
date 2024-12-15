@@ -681,7 +681,7 @@ const apiFetchMe = async () => {
         console.log("me", data);
         formData.value = {
             id_number: data.id_number || "",
-            department_id: data.department_id || 0,
+            department_id: data.department_id,
             year_level: data.year_level || "",
             last_name: data.last_name || "",
             first_name: data.first_name || "",
