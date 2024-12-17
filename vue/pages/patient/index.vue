@@ -17,6 +17,14 @@
                     Book an Appointment for Dental
                 </p>
             </NuxtLink>
+            <NuxtLink
+                to="patient/physical-appointment"
+                class="grid h-[300px] max-w-64 cursor-pointer place-content-center rounded-md bg-[#aac7b8] p-1 text-center shadow-md transition-all duration-500 ease-out hover:-translate-y-3 hover:bg-emerald-400 sm:h-[484px]"
+            >
+                <p class="text-lg font-bold text-white sm:text-xl">
+                    Request a Physical Examination
+                </p>
+            </NuxtLink>
         </div>
     </div>
 </template>
