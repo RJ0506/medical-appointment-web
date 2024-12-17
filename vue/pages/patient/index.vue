@@ -18,7 +18,7 @@
                 </p>
             </NuxtLink>
             <NuxtLink
-            v-if="authStore.role !== 'Employee'"
+                v-if="authStore.role === 'Employee'"
                 to="patient/physical-appointment"
                 class="grid h-[300px] max-w-64 cursor-pointer place-content-center rounded-md bg-[#aac7b8] p-1 text-center shadow-md transition-all duration-500 ease-out hover:-translate-y-3 hover:bg-emerald-400 sm:h-[484px]"
             >
@@ -31,7 +31,6 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { useAuthStore } from "~/stores/auth";
 
 definePageMeta({
@@ -39,6 +38,4 @@ definePageMeta({
 });
 
 const authStore = useAuthStore();
-
-console.log(authStore.role)
 </script>
