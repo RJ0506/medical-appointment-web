@@ -10,12 +10,23 @@
 <script setup>
 import axios from "axios";
 import { useAuthStore } from "~/stores/auth";
+
+
 definePageMeta({
     layout: "patient",
+    middleware: [
+        function (to, from) {
+            const authStore = useAuthStore();
+            const role = authStore.role;
+            
+            if (role !== "Employee") {
+                return navigateTo("/patient");
+            }
+        },
+    ],
 });
 
 const authStore = useAuthStore();
-
 const formData = ref({
     isAuthorized: false,
     purpose: "",
