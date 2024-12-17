@@ -16,6 +16,8 @@ export const useAuthStore = defineStore("auth", {
         },
         setToken(token) {
             this.token = token;
+            //initial set and of role but will change later when user is logged in 
+            //because loadfromcookis will run on every page
             this.role = token.patient ? "patient" : "user";
             const current_user = useCookie("current_user");
             current_user.value = JSON.stringify(token);
@@ -32,7 +34,11 @@ export const useAuthStore = defineStore("auth", {
             return !!state.token;
         },
         isAdmin(state) {
-            return state.role !== "Employee" && state.role !== "Student" && state.role !== "Medical Personnel";
+            return (
+                state.role !== "Employee" &&
+                state.role !== "Student" &&
+                state.role !== "Medical Personnel"
+            );
         },
         isDoctor(state) {
             return state.role === "Doctor";

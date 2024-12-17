@@ -176,7 +176,7 @@
                     </button>
 
                     <div class="relative flex items-center gap-2 text-white">
-                        {{ role === 'patient' ? 'Patient' : 'Patient' }}
+                        {{ role }}
                         <button
                             class="transition-transform ease-out hover:scale-110"
                             @click="toggleUserProfileDialog()"
