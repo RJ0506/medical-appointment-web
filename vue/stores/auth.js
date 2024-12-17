@@ -9,7 +9,9 @@ export const useAuthStore = defineStore("auth", {
             const storedToken = current_user.value;
             if (storedToken) {
                 this.token = storedToken.token;
-                this.role = storedToken.patient ? "patient" : storedToken.user.roles[0].name;
+                this.role = storedToken.patient
+                    ? storedToken.patient.roles[0].name
+                    : storedToken.user.roles[0].name;
             }
         },
         setToken(token) {
@@ -30,7 +32,7 @@ export const useAuthStore = defineStore("auth", {
             return !!state.token;
         },
         isAdmin(state) {
-            return state.role != "patient";
+            return state.role !== "Employee" && state.role !== "Student" && state.role !== "Medical Personnel";
         },
         isDoctor(state) {
             return state.role === "Doctor";
