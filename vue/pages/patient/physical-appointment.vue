@@ -1,9 +1,126 @@
 <template>
-    <div>
-        <div>Physical</div>
-        <form @submit.prevent="handleSubmit">
-            <button type="submit">Submit</button>
-        </form>
+    <div class="grid">
+        <div class="mt-10">
+            <h1 class="text-2xl font-bold sm:text-4xl">Request</h1>
+            <form
+                @submit.prevent="handleSubmit"
+                class="mx-auto mt-8 flex max-w-3xl flex-col gap-2 bg-[#d9d9d9] px-8 py-4"
+            >
+                <h2 class="text-center font-bold">Details</h2>
+                <div>
+                    <div>
+                        <h3 for="purpose" class="font-bold">Purpose</h3>
+                        <div>
+                            <input
+                                type="radio"
+                                id="Employment"
+                                name="purpose"
+                                value="Employment"
+                                v-model="formData.purpose"
+                            />
+                            <label for="Employment">Employment</label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                id="School"
+                                name="purpose"
+                                value="School Requirement"
+                                v-model="formData.purpose"
+                            />
+                            <label for="School">School</label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                id="Sport"
+                                name="purpose"
+                                value="Sport Activity"
+                                v-model="formData.purpose"
+                            />
+                            <label for="Sport">Sports</label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                id="others"
+                                name="purpose"
+                                value="others"
+                                v-model="formData.purpose"
+                            />
+                            <label for="others">Others</label>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="font-bold" for="preffered_date"
+                            >Preffered Date</label
+                        >
+                        <input
+                            class="mx-auto"
+                            type="date"
+                            v-model="formData.scheduled_date"
+                            :min="currentDate"
+                        />
+                    </div>
+                    <div>
+                        <h3 class="font-bold">Preferred Time Slot</h3>
+                        <div>
+                            <input
+                                type="radio"
+                                id="Morning"
+                                name="preffered_time_slot"
+                                value="Morning"
+                                v-model="formData.time_slot"
+                            />
+                            <label for="Morning">Morning</label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                id="Afternoon"
+                                name="preffered_time_slot"
+                                value="Afternoon"
+                                v-model="formData.time_slot"
+                            />
+                            <label for="Afternoon">Morning</label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                id="Evening"
+                                name="preffered_time_slot"
+                                value="Evening"
+                                v-model="formData.time_slot"
+                            />
+                            <label for="Evening">Evening</label>
+                        </div>
+                    </div>
+                    <button
+                        class="mt-5 w-fit self-center rounded bg-[#1e3d2c] px-10 py-1 text-white hover:bg-emerald-800"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- DIALOG -->
+        <dialog
+            ref="dialogRef"
+            class="w-full max-w-3xl rounded-md border border-[#000000] p-6 text-center shadow-lg"
+        >
+            <h1 class="mb-4 text-lg font-bold">Thank you!</h1>
+            <p class="font-bold">
+                Your appointment has been successfully scheduled, and we look
+                forward to seeing you!
+            </p>
+
+            <button
+                @click="closeDialog"
+                class="mt-4 rounded bg-[#347956] px-4 py-2 font-bold text-white"
+            >
+                OK
+            </button>
+        </dialog>
     </div>
 </template>
 
@@ -11,14 +128,13 @@
 import axios from "axios";
 import { useAuthStore } from "~/stores/auth";
 
-
 definePageMeta({
     layout: "patient",
     middleware: [
         function (to, from) {
             const authStore = useAuthStore();
             const role = authStore.role;
-            
+
             if (role !== "Employee") {
                 return navigateTo("/patient");
             }
@@ -26,6 +142,8 @@ definePageMeta({
     ],
 });
 
+
+const currentDate = ref("");
 const authStore = useAuthStore();
 const formData = ref({
     isAuthorized: false,
@@ -33,6 +151,12 @@ const formData = ref({
     scheduled_date: "",
     time_slot: "",
 });
+
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const day = String(today.getDate()).padStart(2, "0");
+currentDate.value = `${year}-${month}-${day}`;
 
 const handleSubmit = async () => {
     try {
