@@ -50,6 +50,15 @@
                             />
                             <label for="others">Others</label>
                         </div>
+                        <p
+                            v-if="
+                                submitErrorMessages &&
+                                submitErrorMessages.purpose
+                            "
+                            class="text-red-500"
+                        >
+                            {{ submitErrorMessages.purpose[0] }}
+                        </p>
                     </div>
                     <div class="flex flex-col">
                         <label class="font-bold" for="preffered_date"
@@ -61,6 +70,15 @@
                             v-model="formData.scheduled_date"
                             :min="currentDate"
                         />
+                        <p
+                            v-if="
+                                submitErrorMessages &&
+                                submitErrorMessages.scheduled_date
+                            "
+                            class="text-red-500"
+                        >
+                            {{ submitErrorMessages.scheduled_date[0] }}
+                        </p>
                     </div>
                     <div>
                         <h3 class="font-bold">Preferred Time Slot</h3>
@@ -94,6 +112,15 @@
                             />
                             <label for="Evening">Evening</label>
                         </div>
+                        <p
+                            v-if="
+                                submitErrorMessages &&
+                                submitErrorMessages.time_slot
+                            "
+                            class="text-red-500"
+                        >
+                            {{ submitErrorMessages.time_slot[0] }}
+                        </p>
                     </div>
                     <button
                         class="mt-5 w-fit self-center rounded bg-[#1e3d2c] px-10 py-1 text-white hover:bg-emerald-800"
@@ -142,9 +169,18 @@ definePageMeta({
     ],
 });
 
-
 const currentDate = ref("");
+const isAdding = ref(false);
+const submitErrorMessages = ref();
 const authStore = useAuthStore();
+
+const initialFormData = ref({
+    isAuthorized: false,
+    purpose: "",
+    scheduled_date: "",
+    time_slot: "",
+});
+
 const formData = ref({
     isAuthorized: false,
     purpose: "",
@@ -159,6 +195,8 @@ const day = String(today.getDate()).padStart(2, "0");
 currentDate.value = `${year}-${month}-${day}`;
 
 const handleSubmit = async () => {
+    isAdding.value = true;
+    submitErrorMessages.value = "";
     try {
         const result = await axios.post(
             `${useRuntimeConfig().public.laravelURL}patient/physical-exams`,
@@ -169,8 +207,13 @@ const handleSubmit = async () => {
                 },
             },
         );
+        submitErrorMessages.value = "";
+        formData.value = { ...initialFormData.value };
         // dialogRef.value?.showModal();
+        isAdding.value = false;
     } catch (error) {
+        isAdding.value = false;
+        submitErrorMessages.value = error.response.data.errors;
         console.log("Error Creating appointment");
     }
 };
