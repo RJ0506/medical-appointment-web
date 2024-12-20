@@ -28,7 +28,7 @@ class UpsertMedicineLogSheetRequest extends FormRequest
 			'medicine_id' => ['required', 'exists:medicines,id', new HasMedicineStock],
 			"chief_complaint" => "required|min:2",
 			"quantity" => "required|gt:0",
-			"nurse_id" => ["required", "exists:users,id", new HasUserRoles(['Head Nurse', 'Nurse'])],
+			"nurse_id" => ["required", "exists:users,id", new HasUserRoles(['Head Nurse', 'Medical Nurse', 'Dental Nurse'])],
 		];
 	}
 }

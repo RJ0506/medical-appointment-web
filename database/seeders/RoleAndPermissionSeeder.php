@@ -37,9 +37,12 @@ class RoleAndPermissionSeeder extends Seeder
 
 		$roles = [
 			"Super Admin",
-			"Doctor",
+			"Medical Doctor",
+			"Dental Doctor",
+			"Physician Doctor",
 			"Head Nurse",
-			"Nurse",
+			"Medical Nurse",
+			"Dental Nurse",
 			"Student",
 			"Employee",
 			"Medical Personnel"

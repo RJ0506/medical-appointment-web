@@ -28,7 +28,7 @@ class UpsertEmergencyCaseRequest extends FormRequest
 			"chief_complaint" => "required|min:2",
 			"treatment_given" => "required|min:2",
 			'patient_id' => 'required|exists:patients,id',
-			"nurse_id" => ["required", "exists:users,id", new HasUserRoles(['Head Nurse', 'Nurse'])],
+			"nurse_id" => ["required", "exists:users,id", new HasUserRoles(['Head Nurse', 'Medical Nurse', 'Dental Nurse'])],
 			'medicine_id' => ['required', 'exists:medicines,id', new HasMedicineStock],
 		];
 	}

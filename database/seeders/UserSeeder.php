@@ -21,7 +21,13 @@ class UserSeeder extends Seeder
 		User::factory(5)
 			->create()
 			->each(function ($user) {
-				$user->assignRole('Doctor');
+				$user->assignRole('Medical Doctor');
+			});
+
+		User::factory(5)
+			->create()
+			->each(function ($user) {
+				$user->assignRole('Dental Doctor');
 			});
 
 		User::factory(2)
@@ -33,7 +39,13 @@ class UserSeeder extends Seeder
 		User::factory(5)
 			->create()
 			->each(function ($user) {
-				$user->assignRole('Nurse');
+				$user->assignRole('Medical Nurse');
+			});
+
+		User::factory(5)
+			->create()
+			->each(function ($user) {
+				$user->assignRole('Dental Nurse');
 			});
 	}
 }
