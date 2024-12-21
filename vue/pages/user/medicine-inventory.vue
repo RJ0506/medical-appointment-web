@@ -444,7 +444,7 @@ import { useAuthStore } from "~/stores/auth";
 
 definePageMeta({
     layout: "user",
-    middleware: ["doctor"],
+    middleware: ["medical-nurse"],
 });
 
 const myDialog = ref(null);
