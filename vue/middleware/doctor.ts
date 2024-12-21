@@ -3,6 +3,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     const role = authStore.role;
 
     if (role === "Doctor") {
-        return navigateTo("/user/medical-health-record");
+        return navigateTo("/user");
     }
 });

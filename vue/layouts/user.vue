@@ -357,8 +357,8 @@ const isSidebarCollapsed = ref(false);
 const activeLink = ref(null);
 const dialogRef = ref(null);
 const isUserProfileDialogOpen = ref(false);
-const isDoctor = ref(authStore.isDoctor);
 const role = ref("");
+const isDoctor = ref(authStore.isDoctor);
 const current_user = useCookie("current_user");
 const sidebarLinks = ref([
     {

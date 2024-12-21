@@ -121,8 +121,37 @@ const handleSubmit = async () => {
                 isLoading.value = false;
                 return;
             }
-            navigateTo("/user");
-            isLoading.value = false;
+
+            if(authStore.role === "Super Admin") {
+                navigateTo("/user");
+                isLoading.value = false;
+                return;
+            }
+
+            if(authStore.role === "Medical Doctor") {
+                navigateTo("/user/medical-health-record");
+                isLoading.value = false;
+                return;
+            }
+
+            if(authStore.role === "Dental Doctor") {
+                navigateTo("/user/dental-health-record");
+                isLoading.value = false;
+                return;
+            }
+
+            if(authStore.role === "Medical Nurse") {
+                navigateTo("/user/medical-appointment");
+                isLoading.value = false;
+                return;
+            }
+
+            if(authStore.role === "Dental Nurse") {
+                navigateTo("/user/dental-appointment");
+                isLoading.value = false;
+                return;
+            }
+
         } else {
             submitErrorMessages.value = "Login failed";
         }
