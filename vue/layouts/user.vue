@@ -368,7 +368,7 @@ const sidebarLinks = ref([
             { label: "Schedule", link: "/user/medical-appointment" },
             { label: "Record", link: "/user/medical-record" },
         ],
-        roles: ["Super Admin", "Medical Nurse"],
+        roles: ["Super Admin", "Head Nurse", "Medical Nurse"],
     },
     {
         label: "Dental",
@@ -377,7 +377,7 @@ const sidebarLinks = ref([
             { label: "Schedule", link: "/user/dental-appointment" },
             { label: "Record", link: "/user/dental-record" },
         ],
-        roles: ["Super Admin", "Dental Nurse"],
+        roles: ["Super Admin", "Head Nurse", "Dental Nurse"],
     },
     {
         label: "Manage",
@@ -386,7 +386,7 @@ const sidebarLinks = ref([
             { label: "Manage Schedule", link: "/user/manage-schedule" },
             { label: "Manage Accounts", link: "/user/accounts" },
         ],
-        roles: ["Super Admin"],
+        roles: ["Super Admin", "Head Nurse"],
     },
     {
         label: "Inventory",
@@ -395,7 +395,7 @@ const sidebarLinks = ref([
             { label: "Medicine Record", link: "/user/medicine-inventory" },
             { label: "Medicine Log Sheet", link: "/user/medicine-logsheet" },
         ],
-        roles: ["Super Admin", "Medical Nurse"],
+        roles: ["Super Admin", "Head Nurse", "Medical Nurse"],
     },
     {
         label: "Patient Record",
@@ -410,7 +410,7 @@ const sidebarLinks = ref([
                 link: "/user/dental-health-record",
             },
         ],
-        roles: ["Super Admin", "Medical Doctor", "Dental Doctor"],
+        roles: ["Super Admin", "Head Nurse", "Medical Doctor", "Dental Doctor"],
     },
 ]);
 
