@@ -368,6 +368,7 @@ const sidebarLinks = ref([
             { label: "Schedule", link: "/user/medical-appointment" },
             { label: "Record", link: "/user/medical-record" },
         ],
+        roles: ["Super Admin", "Medical Nurse"],
     },
     {
         label: "Dental",
@@ -376,6 +377,7 @@ const sidebarLinks = ref([
             { label: "Schedule", link: "/user/dental-appointment" },
             { label: "Record", link: "/user/dental-record" },
         ],
+        roles: ["Super Admin", "Dental Nurse"],
     },
     {
         label: "Manage",
@@ -384,6 +386,7 @@ const sidebarLinks = ref([
             { label: "Manage Schedule", link: "/user/manage-schedule" },
             { label: "Manage Accounts", link: "/user/accounts" },
         ],
+        roles: ["Super Admin"],
     },
     {
         label: "Inventory",
@@ -392,6 +395,7 @@ const sidebarLinks = ref([
             { label: "Medicine Record", link: "/user/medicine-inventory" },
             { label: "Medicine Log Sheet", link: "/user/medicine-logsheet" },
         ],
+        roles: ["Super Admin", "Medical Nurse"],
     },
     {
         label: "Patient Record",
@@ -406,13 +410,12 @@ const sidebarLinks = ref([
                 link: "/user/dental-health-record",
             },
         ],
+        roles: ["Super Admin", "Medical Doctor", "Dental Doctor"],
     },
 ]);
 
 const filteredSidebarLinks = computed(() =>
-    isDoctor.value
-        ? sidebarLinks.value.filter((link) => link.label === "Patient Record")
-        : sidebarLinks.value,
+    sidebarLinks.value.filter((item) => item.roles.includes(role.value)),
 );
 
 const toggleSidebar = () => {
@@ -469,3 +472,5 @@ onMounted(async () => {
     background-color: rgba(0, 0, 0, 0.4);
 }
 </style>
+
+
