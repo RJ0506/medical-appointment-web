@@ -128,6 +128,12 @@ const handleSubmit = async () => {
                 return;
             }
 
+            if(authStore.role === "Head Nurse") {
+                navigateTo("/user");
+                isLoading.value = false;
+                return;
+            }
+
             if(authStore.role === "Medical Doctor") {
                 navigateTo("/user/medical-health-record");
                 isLoading.value = false;
